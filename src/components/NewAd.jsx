@@ -23,67 +23,26 @@ const CONDITIONS = [
   { id: "scaduto", label: "Scaduto", desc: "Prodotto oltre la data di scadenza" },
 ];
 
-const PHOTO_REQUIRED = ["accettabile", "danneggiato"];
+const PHOTO_REQUIRED = ["danneggiato"];
 
-const inputStyle = {
-  width: "100%",
-  padding: "12px 14px",
-  borderRadius: 10,
-  border: "1.5px solid #2a2a2a",
-  background: "#1e1e1e",
-  color: "#fff",
-  fontSize: 14,
-  fontFamily: "inherit",
-  boxSizing: "border-box",
-  outline: "none",
-};
-
-const labelStyle = {
-  fontSize: 11,
-  fontWeight: 700,
-  color: "#888",
-  textTransform: "uppercase",
-  letterSpacing: 0.5,
-  marginBottom: 6,
-  display: "block",
-};
+const inp = { width: "100%", padding: "12px 14px", borderRadius: 10, border: "1.5px solid #dde8e6", background: "#fafafa", color: "#0f3d38", fontSize: 14, fontFamily: "inherit", boxSizing: "border-box", outline: "none" };
+const lbl = { fontSize: 11, fontWeight: 700, color: "#888", textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 6, display: "block" };
 
 export default function NewAd({ session, onBack, onPublished }) {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [photos, setPhotos] = useState([]);
-  const [form, setForm] = useState({
-    title: "",
-    description: "",
-    animal_type: "",
-    category: "",
-    condition: "",
-    price: "",
-    accepts_offers: false,
-    city: "",
-  });
+  const [form, setForm] = useState({ title: "", description: "", animal_type: "", category: "", condition: "", price: "", accepts_offers: false, city: "" });
 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
-
   const photoRequired = PHOTO_REQUIRED.includes(form.condition);
 
-  const handlePhotoUpload = async (e) => {
+  const handlePhotoUpload = (e) => {
     const files = Array.from(e.target.files);
-    if (photos.length + files.length > 2) {
-      setError("Puoi caricare massimo 2 foto.");
-      return;
-    }
+    if (photos.length + files.length > 2) { setError("Puoi caricare massimo 2 foto."); return; }
     setError("");
-    const newPhotos = files.map(file => ({
-      file,
-      preview: URL.createObjectURL(file),
-    }));
-    setPhotos(prev => [...prev, ...newPhotos]);
-  };
-
-  const removePhoto = (index) => {
-    setPhotos(prev => prev.filter((_, i) => i !== index));
+    setPhotos(prev => [...prev, ...files.map(file => ({ file, preview: URL.createObjectURL(file) }))]);
   };
 
   const validateStep1 = () => {
@@ -101,284 +60,98 @@ export default function NewAd({ session, onBack, onPublished }) {
     return null;
   };
 
-  const handleNext = () => {
-    const err = validateStep1();
-    if (err) { setError(err); return; }
-    setError("");
-    setStep(2);
-  };
+  const handleNext = () => { const err = validateStep1(); if (err) { setError(err); return; } setError(""); setStep(2); };
 
   const handleSubmit = async () => {
     const err = validateStep2();
     if (err) { setError(err); return; }
-    setLoading(true);
-    setError("");
-
-    // Crea annuncio
-    const { data: ad, error: adError } = await supabase
-      .from("ads")
-      .insert({
-        user_id: session.user.id,
-        title: form.title,
-        description: form.description,
-        animal_type: form.animal_type,
-        category: form.category || form.animal_type,
-        condition: form.condition,
-        price: +form.price,
-        accepts_offers: form.accepts_offers,
-        city: form.city,
-        status: "active",
-        expiration_date: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
-      })
-      .select()
-      .single();
-
-    if (adError) {
-      setError(adError.message);
-      setLoading(false);
-      return;
-    }
-
-    // Carica foto
+    setLoading(true); setError("");
+    const { data: ad, error: adError } = await supabase.from("ads").insert({
+      user_id: session.user.id, title: form.title, description: form.description,
+      animal_type: form.animal_type, category: form.category || form.animal_type,
+      condition: form.condition, price: +form.price, accepts_offers: form.accepts_offers,
+      city: form.city, status: "active",
+      expiration_date: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+    }).select().single();
+    if (adError) { setError(adError.message); setLoading(false); return; }
     for (let i = 0; i < photos.length; i++) {
-      const photo = photos[i];
       const fileName = `${ad.id}_${i}_${Date.now()}`;
-      const { data: uploadData, error: uploadError } = await supabase.storage
-        .from("ad-images")
-        .upload(fileName, photo.file);
-
+      const { error: uploadError } = await supabase.storage.from("ad-images").upload(fileName, photos[i].file);
       if (!uploadError) {
-        const { data: { publicUrl } } = supabase.storage
-          .from("ad-images")
-          .getPublicUrl(fileName);
-
-        await supabase.from("ad_images").insert({
-          ad_id: ad.id,
-          image_url: publicUrl,
-          position: i,
-        });
+        const { data: { publicUrl } } = supabase.storage.from("ad-images").getPublicUrl(fileName);
+        await supabase.from("ad_images").insert({ ad_id: ad.id, image_url: publicUrl, position: i });
       }
     }
-
-    setLoading(false);
-    onPublished();
+    setLoading(false); onPublished();
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "#0f0f0f", fontFamily: "sans-serif", paddingBottom: 100 }}>
-      <style>{`input:focus, select:focus, textarea:focus { border-color: #e8c547 !important; }`}</style>
-
-      {/* Header */}
-      <div style={{
-        padding: "16px 20px", background: "#1a1205",
-        display: "flex", alignItems: "center", gap: 14,
-        position: "sticky", top: 0, zIndex: 100,
-      }}>
-        <button onClick={onBack} style={{
-          background: "none", border: "none", color: "#e8c547",
-          fontSize: 22, cursor: "pointer", padding: 0,
-        }}>←</button>
-        <div style={{ fontWeight: 900, fontSize: 18, color: "#e8c547" }}>
-          {step === 1 ? "Nuovo annuncio" : "Dettagli e prezzo"}
-        </div>
+    <div style={{ minHeight: "100vh", background: "#f5f7f6", fontFamily: "'Nunito', sans-serif", paddingBottom: 100 }}>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap'); input:focus,select:focus,textarea:focus{border-color:#1a7a6e!important;}`}</style>
+      <div style={{ padding: "16px 20px", background: "#1a7a6e", display: "flex", alignItems: "center", gap: 14, position: "sticky", top: 0, zIndex: 100 }}>
+        <button onClick={onBack} style={{ background: "none", border: "none", color: "#fff", fontSize: 22, cursor: "pointer", padding: 0 }}>←</button>
+        <div style={{ fontWeight: 900, fontSize: 18, color: "#fff" }}>{step === 1 ? "Nuovo annuncio" : "Dettagli e prezzo"}</div>
       </div>
-
-      {/* Step indicator */}
       <div style={{ padding: "16px 20px 0", display: "flex", gap: 8 }}>
-        {[1, 2].map(s => (
-          <div key={s} style={{
-            flex: 1, height: 4, borderRadius: 4,
-            background: step >= s ? "#e8c547" : "#2a2a2a",
-            transition: "background .3s",
-          }} />
-        ))}
+        {[1,2].map(s => <div key={s} style={{ flex: 1, height: 4, borderRadius: 4, background: step >= s ? "#e05a1e" : "#dde8e6", transition: "background .3s" }} />)}
       </div>
-
-      <div style={{ padding: "20px 20px" }}>
-        {error && (
-          <div style={{
-            background: "#3a1010", color: "#f87171", borderRadius: 10,
-            padding: "10px 14px", fontSize: 13, marginBottom: 16,
-            border: "1px solid #5a1010",
-          }}>⚠ {error}</div>
-        )}
-
-        {/* STEP 1 */}
+      <div style={{ padding: "20px" }}>
+        {error && <div style={{ background: "#fff0ec", color: "#e05a1e", borderRadius: 10, padding: "10px 14px", fontSize: 13, marginBottom: 16, border: "1px solid #fdd0c0" }}>⚠ {error}</div>}
         {step === 1 && (
           <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-
-            {/* Titolo */}
+            <div><label style={lbl}>Titolo annuncio *</label><input type="text" value={form.title} onChange={e => set("title", e.target.value)} placeholder="es. Cuccia ortopedica taglia M" style={inp} /></div>
             <div>
-              <label style={labelStyle}>Titolo annuncio *</label>
-              <input
-                type="text"
-                value={form.title}
-                onChange={e => set("title", e.target.value)}
-                placeholder="es. Cuccia ortopedica taglia M"
-                style={inputStyle}
-              />
-            </div>
-
-            {/* Tipo animale */}
-            <div>
-              <label style={labelStyle}>Tipo di animale *</label>
+              <label style={lbl}>Tipo di animale *</label>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
                 {ANIMAL_TYPES.map(a => (
-                  <button key={a.id} onClick={() => set("animal_type", a.id)} style={{
-                    padding: "10px 6px", borderRadius: 10, cursor: "pointer",
-                    border: `2px solid ${form.animal_type === a.id ? "#e8c547" : "#2a2a2a"}`,
-                    background: form.animal_type === a.id ? "#1a1205" : "#1a1a1a",
-                    color: form.animal_type === a.id ? "#e8c547" : "#888",
-                    fontSize: 12, fontWeight: 700, textAlign: "center",
-                    transition: "all .2s",
-                  }}>
-                    <div style={{ fontSize: 22, marginBottom: 4 }}>{a.emoji}</div>
-                    {a.label}
+                  <button key={a.id} onClick={() => set("animal_type", a.id)} style={{ padding: "10px 6px", borderRadius: 10, cursor: "pointer", border: `2px solid ${form.animal_type === a.id ? "#1a7a6e" : "#dde8e6"}`, background: form.animal_type === a.id ? "#e8f5f2" : "#fff", color: form.animal_type === a.id ? "#1a7a6e" : "#888", fontSize: 12, fontWeight: 700, textAlign: "center", transition: "all .2s", fontFamily: "inherit" }}>
+                    <div style={{ fontSize: 22, marginBottom: 4 }}>{a.emoji}</div>{a.label}
                   </button>
                 ))}
               </div>
             </div>
-
-            {/* Condizioni */}
             <div>
-              <label style={labelStyle}>Condizioni *</label>
+              <label style={lbl}>Condizioni *</label>
               <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                 {CONDITIONS.map(c => (
-                  <div key={c.id} onClick={() => set("condition", c.id)} style={{
-                    padding: "12px 14px", borderRadius: 10, cursor: "pointer",
-                    border: `2px solid ${form.condition === c.id ? "#e8c547" : "#2a2a2a"}`,
-                    background: form.condition === c.id ? "#1a1205" : "#1a1a1a",
-                    transition: "all .2s",
-                  }}>
-                    <div style={{ fontWeight: 700, color: form.condition === c.id ? "#e8c547" : "#fff", fontSize: 14 }}>
-                      {c.label}
-                    </div>
-                    <div style={{ color: "#666", fontSize: 12, marginTop: 2 }}>{c.desc}</div>
+                  <div key={c.id} onClick={() => set("condition", c.id)} style={{ padding: "12px 14px", borderRadius: 10, cursor: "pointer", border: `2px solid ${form.condition === c.id ? "#1a7a6e" : "#dde8e6"}`, background: form.condition === c.id ? "#e8f5f2" : "#fff", transition: "all .2s" }}>
+                    <div style={{ fontWeight: 700, color: form.condition === c.id ? "#1a7a6e" : "#0f3d38", fontSize: 14 }}>{c.label}</div>
+                    <div style={{ color: "#888", fontSize: 12, marginTop: 2 }}>{c.desc}</div>
                   </div>
                 ))}
               </div>
             </div>
-
-            {/* Foto */}
             <div>
-              <label style={labelStyle}>
-                Foto {photoRequired ? "* (obbligatoria)" : "(facoltativa)"} — max 2
-              </label>
+              <label style={lbl}>Foto {photoRequired ? "* (obbligatoria)" : "(facoltativa)"} — max 2</label>
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                 {photos.map((p, i) => (
                   <div key={i} style={{ position: "relative" }}>
-                    <img src={p.preview} alt="" style={{
-                      width: 80, height: 80, objectFit: "cover", borderRadius: 10,
-                      border: "2px solid #2a2a2a",
-                    }} />
-                    <button onClick={() => removePhoto(i)} style={{
-                      position: "absolute", top: -6, right: -6,
-                      background: "#ef4444", border: "none", borderRadius: "50%",
-                      width: 20, height: 20, color: "#fff", cursor: "pointer",
-                      fontSize: 12, display: "flex", alignItems: "center", justifyContent: "center",
-                    }}>✕</button>
+                    <img src={p.preview} alt="" style={{ width: 80, height: 80, objectFit: "cover", borderRadius: 10, border: "2px solid #dde8e6" }} />
+                    <button onClick={() => setPhotos(prev => prev.filter((_, j) => j !== i))} style={{ position: "absolute", top: -6, right: -6, background: "#e05a1e", border: "none", borderRadius: "50%", width: 20, height: 20, color: "#fff", cursor: "pointer", fontSize: 12, display: "flex", alignItems: "center", justifyContent: "center" }}>✕</button>
                   </div>
                 ))}
                 {photos.length < 2 && (
-                  <label style={{
-                    width: 80, height: 80, borderRadius: 10,
-                    border: "2px dashed #2a2a2a", display: "flex",
-                    alignItems: "center", justifyContent: "center",
-                    cursor: "pointer", color: "#666", fontSize: 28,
-                    background: "#1a1a1a",
-                  }}>
-                    +
-                    <input type="file" accept="image/*" multiple onChange={handlePhotoUpload} style={{ display: "none" }} />
+                  <label style={{ width: 80, height: 80, borderRadius: 10, border: "2px dashed #dde8e6", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "#aaa", fontSize: 28, background: "#fff" }}>
+                    +<input type="file" accept="image/*" multiple onChange={handlePhotoUpload} style={{ display: "none" }} />
                   </label>
                 )}
               </div>
             </div>
-
-            <button onClick={handleNext} style={{
-              padding: "14px", border: "none", borderRadius: 12,
-              background: "#e8c547", color: "#1a1205",
-              fontWeight: 800, fontSize: 15, cursor: "pointer", marginTop: 8,
-            }}>
-              Continua →
-            </button>
+            <button onClick={handleNext} style={{ padding: "14px", border: "none", borderRadius: 12, background: "#e05a1e", color: "#fff", fontWeight: 800, fontSize: 15, cursor: "pointer", marginTop: 8, fontFamily: "inherit" }}>Continua →</button>
           </div>
         )}
-
-        {/* STEP 2 */}
         {step === 2 && (
           <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-
-            {/* Prezzo */}
-            <div>
-              <label style={labelStyle}>Prezzo € *</label>
-              <input
-                type="number"
-                value={form.price}
-                onChange={e => set("price", e.target.value)}
-                placeholder="0"
-                min="0"
-                style={inputStyle}
-              />
-            </div>
-
-            {/* Accetta offerte */}
-            <div style={{
-              display: "flex", alignItems: "center", justifyContent: "space-between",
-              background: "#1a1a1a", padding: "14px 16px", borderRadius: 12,
-              border: "1.5px solid #2a2a2a",
-            }}>
-              <div>
-                <div style={{ color: "#fff", fontWeight: 700 }}>Accetto offerte</div>
-                <div style={{ color: "#666", fontSize: 12 }}>Gli acquirenti possono proporre un prezzo</div>
-              </div>
-              <div
-                onClick={() => set("accepts_offers", !form.accepts_offers)}
-                style={{
-                  width: 44, height: 24, borderRadius: 12,
-                  background: form.accepts_offers ? "#e8c547" : "#333",
-                  cursor: "pointer", position: "relative", transition: "background .2s",
-                }}
-              >
-                <div style={{
-                  width: 18, height: 18, borderRadius: "50%", background: "#fff",
-                  position: "absolute", top: 3,
-                  left: form.accepts_offers ? 23 : 3,
-                  transition: "left .2s",
-                }} />
+            <div><label style={lbl}>Prezzo € *</label><input type="number" value={form.price} onChange={e => set("price", e.target.value)} placeholder="0" min="0" style={inp} /></div>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: "#fff", padding: "14px 16px", borderRadius: 12, border: "1.5px solid #dde8e6" }}>
+              <div><div style={{ color: "#0f3d38", fontWeight: 700 }}>Accetto offerte</div><div style={{ color: "#888", fontSize: 12 }}>Gli acquirenti possono proporre un prezzo</div></div>
+              <div onClick={() => set("accepts_offers", !form.accepts_offers)} style={{ width: 44, height: 24, borderRadius: 12, background: form.accepts_offers ? "#1a7a6e" : "#ddd", cursor: "pointer", position: "relative", transition: "background .2s" }}>
+                <div style={{ width: 18, height: 18, borderRadius: "50%", background: "#fff", position: "absolute", top: 3, left: form.accepts_offers ? 23 : 3, transition: "left .2s" }} />
               </div>
             </div>
-
-            {/* Città */}
-            <div>
-              <label style={labelStyle}>Città *</label>
-              <input
-                type="text"
-                value={form.city}
-                onChange={e => set("city", e.target.value)}
-                placeholder="es. Milano"
-                style={inputStyle}
-              />
-            </div>
-
-            {/* Descrizione */}
-            <div>
-              <label style={labelStyle}>Descrizione *</label>
-              <textarea
-                value={form.description}
-                onChange={e => set("description", e.target.value)}
-                placeholder="Descrivi l'articolo: dimensioni, stato, motivo della vendita..."
-                rows={4}
-                style={{ ...inputStyle, resize: "vertical" }}
-              />
-            </div>
-
-            <button onClick={handleSubmit} disabled={loading} style={{
-              padding: "14px", border: "none", borderRadius: 12,
-              background: "#e8c547", color: "#1a1205",
-              fontWeight: 800, fontSize: 15,
-              cursor: loading ? "not-allowed" : "pointer",
-              opacity: loading ? 0.7 : 1, marginTop: 8,
-            }}>
+            <div><label style={lbl}>Città *</label><input type="text" value={form.city} onChange={e => set("city", e.target.value)} placeholder="es. Milano" style={inp} /></div>
+            <div><label style={lbl}>Descrizione *</label><textarea value={form.description} onChange={e => set("description", e.target.value)} placeholder="Descrivi l'articolo..." rows={4} style={{ ...inp, resize: "vertical" }} /></div>
+            <button onClick={handleSubmit} disabled={loading} style={{ padding: "14px", border: "none", borderRadius: 12, background: "#e05a1e", color: "#fff", fontWeight: 800, fontSize: 15, cursor: loading ? "not-allowed" : "pointer", opacity: loading ? 0.7 : 1, marginTop: 8, fontFamily: "inherit" }}>
               {loading ? "Pubblicazione..." : "✅ Pubblica annuncio"}
             </button>
           </div>
