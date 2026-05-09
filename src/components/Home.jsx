@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { supabase } from "../supabaseClient";
 
 const CATEGORIES = [
@@ -8,11 +7,11 @@ const CATEGORIES = [
   { id: "gatti", label: "Gatti", svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{width:18,height:18}}><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.23 6.5 2.26A9.06 9.06 0 0 1 12 5Z"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/></svg> },
   { id: "uccelli", label: "Uccelli", svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{width:18,height:18}}><path d="M16 7h.01"/><path d="M3.4 18H12a8 8 0 0 0 8-8V7a4 4 0 0 0-7.28-2.3L2 20"/><path d="m20 7 2 .5-2 .5"/><path d="M10 18v3"/><path d="M14 17.75V21"/><path d="M7 18a6 6 0 0 0 3.84-10.61"/></svg> },
   { id: "pesci", label: "Pesci", svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{width:18,height:18}}><path d="M6.5 12c.94-3.46 4.94-6 8.5-6 3.56 0 6.06 2.54 7 6-.94 3.47-3.44 6-7 6s-7.56-2.53-8.5-6Z"/><path d="M18 12v.5"/><path d="M16 17.93a9.77 9.77 0 0 1 0-11.86"/><path d="M7 10.67C7 8 5.58 5.97 2.73 5.5c-1 3.46-.05 6.96 2.27 9.5"/><path d="M10.46 7.26C10.2 5.88 9.17 4.24 8 3h5.8a2 2 0 0 1 1.98 1.67l.23 1.4"/><path d="m16.01 17.93-.23 1.4A2 2 0 0 1 13.8 21H8c1.153-1.24 2.23-2.88 2.5-4.26"/></svg> },
-  { id: "roditori", label: "Roditori", svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{width:18,height:18}}><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="14" r="2"/><path d="m9 11-1-4a2 2 0 0 1 4 0l-1 4"/><path d="m15 11 1-4a2 2 0 0 0-4 0l1 4"/><path d="M9 21v-4"/><path d="M15 21v-4"/></svg> },
-  { id: "rettili", label: "Rettili", svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{width:18,height:18}}><path d="M2 12h20"/><path d="M12 2a10 10 0 0 1 0 20"/><path d="M12 2a10 10 0 0 0 0 20"/><path d="M12 2v20"/></svg> },
+  { id: "roditori", label: "Roditori", svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{width:18,height:18}}><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="14" r="2"/><path d="m9 11-1-4a2 2 0 0 1 4 0l-1 4"/><path d="m15 11 1-4a2 2 0 0 0-4 0l1 4"/></svg> },
+  { id: "rettili", label: "Rettili", svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{width:18,height:18}}><path d="M2 12h20"/><path d="M12 2a10 10 0 0 1 0 20"/><path d="M12 2a10 10 0 0 0 0 20"/></svg> },
   { id: "conigli", label: "Conigli", svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{width:18,height:18}}><path d="M18 11.5V9a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v1.4"/><path d="M14 10V8a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/><path d="M10 9.9V9a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v5"/><path d="M6 14v0a2 2 0 0 0-2 2v0a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v0a2 2 0 0 0-2-2"/><path d="M12 18v4"/></svg> },
-  { id: "cavalli", label: "Cavalli", svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{width:18,height:18}}><path d="M6 16c.6.5 1.2 1 2.5 1C11 17 11 15 13 15h1.5"/><path d="M17.5 14a2.5 2.5 0 0 1 0 5H14a2.5 2.5 0 0 1 0-5"/><path d="M13 11.5V9"/><path d="M17 12h1a2 2 0 0 0 2-2V7"/><path d="M14 7l2.5 2.5"/><path d="M2 8c0-1.5.5-4 4-4 2.5 0 4 1.5 4 4"/><path d="M6 12v4"/><path d="M6 8v4"/><path d="M2 12h4"/></svg> },
-  { id: "altri", label: "Altri", svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{width:18,height:18}}><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg> },
+  { id: "cavalli", label: "Cavalli", svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{width:18,height:18}}><path d="M6 16c.6.5 1.2 1 2.5 1C11 17 11 15 13 15h1.5"/><path d="M17.5 14a2.5 2.5 0 0 1 0 5H14a2.5 2.5 0 0 1 0-5"/><path d="M13 11.5V9"/><path d="M17 12h1a2 2 0 0 0 2-2V7"/><path d="M14 7l2.5 2.5"/></svg> },
+  { id: "altri", label: "Altri", svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{width:18,height:18}}><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg> },
 ];
 
 const CONDITIONS = {
@@ -32,20 +31,16 @@ const Badge = ({ condition }) => {
 
 const getCategorySvg = (animalType) => {
   const cat = CATEGORIES.find(c => c.id === animalType);
-  return cat ? cat.svg : CATEGORIES[0].svg;
+  return cat ? React.cloneElement(cat.svg, { style: { width: 48, height: 48 } }) : null;
 };
 
 const ProductCard = ({ ad, onOpen }) => {
   const [hover, setHover] = useState(false);
   const imageUrl = ad.ad_images?.[0]?.image_url;
-
   return (
     <div onClick={() => onOpen(ad)} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} style={{ background: "#fff", borderRadius: 16, overflow: "hidden", cursor: "pointer", border: "1.5px solid #e8f0ee", boxShadow: hover ? "0 8px 24px #1a7a6e18" : "0 2px 8px #00000008", transform: hover ? "translateY(-3px)" : "none", transition: "all .22s ease", display: "flex", flexDirection: "column" }}>
-      <div style={{ background: "#f0f4f3", height: 140, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
-        {imageUrl
-          ? <img src={imageUrl} alt={ad.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-          : <span style={{ color: "#1a7a6e", transform: "scale(3)" }}>{React.cloneElement(getCategorySvg(ad.animal_type), { style: { width: 32, height: 32 } })}</span>
-        }
+      <div style={{ background: "#f0f4f3", height: 140, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", color: "#1a7a6e" }}>
+        {imageUrl ? <img src={imageUrl} alt={ad.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : getCategorySvg(ad.animal_type)}
       </div>
       <div style={{ padding: "12px 12px 14px", display: "flex", flexDirection: "column", gap: 6 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 6 }}>
@@ -65,15 +60,11 @@ const ProductCard = ({ ad, onOpen }) => {
 const ProductModal = ({ ad, onClose, session, onContact }) => {
   if (!ad) return null;
   const imageUrl = ad.ad_images?.[0]?.image_url;
-
   return (
     <div onClick={onClose} style={{ position: "fixed", inset: 0, background: "#0007", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
       <div onClick={e => e.stopPropagation()} style={{ background: "#fff", borderRadius: 24, maxWidth: 500, width: "100%", maxHeight: "90vh", overflowY: "auto", boxShadow: "0 24px 80px #0004" }}>
-        <div style={{ background: "#f0f4f3", height: 200, display: "flex", alignItems: "center", justifyContent: "center", position: "relative", borderRadius: "24px 24px 0 0", overflow: "hidden" }}>
-          {imageUrl
-            ? <img src={imageUrl} alt={ad.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-            : <span style={{ color: "#1a7a6e" }}>{React.cloneElement(getCategorySvg(ad.animal_type), { style: { width: 80, height: 80 } })}</span>
-          }
+        <div style={{ background: "#f0f4f3", height: 200, display: "flex", alignItems: "center", justifyContent: "center", position: "relative", borderRadius: "24px 24px 0 0", overflow: "hidden", color: "#1a7a6e" }}>
+          {imageUrl ? <img src={imageUrl} alt={ad.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : React.cloneElement(getCategorySvg(ad.animal_type) || <svg/>, { style: { width: 80, height: 80 } })}
           <button onClick={onClose} style={{ position: "absolute", top: 14, right: 14, background: "#fff", border: "none", borderRadius: "50%", width: 36, height: 36, cursor: "pointer", fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center", color: "#333", boxShadow: "0 2px 8px #0002" }}>✕</button>
         </div>
         <div style={{ padding: "24px 28px 28px", display: "flex", flexDirection: "column", gap: 14 }}>
@@ -137,8 +128,10 @@ export default function Home({ session, onShowAuth }) {
 
       <div style={{ padding: "14px 20px", background: "#1a7a6e", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, zIndex: 100, boxShadow: "0 2px 12px #1a7a6e40" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <img src="/waglo_logo.webp" alt="Waglo" style={{ width: 36, height: 36, borderRadius: 8 }} />
-          <span style={{ fontWeight: 900, fontSize: 22, color: "#fff", letterSpacing: -0.5 }}>Waglo</span>
+          <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.1 }}>
+            <span style={{ fontWeight: 900, fontSize: 22, color: "#fff", letterSpacing: -0.5 }}>Waglo</span>
+            <span style={{ fontWeight: 400, fontSize: 11, color: "rgba(255,255,255,0.7)", letterSpacing: 0.3 }}>· tails &amp; deals</span>
+          </div>
         </div>
         {!session && (
           <button onClick={onShowAuth} style={{ background: "#fff", color: "#1a7a6e", border: "none", borderRadius: 10, padding: "7px 16px", fontWeight: 800, fontSize: 13, cursor: "pointer", fontFamily: "inherit" }}>Accedi</button>
