@@ -1,16 +1,37 @@
 import { useState } from "react";
 import { supabase } from "../supabaseClient";
+import {
+  Dog, Cat, Bird, Fish, Rat, Turtle, Rabbit, PawPrint, ArrowLeftRight,
+  UtensilsCrossed, ShoppingBag, FlaskConical, Droplets, Bug, MoreHorizontal
+} from "lucide-react";
+
+const HorseshoeIcon = ({ size = 24, strokeWidth = 1.8, color = "currentColor" }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 3C7.5 3 4 6.5 4 11v3c0 1.1.9 2 2 2h1c1.1 0 2-.9 2-2v-1c0-1.7 1.3-3 3-3s3 1.3 3 3v1c0 1.1.9 2 2 2h1c1.1 0 2-.9 2-2v-3c0-4.5-3.5-8-8-8z"/>
+    <circle cx="8" cy="19" r="1" fill={color} stroke="none"/>
+    <circle cx="16" cy="19" r="1" fill={color} stroke="none"/>
+  </svg>
+);
 
 const ANIMAL_TYPES = [
-  { id: "cani", label: "Cani", emoji: "🐕" },
-  { id: "gatti", label: "Gatti", emoji: "🐈" },
-  { id: "uccelli", label: "Uccelli", emoji: "🦜" },
-  { id: "pesci", label: "Pesci e acquari", emoji: "🐠" },
-  { id: "roditori", label: "Roditori", emoji: "🐹" },
-  { id: "rettili", label: "Rettili", emoji: "🦎" },
-  { id: "conigli", label: "Conigli", emoji: "🐰" },
-  { id: "cavalli", label: "Cavalli", emoji: "🐴" },
-  { id: "altri", label: "Altri", emoji: "🌿" },
+  { id: "cani", label: "Cani", Icon: Dog },
+  { id: "gatti", label: "Gatti", Icon: Cat },
+  { id: "uccelli", label: "Uccelli", Icon: Bird },
+  { id: "pesci", label: "Pesci e acquari", Icon: Fish },
+  { id: "roditori", label: "Roditori", Icon: Rat },
+  { id: "rettili", label: "Rettili", Icon: Turtle },
+  { id: "conigli", label: "Conigli", Icon: Rabbit },
+  { id: "cavalli", label: "Cavalli", Icon: HorseshoeIcon },
+  { id: "altri", label: "Altri", Icon: ArrowLeftRight },
+];
+
+const PRODUCT_CATEGORIES = [
+  { id: "alimenti", label: "Alimenti", Icon: UtensilsCrossed },
+  { id: "accessori", label: "Accessori", Icon: ShoppingBag },
+  { id: "integratori", label: "Integratori", Icon: FlaskConical },
+  { id: "igiene", label: "Igiene e cosmesi", Icon: Droplets },
+  { id: "antiparassitari", label: "Antiparassitari", Icon: Bug },
+  { id: "altro", label: "Altro", Icon: MoreHorizontal },
 ];
 
 const CONDITIONS = [
@@ -33,7 +54,11 @@ export default function NewAd({ session, onBack, onPublished }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [photos, setPhotos] = useState([]);
-  const [form, setForm] = useState({ title: "", description: "", animal_type: "", category: "", condition: "", price: "", accepts_offers: false, city: "" });
+  const [form, setForm] = useState({
+    title: "", description: "", animal_type: "",
+    category: "", condition: "", price: "",
+    accepts_offers: false, city: ""
+  });
 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
   const photoRequired = PHOTO_REQUIRED.includes(form.condition);
@@ -48,6 +73,7 @@ export default function NewAd({ session, onBack, onPublished }) {
   const validateStep1 = () => {
     if (!form.title.trim()) return "Inserisci un titolo.";
     if (!form.animal_type) return "Seleziona il tipo di animale.";
+    if (!form.category) return "Seleziona la categoria prodotto.";
     if (!form.condition) return "Seleziona le condizioni.";
     if (photoRequired && photos.length === 0) return "Almeno una foto è obbligatoria per questa condizione.";
     return null;
@@ -68,9 +94,10 @@ export default function NewAd({ session, onBack, onPublished }) {
     setLoading(true); setError("");
     const { data: ad, error: adError } = await supabase.from("ads").insert({
       user_id: session.user.id, title: form.title, description: form.description,
-      animal_type: form.animal_type, category: form.category || form.animal_type,
-      condition: form.condition, price: +form.price, accepts_offers: form.accepts_offers,
-      city: form.city, status: "active",
+      animal_type: form.animal_type, category: form.category,
+      condition: form.condition, price: +form.price,
+      accepts_offers: form.accepts_offers, city: form.city,
+      status: "active",
       expiration_date: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
     }).select().single();
     if (adError) { setError(adError.message); setLoading(false); return; }
@@ -97,19 +124,44 @@ export default function NewAd({ session, onBack, onPublished }) {
       </div>
       <div style={{ padding: "20px" }}>
         {error && <div style={{ background: "#fff0ec", color: "#e05a1e", borderRadius: 10, padding: "10px 14px", fontSize: 13, marginBottom: 16, border: "1px solid #fdd0c0" }}>⚠ {error}</div>}
+
         {step === 1 && (
           <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-            <div><label style={lbl}>Titolo annuncio *</label><input type="text" value={form.title} onChange={e => set("title", e.target.value)} placeholder="es. Cuccia ortopedica taglia M" style={inp} /></div>
+            <div>
+              <label style={lbl}>Titolo annuncio *</label>
+              <input type="text" value={form.title} onChange={e => set("title", e.target.value)} placeholder="es. Cuccia ortopedica taglia M" style={inp} />
+            </div>
+
             <div>
               <label style={lbl}>Tipo di animale *</label>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
-                {ANIMAL_TYPES.map(a => (
-                  <button key={a.id} onClick={() => set("animal_type", a.id)} style={{ padding: "10px 6px", borderRadius: 10, cursor: "pointer", border: `2px solid ${form.animal_type === a.id ? "#1a7a6e" : "#dde8e6"}`, background: form.animal_type === a.id ? "#e8f5f2" : "#fff", color: form.animal_type === a.id ? "#1a7a6e" : "#888", fontSize: 12, fontWeight: 700, textAlign: "center", transition: "all .2s", fontFamily: "inherit" }}>
-                    <div style={{ fontSize: 22, marginBottom: 4 }}>{a.emoji}</div>{a.label}
-                  </button>
-                ))}
+                {ANIMAL_TYPES.map(({ id, label, Icon }) => {
+                  const active = form.animal_type === id;
+                  return (
+                    <button key={id} onClick={() => set("animal_type", id)} style={{ padding: "10px 6px", borderRadius: 10, cursor: "pointer", border: `2px solid ${active ? "#1a7a6e" : "#dde8e6"}`, background: active ? "#e8f5f2" : "#fff", color: active ? "#1a7a6e" : "#888", fontSize: 12, fontWeight: 700, textAlign: "center", transition: "all .2s", fontFamily: "inherit", display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
+                      <Icon size={24} strokeWidth={1.8} color={active ? "#1a7a6e" : "#888"} />
+                      {label}
+                    </button>
+                  );
+                })}
               </div>
             </div>
+
+            <div>
+              <label style={lbl}>Categoria prodotto *</label>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                {PRODUCT_CATEGORIES.map(({ id, label, Icon }) => {
+                  const active = form.category === id;
+                  return (
+                    <button key={id} onClick={() => set("category", id)} style={{ padding: "10px 14px", borderRadius: 10, cursor: "pointer", border: `2px solid ${active ? "#e05a1e" : "#dde8e6"}`, background: active ? "#fff0ec" : "#fff", color: active ? "#e05a1e" : "#555", fontWeight: 700, fontSize: 13, transition: "all .2s", fontFamily: "inherit", display: "flex", alignItems: "center", gap: 8 }}>
+                      <Icon size={18} strokeWidth={1.8} color={active ? "#e05a1e" : "#888"} />
+                      {label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
             <div>
               <label style={lbl}>Condizioni *</label>
               <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -121,6 +173,7 @@ export default function NewAd({ session, onBack, onPublished }) {
                 ))}
               </div>
             </div>
+
             <div>
               <label style={lbl}>Foto {photoRequired ? "* (obbligatoria)" : "(facoltativa)"} — max 2</label>
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
@@ -137,9 +190,11 @@ export default function NewAd({ session, onBack, onPublished }) {
                 )}
               </div>
             </div>
+
             <button onClick={handleNext} style={{ padding: "14px", border: "none", borderRadius: 12, background: "#e05a1e", color: "#fff", fontWeight: 800, fontSize: 15, cursor: "pointer", marginTop: 8, fontFamily: "inherit" }}>Continua →</button>
           </div>
         )}
+
         {step === 2 && (
           <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
             <div><label style={lbl}>Prezzo € *</label><input type="number" value={form.price} onChange={e => set("price", e.target.value)} placeholder="0" min="0" style={inp} /></div>
