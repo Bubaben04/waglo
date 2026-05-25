@@ -43,7 +43,7 @@ const CONDITIONS = {
   accettabile: { label: "Accettabile", color: "#e05a1e" },
   danneggiato: { label: "Danneggiato", color: "#7c3aed" },
   in_scadenza: { label: "In scadenza", color: "#f97316" },
-  scaduto: { label: "Scaduto", color: "#6b7280" },
+
 };
 
 const Badge = ({ condition }) => {
@@ -198,7 +198,7 @@ export default function Home({ session, onShowAuth }) {
 
       <div style={{ padding: "14px 20px", background: "#1a7a6e", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, zIndex: 100, boxShadow: "0 2px 12px #1a7a6e40" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <img src="/waglo_circle.png" alt="Waglo" style={{ height: 64, width: 64, borderRadius: 10 }} />
+          <img src="/waglo_circle.png" alt="Waglo" style={{ height: 44, width: 44, borderRadius: 10 }} />
           <img src="/waglo_header.svg" alt="Waglo · tails & deals" style={{ height: 56, width: "auto" }} />
         </div>
         {!session && (
@@ -207,7 +207,7 @@ export default function Home({ session, onShowAuth }) {
       </div>
 
       <div style={{ padding: "14px 16px 8px" }}>
-        <input value={search} onChange={e => setSearch(e.target.value)} placeholder="🔍 Cerca prodotti per animali..." style={{ width: "100%", padding: "12px 16px", borderRadius: 12, border: "1.5px solid #dde8e6", background: "#fff", color: "#0f3d38", fontSize: 14, fontFamily: "inherit", boxSizing: "border-box", outline: "none" }} />
+        <input value={search} onChange={e => setSearch(e.target.value)} placeholder="🔍 Cerca usato per animali..." style={{ width: "100%", padding: "12px 16px", borderRadius: 12, border: "1.5px solid #dde8e6", background: "#fff", color: "#0f3d38", fontSize: 14, fontFamily: "inherit", boxSizing: "border-box", outline: "none" }} />
       </div>
 
       <div style={{ padding: "0 8px 4px" }}>

@@ -40,8 +40,7 @@ const CONDITIONS = [
   { id: "buono", label: "Buono", desc: "Qualche segno d'uso normale, perfettamente funzionante" },
   { id: "accettabile", label: "Accettabile", desc: "Segni d'uso evidenti, funzionante, difetti dichiarati" },
   { id: "danneggiato", label: "Danneggiato", desc: "Difetti strutturali o estetici significativi" },
-  { id: "in_scadenza", label: "In scadenza", desc: "Prodotto prossimo alla data di scadenza" },
-  { id: "scaduto", label: "Scaduto", desc: "Prodotto oltre la data di scadenza" },
+  { id: "in_scadenza", label: "In scadenza", desc: "Prodotto prossimo alla scadenza — inserisci la data obbligatoriamente" },
 ];
 
 const PHOTO_REQUIRED = ["danneggiato"];
@@ -60,8 +59,20 @@ export default function NewAd({ session, onBack, onPublished }) {
     accepts_offers: false, city: ""
   });
 
+  const [expiryDate, setExpiryDate] = useState("");
+
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
   const photoRequired = PHOTO_REQUIRED.includes(form.condition);
+  const expiryRequired = form.condition === "in_scadenza";
+
+  const validateExpiryDate = (dateStr) => {
+    if (!dateStr) return false;
+    const selected = new Date(dateStr);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const diffDays = Math.ceil((selected - today) / (1000 * 60 * 60 * 24));
+    return diffDays >= 7;
+  };
 
   const handlePhotoUpload = (e) => {
     const files = Array.from(e.target.files);
@@ -76,6 +87,10 @@ export default function NewAd({ session, onBack, onPublished }) {
     if (!form.category) return "Seleziona la categoria prodotto.";
     if (!form.condition) return "Seleziona le condizioni.";
     if (photoRequired && photos.length === 0) return "Almeno una foto è obbligatoria per questa condizione.";
+    if (expiryRequired) {
+      if (!expiryDate) return "Inserisci la data di scadenza — obbligatoria per prodotti in scadenza.";
+      if (!validateExpiryDate(expiryDate)) return "⚠ La data di scadenza deve essere almeno 7 giorni dalla data odierna. Non è possibile pubblicare questo annuncio.";
+    }
     return null;
   };
 
@@ -98,7 +113,7 @@ export default function NewAd({ session, onBack, onPublished }) {
       condition: form.condition, price: +form.price,
       accepts_offers: form.accepts_offers, city: form.city,
       status: "active",
-      expiration_date: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+      expiration_date: expiryRequired && expiryDate ? expiryDate : new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
     }).select().single();
     if (adError) { setError(adError.message); setLoading(false); return; }
     for (let i = 0; i < photos.length; i++) {
@@ -173,6 +188,24 @@ export default function NewAd({ session, onBack, onPublished }) {
                 ))}
               </div>
             </div>
+
+            {expiryRequired && (
+              <div>
+                <label style={lbl}>Data di scadenza * (obbligatoria)</label>
+                <input
+                  type="date"
+                  value={expiryDate}
+                  onChange={e => setExpiryDate(e.target.value)}
+                  min={new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0]}
+                  style={{ ...inp, borderColor: expiryDate && !validateExpiryDate(expiryDate) ? "#ef4444" : "#dde8e6" }}
+                />
+                {expiryDate && !validateExpiryDate(expiryDate) && (
+                  <div style={{ color: "#ef4444", fontSize: 12, marginTop: 4, fontWeight: 700 }}>
+                    ⚠ La data di scadenza deve essere almeno 7 giorni da oggi. Pubblicazione non consentita.
+                  </div>
+                )}
+              </div>
+            )}
 
             <div>
               <label style={lbl}>Foto {photoRequired ? "* (obbligatoria)" : "(facoltativa)"} — max 2</label>
