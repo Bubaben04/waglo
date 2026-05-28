@@ -84,6 +84,25 @@ const ProductModal = ({ ad, onClose, session, onContact }) => {
   if (!ad) return null;
   const imageUrl = ad.ad_images?.[0]?.image_url;
   const AnimalIcon = getAnimalIcon(ad.animal_type);
+  const [showReport, setShowReport] = React.useState(false);
+  const [reportReason, setReportReason] = React.useState("");
+  const [reportDetails, setReportDetails] = React.useState("");
+  const [reportSent, setReportSent] = React.useState(false);
+  const [reportLoading, setReportLoading] = React.useState(false);
+
+  const handleReport = async () => {
+    if (!reportReason) return;
+    setReportLoading(true);
+    await supabase.from("reports").insert({
+      ad_id: ad.id,
+      reporter_id: session?.user?.id || null,
+      reason: reportReason,
+      details: reportDetails,
+      status: "pending"
+    });
+    setReportSent(true);
+    setReportLoading(false);
+  };
   return (
     <div onClick={onClose} style={{ position: "fixed", inset: 0, background: "#0007", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
       <div onClick={e => e.stopPropagation()} style={{ background: "#fff", borderRadius: 24, maxWidth: 500, width: "100%", maxHeight: "90vh", overflowY: "auto", boxShadow: "0 24px 80px #0004" }}>
@@ -116,6 +135,37 @@ const ProductModal = ({ ad, onClose, session, onContact }) => {
           ) : (
             <div style={{ padding: "14px", borderRadius: 12, background: "#f0f4f3", color: "#888", fontSize: 14, textAlign: "center", border: "1px solid #e0eae8" }}>
               <span style={{ color: "#1a7a6e", fontWeight: 700, cursor: "pointer" }}>Accedi</span> per contattare il venditore
+            </div>
+          )}
+          {!showReport && !reportSent && (
+            <button onClick={() => setShowReport(true)} style={{ padding: "8px", border: "1px solid #dde8e6", borderRadius: 10, background: "transparent", color: "#888", fontSize: 12, cursor: "pointer", fontFamily: "inherit" }}>
+              🚩 Segnala questo annuncio
+            </button>
+          )}
+          {showReport && !reportSent && (
+            <div style={{ background: "#fff8e8", border: "1px solid #f5e6c0", borderRadius: 12, padding: 16, display: "flex", flexDirection: "column", gap: 10 }}>
+              <div style={{ fontWeight: 700, fontSize: 14, color: "#0f3d38" }}>Segnala annuncio</div>
+              <select value={reportReason} onChange={e => setReportReason(e.target.value)} style={{ padding: "10px 12px", borderRadius: 8, border: "1px solid #dde8e6", fontSize: 14, fontFamily: "inherit", background: "#fff" }}>
+                <option value="">Seleziona un motivo...</option>
+                <option value="prodotto_vietato">Prodotto vietato o illegale</option>
+                <option value="descrizione_falsa">Descrizione falsa o ingannevole</option>
+                <option value="spam">Spam o annuncio duplicato</option>
+                <option value="animale_vivo">Vendita di animale vivo</option>
+                <option value="farmaco">Farmaco o medicinale veterinario</option>
+                <option value="altro">Altro</option>
+              </select>
+              <textarea value={reportDetails} onChange={e => setReportDetails(e.target.value)} placeholder="Dettagli aggiuntivi (facoltativo)..." rows={3} style={{ padding: "10px 12px", borderRadius: 8, border: "1px solid #dde8e6", fontSize: 13, fontFamily: "inherit", resize: "none" }} />
+              <div style={{ display: "flex", gap: 8 }}>
+                <button onClick={() => setShowReport(false)} style={{ flex: 1, padding: "10px", border: "1px solid #dde8e6", borderRadius: 8, background: "#fff", color: "#888", cursor: "pointer", fontFamily: "inherit" }}>Annulla</button>
+                <button onClick={handleReport} disabled={!reportReason || reportLoading} style={{ flex: 2, padding: "10px", border: "none", borderRadius: 8, background: "#1a7a6e", color: "#fff", fontWeight: 700, cursor: reportReason ? "pointer" : "not-allowed", opacity: reportReason ? 1 : 0.5, fontFamily: "inherit" }}>
+                  {reportLoading ? "Invio..." : "Invia segnalazione"}
+                </button>
+              </div>
+            </div>
+          )}
+          {reportSent && (
+            <div style={{ background: "#e8f5f2", border: "1px solid #b8e0d8", borderRadius: 10, padding: "12px 16px", fontSize: 13, color: "#1a7a6e", fontWeight: 700, textAlign: "center" }}>
+              ✅ Segnalazione inviata. Grazie per averci aiutato a mantenere Waglo sicuro.
             </div>
           )}
         </div>
