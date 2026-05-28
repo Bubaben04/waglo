@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { supabase } from "../supabaseClient";
 
 export default function Auth({ onAuth }) {
@@ -24,10 +24,19 @@ export default function Auth({ onAuth }) {
       email: form.email,
       password: form.password,
     });
-    if (error) setError(error.message);
-    else onAuth();
+    if (error) {
+      const msg = error.message;
+      let msgIT = "Credenziali non valide. Riprova.";
+      if (msg.includes("Invalid login")) msgIT = "Email o password non corretti.";
+      else if (msg.includes("Email not confirmed")) msgIT = "Email non confermata. Controlla la tua casella.";
+      else if (msg.includes("rate limit")) msgIT = "Troppi tentativi. Attendi qualche minuto.";
+      setError(msgIT);
+    } else onAuth();
     setLoading(false);
   };
+
+  const [termsAccepted, setTermsAccepted] = React.useState(false);
+  const [showTerms, setShowTerms] = React.useState(false);
 
   const handleRegister = async () => {
     setLoading(true);
@@ -42,11 +51,24 @@ export default function Auth({ onAuth }) {
       setLoading(false);
       return;
     }
+    if (!termsAccepted) {
+      setError("Devi accettare i Termini e Condizioni per registrarti.");
+      setLoading(false);
+      return;
+    }
     const { data, error: signUpError } = await supabase.auth.signUp({
       email: form.email,
       password: form.password,
     });
-    if (signUpError) { setError(signUpError.message); setLoading(false); return; }
+    if (signUpError) {
+      const msg = signUpError.message;
+      let msgIT = "Errore durante la registrazione. Riprova.";
+      if (msg.includes("already registered") || msg.includes("already exists")) msgIT = "Questa email è già registrata. Prova ad accedere.";
+      else if (msg.includes("invalid email")) msgIT = "Indirizzo email non valido.";
+      else if (msg.includes("Password should")) msgIT = "La password deve essere di almeno 6 caratteri.";
+      else if (msg.includes("rate limit")) msgIT = "Troppi tentativi. Attendi qualche minuto e riprova.";
+      setError(msgIT); setLoading(false); return;
+    }
     const { error: profileError } = await supabase.from("user_profiles").insert({
       id: data.user.id,
       display_name: form.display_name,
@@ -122,6 +144,50 @@ export default function Auth({ onAuth }) {
             <div style={{ background: "#fffbf0", border: "1px solid #f5e6c0", borderRadius: 10, padding: 12, fontSize: 11, color: "#888", lineHeight: 1.6 }}>
               ℹ️ Ai sensi della normativa DAC7 (D.Lgs. 32/2023), Waglo raccoglie e comunica all'Agenzia delle Entrate i dati dei venditori che superano 30 transazioni o €2.000 di ricavi annui.
             </div>
+
+            <div style={{ display: "flex", alignItems: "flex-start", gap: 10, background: "#f0f4f3", borderRadius: 10, padding: 12 }}>
+              <input
+                type="checkbox"
+                id="terms"
+                checked={termsAccepted}
+                onChange={e => setTermsAccepted(e.target.checked)}
+                style={{ marginTop: 2, flexShrink: 0, width: 18, height: 18, cursor: "pointer", accentColor: "#1a7a6e" }}
+              />
+              <label htmlFor="terms" style={{ fontSize: 13, color: "#444", lineHeight: 1.5, cursor: "pointer" }}>
+                Ho letto e accetto i{" "}
+                <span onClick={() => setShowTerms(true)} style={{ color: "#1a7a6e", fontWeight: 700, textDecoration: "underline", cursor: "pointer" }}>
+                  Termini e Condizioni
+                </span>
+                {" "}e la{" "}
+                <span onClick={() => setShowTerms(true)} style={{ color: "#1a7a6e", fontWeight: 700, textDecoration: "underline", cursor: "pointer" }}>
+                  Privacy Policy
+                </span>
+                {" "}di Waglo *
+              </label>
+            </div>
+
+            {showTerms && (
+              <div onClick={() => setShowTerms(false)} style={{ position: "fixed", inset: 0, background: "#0008", zIndex: 2000, display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
+                <div onClick={e => e.stopPropagation()} style={{ background: "#fff", borderRadius: 16, maxWidth: 480, width: "100%", maxHeight: "80vh", overflowY: "auto", padding: 24, boxShadow: "0 24px 80px #0004" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+                    <h3 style={{ margin: 0, color: "#1a7a6e", fontFamily: "inherit" }}>Termini e Condizioni</h3>
+                    <button onClick={() => setShowTerms(false)} style={{ background: "none", border: "none", fontSize: 20, cursor: "pointer", color: "#888" }}>✕</button>
+                  </div>
+                  <div style={{ fontSize: 13, color: "#444", lineHeight: 1.7 }}>
+                    <p><strong>Gestore:</strong> Guidetti Umberto — Via Agnoletti, 6 — 42124 Reggio Emilia (RE) — P.IVA 02903920359 — PEC: waglo@pec.it</p>
+                    <p><strong>1. Ruolo di Waglo</strong><br/>Waglo è un marketplace che mette in contatto Venditori e Acquirenti. Il contratto di compravendita si stipula esclusivamente tra le parti. Waglo è estranea al rapporto contrattuale.</p>
+                    <p><strong>2. Responsabilità</strong><br/>Il Venditore è l'unico responsabile della liceità, qualità e conformità dei prodotti pubblicati. Waglo declina ogni responsabilità per vizi, difetti o danni derivanti dai prodotti.</p>
+                    <p><strong>3. Prodotti vietati</strong><br/>È vietata la vendita di: animali vivi, medicinali veterinari, prodotti contraffatti, attrezzature coercitive per animali, alimenti scaduti o in cattivo stato.</p>
+                    <p><strong>4. Privacy e DAC7</strong><br/>I dati personali sono trattati ai sensi del GDPR (Reg. UE 2016/679). Ai sensi del D.Lgs. 32/2023 (DAC7), i dati dei venditori che superano 30 transazioni o €3.000 annui sono comunicati all'Agenzia delle Entrate.</p>
+                    <p><strong>5. DSA</strong><br/>In conformità al Digital Services Act (Reg. UE 2065/2022), ogni annuncio può essere segnalato tramite l'apposito tasto. Contatto DSA: dsa@waglo.pet</p>
+                    <p><strong>6. Foro competente</strong><br/>Foro di Reggio Emilia per i Venditori professionali. Foro di residenza del Consumatore per gli utenti privati.</p>
+                  </div>
+                  <button onClick={() => { setTermsAccepted(true); setShowTerms(false); }} style={{ width: "100%", marginTop: 16, padding: "12px", border: "none", borderRadius: 10, background: "#1a7a6e", color: "#fff", fontWeight: 700, fontSize: 14, cursor: "pointer", fontFamily: "inherit" }}>
+                    ✅ Accetto i Termini e Condizioni
+                  </button>
+                </div>
+              </div>
+            )}
             <div style={{ display: "flex", gap: 10 }}>
               <button onClick={() => setStep(1)} style={{ flex: 1, padding: "14px", border: "2px solid #ddd", borderRadius: 12, background: "transparent", color: "#888", fontWeight: 700, fontSize: 14, cursor: "pointer", fontFamily: "inherit" }}>← Indietro</button>
               <button onClick={handleRegister} disabled={loading} style={{ flex: 2, padding: "14px", border: "none", borderRadius: 12, background: "#e05a1e", color: "#fff", fontWeight: 800, fontSize: 15, cursor: loading ? "not-allowed" : "pointer", opacity: loading ? 0.7 : 1, fontFamily: "inherit" }}>
