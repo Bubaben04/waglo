@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 500" width="1800" height="500">
+
+  <!-- sfondo: nessuno = trasparente -->
+
+  <!-- font embed -->
+  <defs>
+    <style>
+      @font-face {
+        font-family: 'LiberationSans';
+        font-weight: bold;
+        src: local('Liberation Sans Bold');
+      }
+    </style>
+  </defs>
+
+  <!-- Linea orizzontale che attraversa Waglo -->
+  <rect x="60" y="248" width="882" height="4" fill="white" opacity="0.4"/>
+
+  <!-- W in corallo -->
+  <text x="60"  y="355" font-family="'Liberation Sans', 'Arial', sans-serif"
+        font-weight="bold" font-size="280" fill="#E05A20">W</text>
+
+  <!-- aglo in bianco -->
+  <text x="332" y="355" font-family="'Liberation Sans', 'Arial', sans-serif"
+        font-weight="bold" font-size="280" fill="#FFFFFF">a</text>
+  <text x="498" y="355" font-family="'Liberation Sans', 'Arial', sans-serif"
+        font-weight="bold" font-size="280" fill="#FFFFFF">g</text>
+  <text x="677" y="355" font-family="'Liberation Sans', 'Arial', sans-serif"
+        font-weight="bold" font-size="280" fill="#FFFFFF">l</text>
+  <text x="763" y="355" font-family="'Liberation Sans', 'Arial', sans-serif"
+        font-weight="bold" font-size="280" fill="#FFFFFF">o</text>
+
+  <!-- Punto giallo -->
+  <circle cx="970" cy="250" r="18" fill="#F0F000"/>
+
+  <!-- "..." stessa baseline di tails & deals -->
+  <text x="1018" y="304" font-family="'Liberation Sans', 'Arial', sans-serif"
+        font-weight="bold" font-size="88" fill="white" opacity="0.82">...</text>
+
+  <!-- tails -->
+  <text x="1101" y="304" font-family="'Liberation Sans', 'Arial', sans-serif"
+        font-weight="bold" font-size="88" fill="white" opacity="0.86">tails </text>
+
+  <!-- & in corsivo, corpo ridotto, leggermente abbassato -->
+  <text x="1302" y="312" font-family="'Liberation Sans', 'Arial', sans-serif"
+        font-weight="bold" font-style="italic" font-size="64"
+        fill="white" opacity="0.70">&#38; </text>
+
+  <!-- deals -->
+  <text x="1370" y="304" font-family="'Liberation Sans', 'Arial', sans-serif"
+        font-weight="bold" font-size="88" fill="white" opacity="0.86">deals</text>
+
+</svg>
