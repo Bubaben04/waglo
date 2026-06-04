@@ -109,7 +109,7 @@ export default function Profile({ session, onLogout }) {
         ))}
         <div style={{ padding: "12px 16px", fontSize: 11, color: "#aaa", textAlign: "center", borderTop: "1px solid #f0f4f3" }}>
           Waglo.pet — Guidetti Umberto — P.IVA 02903920359 — Reggio Emilia{"\n"}
-          info@waglo.pet | dsa@waglo.pet | privacy@waglo.pet
+          info@waglo.pet | dsa@waglo.pet | privacy@waglo.pet | PEC: waglo@pec.it
         </div>
       </div>
     </div>
