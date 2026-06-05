@@ -248,7 +248,7 @@ export default function Home({ session, onShowAuth }) {
 
       <div style={{ padding: "14px 20px", background: "#1a7a6e", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, zIndex: 100, boxShadow: "0 2px 12px #1a7a6e40" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <img src="/assets/brand/waglo_definitivo.svg" alt="Waglo" style={{height: 92}} />
+          <img src="/waglo_definitivo.svg" alt="Waglo" style={{height: 92}} />
           <img src="/waglo_header.svg" alt="Waglo · tails & deals" style={{ height: 56, width: "auto" }} />
         </div>
         {!session && (
