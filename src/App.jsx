@@ -7,7 +7,8 @@ import Profile from "./components/Profile";
 import NewAd from "./components/NewAd";
 import { IconHome, IconSalvati, IconPubblica, IconChat, IconProfilo } from "./components/WagloIcons";
 
-  { id: "home", Icon: IconHome, label: "Home" },
+ const NAV = [
+   { id: "home", Icon: IconHome, label: "Home" },
   { id: "favorites", Icon: IconSalvati, label: "Salvati" },
   { id: "chat", Icon: IconChat, label: "Chat" },
   { id: "profile", Icon: IconProfilo, label: "Profilo" },
