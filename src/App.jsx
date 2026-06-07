@@ -6,13 +6,7 @@ import Favorites from "./components/Favorites";
 import Profile from "./components/Profile";
 import NewAd from "./components/NewAd";
 import { IconHome, IconSalvati, IconPubblica, IconChat, IconProfilo } from "./components/WagloIcons";
-const NAV = [
-  { id: "home", Icon: IconHome, label: "Home" },
-  { id: "favorites", Icon: IconHeart, label: "Salvati" },
-  { id: "chat", Icon: IconMsg, label: "Chat" },
-  { id: "profile", Icon: IconUser, label: "Profilo" },
-];
-const NAV = [
+
   { id: "home", Icon: IconHome, label: "Home" },
   { id: "favorites", Icon: IconSalvati, label: "Salvati" },
   { id: "chat", Icon: IconChat, label: "Chat" },
