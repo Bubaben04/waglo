@@ -5,25 +5,19 @@ import Home from "./components/Home";
 import Favorites from "./components/Favorites";
 import Profile from "./components/Profile";
 import NewAd from "./components/NewAd";
-
-const IconHome = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{width:24,height:24}}><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>;
-const IconHeart = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{width:24,height:24}}><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>;
-const IconMsg = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{width:24,height:24}}><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>;
-const IconUser = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{width:24,height:24}}><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>;
-const IconPlus = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" style={{width:28,height:28}}><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>;
-
+import { IconHome, IconSalvati, IconPubblica, IconChat, IconProfilo } from "./components/WagloIcons";
 const NAV = [
   { id: "home", Icon: IconHome, label: "Home" },
   { id: "favorites", Icon: IconHeart, label: "Salvati" },
   { id: "chat", Icon: IconMsg, label: "Chat" },
   { id: "profile", Icon: IconUser, label: "Profilo" },
 ];
-
-export default function App() {
-  const [session, setSession] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [showAuth, setShowAuth] = useState(false);
-  const [showNewAd, setShowNewAd] = useState(false);
+const NAV = [
+  { id: "home", Icon: IconHome, label: "Home" },
+  { id: "favorites", Icon: IconSalvati, label: "Salvati" },
+  { id: "chat", Icon: IconChat, label: "Chat" },
+  { id: "profile", Icon: IconProfilo, label: "Profilo" },
+];
   const [activeTab, setActiveTab] = useState("home");
 
   useEffect(() => {
