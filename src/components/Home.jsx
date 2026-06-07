@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { supabase } from "../supabaseClient";
 import {
-  LayoutGrid, Dog, Cat, Bird, Fish, Rat, Turtle, Rabbit, PawPrint, ArrowLeftRight,
-  UtensilsCrossed, ShoppingBag, FlaskConical, Droplets, Bug, MoreHorizontal
-} from "lucide-react";
+  IconTutti, IconCani, IconGatti, IconUccelli, IconPesci,
+  IconRoditori, IconRettili, IconConigli, IconCavalli, IconAltri,
+  IconAlimenti, IconAccessori, IconIntegratori, IconIgiene,
+  IconAntiparassitari, IconAltro
+} from "./WagloIcons";
 
 const HorseshoeIcon = ({ size = 24, strokeWidth = 1.8, color = "currentColor" }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
@@ -14,26 +16,27 @@ const HorseshoeIcon = ({ size = 24, strokeWidth = 1.8, color = "currentColor" })
 );
 
 const ANIMAL_CATEGORIES = [
-  { id: "all", label: "Tutti", Icon: LayoutGrid },
-  { id: "cani", label: "Cani", Icon: Dog },
-  { id: "gatti", label: "Gatti", Icon: Cat },
-  { id: "uccelli", label: "Uccelli", Icon: Bird },
-  { id: "pesci", label: "Pesci", Icon: Fish },
-  { id: "roditori", label: "Roditori", Icon: Rat },
-  { id: "rettili", label: "Rettili", Icon: Turtle },
-  { id: "conigli", label: "Conigli", Icon: Rabbit },
-  { id: "cavalli", label: "Cavalli", Icon: HorseshoeIcon },
-  { id: "altri", label: "Altri", Icon: ArrowLeftRight },
+  { id: "all", label: "Tutti", Icon: IconTutti },
+  { id: "cani", label: "Cani", Icon: IconCani },
+  { id: "gatti", label: "Gatti", Icon: IconGatti },
+  { id: "uccelli", label: "Uccelli", Icon: IconUccelli },
+  { id: "pesci", label: "Pesci", Icon: IconPesci },
+  { id: "roditori", label: "Roditori", Icon: IconRoditori },
+  { id: "rettili", label: "Rettili", Icon: IconRettili },
+  { id: "conigli", label: "Conigli", Icon: IconConigli },
+  { id: "cavalli", label: "Cavalli", Icon: IconCavalli },
+  { id: "altri", label: "Altri", Icon: IconAltri },
 ];
 
 const PRODUCT_CATEGORIES = [
-  { id: "all", label: "Tutti", Icon: LayoutGrid },
-  { id: "alimenti", label: "Alimenti", Icon: UtensilsCrossed },
-  { id: "accessori", label: "Accessori", Icon: ShoppingBag },
-  { id: "integratori", label: "Integratori", Icon: FlaskConical },
-  { id: "igiene", label: "Igiene e cosmesi", Icon: Droplets },
-  { id: "antiparassitari", label: "Antiparassitari", Icon: Bug },
-  { id: "altro", label: "Altro", Icon: MoreHorizontal },
+  { id: "all", label: "Tutti", Icon: IconTutti },
+  { id: "alimenti", label: "Alimenti", Icon: IconAlimenti },
+  { id: "accessori", label: "Accessori", Icon: IconAccessori },
+  { id: "integratori", label: "Integratori", Icon: IconIntegratori },
+  { id: "igiene", label: "Igiene e cosmesi", Icon: IconIgiene },
+  { id: "antiparassitari", label: "Antiparassitari", Icon: IconAntiparassitari },
+  { id: "altro", label: "Altro", Icon: IconAltro },
+];
 ];
 
 const CONDITIONS = {
