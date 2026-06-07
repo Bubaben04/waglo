@@ -61,4 +61,16 @@ export default function App() {
             <span style={{ fontSize: 10, fontWeight: 700 }}>{label}</span>
           </button>
         ))}
-        <button onClick={handleSell} style={{ width: 56, height: 56, borderRadius: "50%", background: "#1a7a6e", border: "none", color: "#fff", cursor
+        <button onClick={handleSell} style={{ width: 56, height: 56, borderRadius: "50%", background: "#1a7a6e", border: "none", color: "#fff", cursor: "pointer", marginBottom: 10, boxShadow: "0 4px 16px #1a7a6e50", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+          <IconPubblica />
+        </button>
+        {NAV.slice(2).map(({ id, Icon, label }) => (
+          <button key={id} onClick={() => handleTabChange(id)} style={{ flex: 1, background: "none", border: "none", padding: "10px 0", cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center", gap: 2, color: activeTab === id ? "#1a7a6e" : "#aaa", transition: "color .2s", fontFamily: "inherit" }}>
+            <Icon />
+            <span style={{ fontSize: 10, fontWeight: 700 }}>{label}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
