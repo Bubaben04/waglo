@@ -37,7 +37,7 @@ const PRODUCT_CATEGORIES = [
   { id: "antiparassitari", label: "Antiparassitari", Icon: IconAntiparassitari },
   { id: "altro", label: "Altro", Icon: IconAltro },
 ];
-];
+
 
 const CONDITIONS = {
   nuovo: { label: "Nuovo", color: "#1a7a6e" },
