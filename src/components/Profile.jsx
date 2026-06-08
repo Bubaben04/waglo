@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../supabaseClient";
-
+import { IconNoteLegali, IconTermini, IconPrivacy, IconCookie, IconDSA, IconVietati } from "./WagloIcons";
 const LegalSection = ({ label, icon, content }) => {
   const [open, setOpen] = useState(false);
   return (
@@ -96,14 +96,14 @@ export default function Profile({ session, onLogout }) {
       {/* SEZIONE NOTE LEGALI */}
       <div style={{ margin: "0 16px 16px", background: "#fff", borderRadius: 16, border: "1px solid #e8f0ee", overflow: "hidden" }}>
         <div style={{ padding: "14px 16px", borderBottom: "1px solid #f0f4f3", fontWeight: 800, color: "#0f3d38", fontSize: 15 }}>
-          📋 Note Legali e Privacy
+       <IconNoteLegali size={18} color="#0f3d38" /> Note Legali e Privacy 
         </div>
         {[
-          { label: "Termini e Condizioni", icon: "📄", content: "Waglo è un marketplace che mette in contatto venditori e acquirenti di prodotti usati per animali. Il contratto di compravendita si stipula esclusivamente tra le parti. Waglo (Guidetti Umberto — P.IVA 02903920359 — Via Agnoletti 6, Reggio Emilia) è estranea al rapporto contrattuale e declina ogni responsabilità sui prodotti scambiati." },
-          { label: "Privacy Policy", icon: "🔒", content: "I tuoi dati personali sono trattati da Guidetti Umberto (P.IVA 02903920359) ai sensi del GDPR (Reg. UE 2016/679). I dati sono utilizzati per la gestione dell'account e degli annunci. Ai sensi del D.Lgs. 32/2023 (DAC7), i dati dei venditori che superano 30 transazioni o €3.000/anno sono comunicati all'Agenzia delle Entrate. Per esercitare i tuoi diritti: privacy@waglo.pet" },
-          { label: "Cookie Policy", icon: "🍪", content: "Waglo utilizza esclusivamente cookie tecnici necessari al funzionamento dell'app (autenticazione e sicurezza della sessione). Non utilizziamo cookie di profilazione o marketing. I cookie tecnici non richiedono consenso." },
-          { label: "Segnalazioni e DSA", icon: "🚩", content: "In conformità al Digital Services Act (Reg. UE 2065/2022), puoi segnalare qualsiasi annuncio illecito tramite il tasto Segnala presente su ogni annuncio. Puoi anche contattarci a dsa@waglo.pet. Le segnalazioni vengono esaminate entro 24 ore." },
-          { label: "Prodotti vietati", icon: "⛔", content: "Su Waglo è vietata la vendita di: animali vivi, medicinali veterinari, antiparassitari registrati come farmaci, attrezzature coercitive per animali, prodotti contraffatti, alimenti scaduti o aperti, cosmetici scaduti." },
+          { label: "Termini e Condizioni", icon: <IconTermini size={16} color="#0f3d38" />, content: "Waglo è un marketplace che mette in contatto venditori e acquirenti di prodotti usati per animali. Il contratto di compravendita si stipula esclusivamente tra le parti. Waglo (Guidetti Umberto — P.IVA 02903920359 — Via Agnoletti 6, Reggio Emilia) è estranea al rapporto contrattuale e declina ogni responsabilità sui prodotti scambiati." },
+          { label: "Privacy Policy", icon: <IconPrivacy size={16} color="#0f3d38" />, content: "I tuoi dati personali sono trattati da Guidetti Umberto (P.IVA 02903920359) ai sensi del GDPR (Reg. UE 2016/679). I dati sono utilizzati per la gestione dell'account e degli annunci. Ai sensi del D.Lgs. 32/2023 (DAC7), i dati dei venditori che superano 30 transazioni o €3.000/anno sono comunicati all'Agenzia delle Entrate. Per esercitare i tuoi diritti: privacy@waglo.pet" },
+          { label: "Cookie Policy", icon: <IconCookie size={16} color="#0f3d38" />, content: "Waglo utilizza esclusivamente cookie tecnici necessari al funzionamento dell'app (autenticazione e sicurezza della sessione). Non utilizziamo cookie di profilazione o marketing. I cookie tecnici non richiedono consenso." },
+          { label: "Segnalazioni e DSA", icon: <IconDSA size={16} color="#0f3d38" />, content: "In conformità al Digital Services Act (Reg. UE 2065/2022), puoi segnalare qualsiasi annuncio illecito tramite il tasto Segnala presente su ogni annuncio. Puoi anche contattarci a dsa@waglo.pet. Le segnalazioni vengono esaminate entro 24 ore." },
+          { label: "Prodotti vietati", icon: <IconVietati size={16} color="#0f3d38" />, content: "Su Waglo è vietata la vendita di: animali vivi, medicinali veterinari, antiparassitari registrati come farmaci, attrezzature coercitive per animali, prodotti contraffatti, alimenti scaduti o aperti, cosmetici scaduti." },
         ].map(({ label, icon, content }) => (
           <LegalSection key={label} label={label} icon={icon} content={content} />
         ))}
