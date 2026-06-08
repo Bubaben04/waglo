@@ -265,3 +265,59 @@ export const IconProfilo = ({ size = 24, color = "currentColor", strokeWidth = 2
     <path d="M2,22 Q2,15 12,15 Q22,15 22,22"/>
   </svg>
 );
+
+export const IconNoteLegali = ({ size = 24, color = "currentColor", strokeWidth = 2.2 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
+    <line x1="12" y1="2" x2="12" y2="22"/>
+    <path d="M4,22 L20,22" strokeWidth="2.6"/>
+    <line x1="2" y1="8" x2="22" y2="8"/>
+    <line x1="2" y1="8" x2="2" y2="14"/>
+    <line x1="22" y1="8" x2="22" y2="14"/>
+    <path d="M-2,14 Q2,18 6,14" fill="none"/>
+    <path d="M18,14 Q22,18 26,14" fill="none"/>
+    <circle cx="12" cy="8" r="1.8" fill={color} stroke="none"/>
+  </svg>
+);
+export const IconTermini = ({ size = 24, color = "currentColor", strokeWidth = 2.2 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
+    <rect x="3" y="1" width="18" height="22" rx="2"/>
+    <path d="M15,1 L15,7 L21,7"/>
+    <line x1="7" y1="11" x2="17" y2="11" strokeWidth="1.4"/>
+    <line x1="7" y1="14" x2="17" y2="14" strokeWidth="1.4"/>
+    <line x1="7" y1="17" x2="13" y2="17" strokeWidth="1.4"/>
+    <circle cx="16" cy="19" r="3"/>
+    <circle cx="16" cy="19" r="1.2" fill={color} stroke="none"/>
+  </svg>
+);
+export const IconPrivacy = ({ size = 24, color = "currentColor", strokeWidth = 2.2 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
+    <rect x="5" y="11" width="14" height="11" rx="2"/>
+    <path d="M8,11 L8,7 Q8,3 12,3 Q16,3 16,7 L16,11"/>
+    <circle cx="12" cy="16" r="2"/>
+    <line x1="12" y1="18" x2="12" y2="20" strokeWidth="2"/>
+  </svg>
+);
+export const IconCookie = ({ size = 24, color = "currentColor", strokeWidth = 2.2 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10"/>
+    <circle cx="8" cy="8" r="1.5" fill={color} stroke="none"/>
+    <circle cx="14" cy="9" r="1.5" fill={color} stroke="none"/>
+    <circle cx="9" cy="14" r="1.5" fill={color} stroke="none"/>
+    <circle cx="15" cy="15" r="1.2" fill={color} stroke="none"/>
+    <circle cx="6" cy="13" r="1" fill={color} stroke="none"/>
+  </svg>
+);
+export const IconDSA = ({ size = 24, color = "currentColor", strokeWidth = 2.2 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M3,9 L3,15 L9,19 L9,5 Z"/>
+    <path d="M9,7 L21,2 L21,22 L9,17"/>
+    <path d="M21,8 Q24,10 24,12 Q24,14 21,16" strokeWidth="1.8"/>
+    <line x1="3" y1="15" x2="3" y2="22"/>
+  </svg>
+);
+export const IconVietati = ({ size = 24, color = "currentColor", strokeWidth = 2.2 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10" strokeWidth="2.6"/>
+    <rect x="5" y="10" width="14" height="4" rx="1" fill={color} stroke="none"/>
+  </svg>
+);
