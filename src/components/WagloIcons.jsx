@@ -352,30 +352,3 @@ export const IconCuore = ({ size = 24, color = "currentColor", strokeWidth = 2.2
   </svg>
 );
 
-export const IconRicerca = ({ size = 24, color = "currentColor", strokeWidth = 2.2 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="10" cy="10" r="7"/>
-    <line x1="15" y1="15" x2="22" y2="22" strokeWidth="2.8"/>
-  </svg>
-);
-export const IconChatVuota = ({ size = 48, color = "currentColor", strokeWidth = 2.2 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
-    <path d="M2,3 Q2,1 4,1 L20,1 Q22,1 22,3 L22,15 Q22,17 20,17 L14,17 L9,22 L9,17 L4,17 Q2,17 2,15 Z"/>
-    <circle cx="8" cy="9" r="1.2" fill={color} stroke="none"/>
-    <circle cx="12" cy="9" r="1.2" fill={color} stroke="none"/>
-    <circle cx="16" cy="9" r="1.2" fill={color} stroke="none"/>
-  </svg>
-);
-export const IconPacco = ({ size = 48, color = "currentColor", strokeWidth = 2.2 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2" y="8" width="20" height="14" rx="2"/>
-    <path d="M2,8 L2,4 Q2,2 6,2 L18,2 Q22,2 22,4 L22,8"/>
-    <line x1="2" y1="8" x2="22" y2="8"/>
-    <line x1="12" y1="2" x2="12" y2="22" strokeWidth="1.6"/>
-  </svg>
-);
-export const IconCuore = ({ size = 24, color = "currentColor", strokeWidth = 2.2 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12,21 Q-2,12 2,5 Q5,0 12,6 Q19,0 22,5 Q26,12 12,21Z"/>
-  </svg>
-);
