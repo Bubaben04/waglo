@@ -4,7 +4,7 @@ import {
   IconTutti, IconCani, IconGatti, IconUccelli, IconPesci,
   IconRoditori, IconRettili, IconConigli, IconCavalli, IconAltri,
   IconAlimenti, IconAccessori, IconIntegratori, IconIgiene,
-  IconAntiparassitari, IconAltro
+  IconAntiparassitari, IconAltro, IconPacco
 } from "./WagloIcons";
 
 const HorseshoeIcon = ({ size = 24, strokeWidth = 1.8, color = "currentColor" }) => (
@@ -260,7 +260,7 @@ export default function Home({ session, onShowAuth }) {
       </div>
 
       <div style={{ padding: "14px 16px 8px" }}>
-        <input value={search} onChange={e => setSearch(e.target.value)} placeholder="🔍 Cerca usato per animali..." style={{ width: "100%", padding: "12px 16px", borderRadius: 12, border: "1.5px solid #dde8e6", background: "#fff", color: "#0f3d38", fontSize: 14, fontFamily: "inherit", boxSizing: "border-box", outline: "none" }} />
+        <input value={search} onChange={e => setSearch(e.target.value)} placeholder=" Cerca usato per animali..." style={{ width: "100%", padding: "12px 16px", borderRadius: 12, border: "1.5px solid #dde8e6", background: "#fff", color: "#0f3d38", fontSize: 14, fontFamily: "inherit", boxSizing: "border-box", outline: "none" }} />
       </div>
 
       <div style={{ padding: "0 8px 4px" }}>

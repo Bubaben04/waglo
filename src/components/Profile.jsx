@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../supabaseClient";
-import { IconNoteLegali, IconTermini, IconPrivacy, IconCookie, IconDSA, IconVietati } from "./WagloIcons";
+import { IconNoteLegali, IconTermini, IconPrivacy, IconCookie, IconDSA, IconVietati, IconPacco } from "./WagloIcons";
 const LegalSection = ({ label, icon, content }) => {
   const [open, setOpen] = useState(false);
   return (
@@ -70,7 +70,7 @@ export default function Profile({ session, onLogout }) {
           <div style={{ textAlign: "center", padding: "40px 0", color: "#888" }}>Caricamento...</div>
         ) : myAds.length === 0 ? (
           <div style={{ textAlign: "center", padding: "40px 20px", color: "#888" }}>
-            <div style={{ fontSize: 48, marginBottom: 12 }}>📦</div>
+      <div style={{ marginBottom: 12 }}><IconPacco size={48} color="#888" /></div>
             <p>Non hai ancora pubblicato annunci.</p>
           </div>
         ) : myAds.map(ad => (

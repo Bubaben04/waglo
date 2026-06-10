@@ -5,7 +5,7 @@ import Home from "./components/Home";
 import Favorites from "./components/Favorites";
 import Profile from "./components/Profile";
 import NewAd from "./components/NewAd";
-import { IconHome, IconSalvati, IconPubblica, IconChat, IconProfilo } from "./components/WagloIcons";
+import { IconHome, IconSalvati, IconPubblica, IconChat, IconProfilo, IconChatVuota, IconAltri} from "./components/WagloIcons";
 
 const NAV = [
   { id: "home", Icon: IconHome, label: "Home" },
@@ -36,7 +36,7 @@ export default function App() {
 
   const handleSell = () => { if (!session) { setShowAuth(true); return; } setShowNewAd(true); };
 
-  if (loading) return <div style={{ minHeight: "100vh", background: "#f5f7f6", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 48 }}>🐾</div>;
+if (loading) return <div style={{ minHeight: "100vh", background: "#f5f7f6", display: "flex", alignItems: "center", justifyContent: "center" }}><IconAltri size={64} color="#1a7a6e" /></div>;
   if (showAuth) return <Auth onAuth={() => setShowAuth(false)} />;
   if (showNewAd) return <NewAd session={session} onBack={() => setShowNewAd(false)} onPublished={() => { setShowNewAd(false); setActiveTab("home"); }} />;
 
@@ -48,7 +48,7 @@ export default function App() {
       {activeTab === "favorites" && session && <Favorites session={session} />}
       {activeTab === "chat" && session && (
         <div style={{ padding: 20, color: "#888", textAlign: "center", paddingTop: 100, fontFamily: "inherit" }}>
-          <div style={{ fontSize: 48, marginBottom: 12 }}>💬</div>
+          <div style={{ marginBottom: 12 }}><IconChatVuota size={48} color="#888" /></div>
           <p>Chat in arrivo nel prossimo aggiornamento</p>
         </div>
       )}
