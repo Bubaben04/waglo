@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../supabaseClient";
+import { IconCuore } from "./WagloIcons";
 
 export default function Favorites({ session }) {
   const [favorites, setFavorites] = useState([]);
@@ -23,7 +24,7 @@ export default function Favorites({ session }) {
     <div style={{ paddingBottom: 80, fontFamily: "'Nunito', sans-serif", background: "#f5f7f6", minHeight: "100vh" }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');`}</style>
       <div style={{ padding: "16px 20px", background: "#1a7a6e", position: "sticky", top: 0, zIndex: 100 }}>
-        <div style={{ fontWeight: 900, fontSize: 20, color: "#fff" }}>❤️ Salvati</div>
+        <div style={{ fontWeight: 900, fontSize: 20, color: "#fff" }}><IconCuore size={20} color="#fff" /> Salvati</div>
       </div>
       {loading ? (
         <div style={{ textAlign: "center", padding: "60px 0", color: "#888" }}>Caricamento...</div>
