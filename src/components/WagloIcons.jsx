@@ -58,8 +58,8 @@ export const IconPesci = ({ size = 24, color = "currentColor", strokeWidth = 2.2
   <svg width={size} height={size} viewBox="-4 -4 56 56" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
     <ellipse cx="20" cy="24" rx="16" ry="9"/>
     <path d="M36,15 L46,6 L46,42 L36,33Z"/>
-    <path d="M4,18 Q10,10 18,14" strokeWidth="1.4"/>
-    <path d="M4,30 Q10,38 18,34" strokeWidth="1.4"/>
+    <path d="M18,14 Q26,8 34,12" strokeWidth="1.4"/>
+    <path d="M18,34 Q26,40 34,36" strokeWidth="1.4"/>
     <circle cx="10" cy="21" r="2" fill={color} stroke="none"/>
   </svg>
 );
