@@ -30,7 +30,7 @@ export default function Favorites({ session }) {
         <div style={{ textAlign: "center", padding: "60px 0", color: "#888" }}>Caricamento...</div>
       ) : favorites.length === 0 ? (
         <div style={{ textAlign: "center", padding: "60px 20px", color: "#888" }}>
-          <div style={{ fontSize: 48, marginBottom: 12 }}>🤍</div>
+        <div style={{ marginBottom: 12 }}><IconCuore size={48} color="#888" /></div>
           <p>Non hai ancora salvato nessun annuncio.</p>
         </div>
       ) : (
