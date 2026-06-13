@@ -251,8 +251,8 @@ export default function Home({ session, onShowAuth }) {
 
       <div style={{ padding: "14px 20px", background: "#1a7a6e", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, zIndex: 100, boxShadow: "0 2px 12px #1a7a6e40" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 32 }}>
-        <img src="/waglo_definitivo.svg" alt="Waglo" style={{height: 60, borderRadius: "50%"}} />
-          <img src="/waglo_header.svg" alt="Waglo · tails & deals" style={{ height: 72, width: "auto" }} />
+        <img src="/waglo_definitivo.svg" alt="Waglo" style={{height: 48, borderRadius: "50%"}} />
+          <img src="/waglo_header.svg" alt="Waglo · tails & deals" style={{ height: 88, width: "auto" }} />
         </div>
         {!session && (
           <button onClick={onShowAuth} style={{ background: "#fff", color: "#1a7a6e", border: "none", borderRadius: 10, padding: "7px 16px", fontWeight: 800, fontSize: 13, cursor: "pointer", fontFamily: "inherit" }}>Accedi</button>
