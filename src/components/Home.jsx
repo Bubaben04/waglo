@@ -260,7 +260,14 @@ export default function Home({ session, onShowAuth }) {
       </div>
 
       <div style={{ padding: "14px 16px 8px" }}>
-        <input value={search} onChange={e => setSearch(e.target.value)} placeholder=" Cerca usato per animali..." style={{ width: "100%", padding: "12px 16px", borderRadius: 12, border: "1.5px solid #dde8e6", background: "#fff", color: "#0f3d38", fontSize: 14, fontFamily: "inherit", boxSizing: "border-box", outline: "none" }} />
+        <div style={{ padding: "14px 16px 8px" }}>
+  <div style={{ position: "relative" }}>
+    <div style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}>
+      <IconRicerca size={18} color="#aaa" />
+    </div>
+    <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Cerca usato per animali..." style={{ width: "100%", padding: "12px 16px 12px 42px", borderRadius: 12, border: "1.5px solid #dde8e6", background: "#fff", color: "#0f3d38", fontSize: 14, fontFamily: "inherit", boxSizing: "border-box", outline: "none" }} />
+  </div>
+</div>
       </div>
 
       <div style={{ padding: "0 8px 4px" }}>
