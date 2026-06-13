@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../supabaseClient";
-import { IconNoteLegali, IconTermini, IconPrivacy, IconCookie, IconDSA, IconVietati, IconPacco } from "./WagloIcons";
+import { IconNoteLegali, IconTermini, IconPrivacy, IconCookie, IconDSA, IconVietati, IconPacco, IconAlimenti, IconAccessori, IconIntegratori, IconIgiene, IconAntiparassitari, IconAltro } from "./WagloIcons";
 const LegalSection = ({ label, icon, content }) => {
   const [open, setOpen] = useState(false);
   return (
@@ -18,7 +18,18 @@ const LegalSection = ({ label, icon, content }) => {
   );
 };
 
-export default function Profile({ session, onLogout }) {
+const getCategoryIcon = (category) => {
+  const icons = {
+    alimenti: IconAlimenti,
+    accessori: IconAccessori,
+    integratori: IconIntegratori,
+    igiene: IconIgiene,
+    antiparassitari: IconAntiparassitari,
+    altro: IconAltro,
+  };
+  const Icon = icons[category] || IconAltro;
+  return <Icon size={28} color="#1a7a6e" />;
+};export default function Profile({ session, onLogout }) {
   const [profile, setProfile] = useState(null);
   const [myAds, setMyAds] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -76,7 +87,7 @@ export default function Profile({ session, onLogout }) {
         ) : myAds.map(ad => (
           <div key={ad.id} style={{ background: "#fff", borderRadius: 14, marginBottom: 12, display: "flex", alignItems: "center", gap: 12, padding: 12, border: "1px solid #e8f0ee", opacity: ad.status === "sold" ? 0.6 : 1 }}>
             <div style={{ width: 56, height: 56, borderRadius: 10, background: "#f0f4f3", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28, overflow: "hidden", flexShrink: 0 }}>
-              {ad.ad_images?.[0]?.image_url ? <img src={ad.ad_images[0].image_url} alt={ad.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : "🐾"}
+          {ad.ad_images?.[0]?.image_url ? <img src={ad.ad_images[0].image_url} alt={ad.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : getCategoryIcon(ad.category)}
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ fontWeight: 700, color: "#0f3d38", fontSize: 13 }}>{ad.title}</div>
