@@ -1,38 +1,37 @@
 import { useState } from "react";
 import { supabase } from "../supabaseClient";
 import {
-  Dog, Cat, Bird, Fish, Rat, Turtle, Rabbit, PawPrint, ArrowLeftRight,
-  UtensilsCrossed, ShoppingBag, FlaskConical, Droplets, Bug, MoreHorizontal
-} from "lucide-react";
+  IconTutti, IconCani, IconGatti, IconUccelli, IconPesci,
+  IconRoditori, IconRettili, IconConigli, IconCavalli, IconAltri,
+  IconAlimenti, IconAccessori, IconIntegratori, IconIgiene,
+  IconAntiparassitari, IconAltro
+} from "./WagloIcons";
 
-const HorseshoeIcon = ({ size = 24, strokeWidth = 1.8, color = "currentColor" }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 3C7.5 3 4 6.5 4 11v3c0 1.1.9 2 2 2h1c1.1 0 2-.9 2-2v-1c0-1.7 1.3-3 3-3s3 1.3 3 3v1c0 1.1.9 2 2 2h1c1.1 0 2-.9 2-2v-3c0-4.5-3.5-8-8-8z"/>
-    <circle cx="8" cy="19" r="1" fill={color} stroke="none"/>
-    <circle cx="16" cy="19" r="1" fill={color} stroke="none"/>
-  </svg>
-);
+
+
+
+
 
 const ANIMAL_TYPES = [
-  { id: "cani", label: "Cani", Icon: Dog },
-  { id: "gatti", label: "Gatti", Icon: Cat },
-  { id: "uccelli", label: "Uccelli", Icon: Bird },
-  { id: "pesci", label: "Pesci e acquari", Icon: Fish },
-  { id: "roditori", label: "Roditori", Icon: Rat },
-  { id: "rettili", label: "Rettili", Icon: Turtle },
-  { id: "conigli", label: "Conigli", Icon: Rabbit },
-  { id: "cavalli", label: "Cavalli", Icon: HorseshoeIcon },
-  { id: "altri", label: "Altri", Icon: ArrowLeftRight },
+ { id: "cani", label: "Cani", Icon: IconCani },
+  { id: "gatti", label: "Gatti", Icon: IconGatti },
+  { id: "uccelli", label: "Uccelli", Icon: IconUccelli },
+  { id: "pesci", label: "Pesci e acquari", Icon: IconPesci },
+  { id: "roditori", label: "Roditori", Icon: IconRoditori },
+  { id: "rettili", label: "Rettili", Icon: IconRettili },
+  { id: "conigli", label: "Conigli", Icon: IconConigli },
+  { id: "cavalli", label: "Cavalli", Icon: IconCavalli },
+  { id: "altri", label: "Altri", Icon: IconAltri },
 ];
 
 const PRODUCT_CATEGORIES = [
-  { id: "alimenti", label: "Alimenti", Icon: UtensilsCrossed },
-  { id: "accessori", label: "Accessori", Icon: ShoppingBag },
-  { id: "integratori", label: "Integratori", Icon: FlaskConical },
-  { id: "igiene", label: "Igiene e cosmesi", Icon: Droplets },
-  { id: "antiparassitari", label: "Antiparassitari", Icon: Bug },
-  { id: "altro", label: "Altro", Icon: MoreHorizontal },
-];
+  { id: "alimenti", label: "Alimenti", Icon: IconAlimenti },
+  { id: "accessori", label: "Accessori", Icon: IconAccessori },
+  { id: "integratori", label: "Integratori", Icon: IconIntegratori },
+  { id: "igiene", label: "Igiene e cosmesi", Icon: IconIgiene },
+  { id: "antiparassitari", label: "Antiparassitari", Icon: IconAntiparassitari },
+  { id: "altro", label: "Altro", Icon: IconAltro },
+]; 
 
 const CONDITIONS = [
   { id: "nuovo", label: "Nuovo", desc: "Mai usato, con o senza confezione originale" },
