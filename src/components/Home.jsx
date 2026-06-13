@@ -241,7 +241,7 @@ export default function Home({ session, onShowAuth }) {
   const filtered = ads.filter(ad => {
     const matchAnimal = animalCat === "all" || ad.animal_type === animalCat;
     const matchProduct = productCat === "all" || ad.category === productCat;
-    const matchSearch = !search || ad.title.toLowerCase().includes(search.toLowerCase()) || ad.city.toLowerCase().includes(search.toLowerCase());
+  const matchSearch = !search.trim() || ad.title.toLowerCase().includes(search.trim().toLowerCase()) || ad.city.toLowerCase().includes(search.trim().toLowerCase());
     return matchAnimal && matchProduct && matchSearch;
   });
 
