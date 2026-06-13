@@ -4,7 +4,7 @@ import {
   IconTutti, IconCani, IconGatti, IconUccelli, IconPesci,
   IconRoditori, IconRettili, IconConigli, IconCavalli, IconAltri,
   IconAlimenti, IconAccessori, IconIntegratori, IconIgiene,
-  IconAntiparassitari, IconAltro, IconPacco
+IconAntiparassitari, IconAltro, IconPacco, IconRicerca
 } from "./WagloIcons";
 
 const HorseshoeIcon = ({ size = 24, strokeWidth = 1.8, color = "currentColor" }) => (
