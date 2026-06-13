@@ -278,7 +278,7 @@ export default function Home({ session, onShowAuth }) {
           <div style={{ gridColumn: "1/-1", textAlign: "center", padding: "60px 0", color: "#888" }}>Caricamento...</div>
         ) : filtered.length === 0 ? (
           <div style={{ gridColumn: "1/-1", textAlign: "center", padding: "60px 0", color: "#888" }}>
-            <div style={{ fontSize: 48, marginBottom: 12 }}>🔍</div>
+          <div style={{ marginBottom: 12 }}><IconRicerca size={48} color="#888" /></div>
             <p>Nessun annuncio trovato.</p>
           </div>
         ) : filtered.map(ad => <ProductCard key={ad.id} ad={ad} onOpen={setSelectedAd} />)}
