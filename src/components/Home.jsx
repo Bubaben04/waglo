@@ -4,16 +4,8 @@ import {
   IconTutti, IconCani, IconGatti, IconUccelli, IconPesci,
   IconRoditori, IconRettili, IconConigli, IconCavalli, IconAltri,
   IconAlimenti, IconAccessori, IconIntegratori, IconIgiene,
-IconAntiparassitari, IconAltro, IconPacco, IconRicerca
+  IconAntiparassitari, IconAltro, IconPacco, IconRicerca
 } from "./WagloIcons";
-
-const HorseshoeIcon = ({ size = 24, strokeWidth = 1.8, color = "currentColor" }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 3C7.5 3 4 6.5 4 11v3c0 1.1.9 2 2 2h1c1.1 0 2-.9 2-2v-1c0-1.7 1.3-3 3-3s3 1.3 3 3v1c0 1.1.9 2 2 2h1c1.1 0 2-.9 2-2v-3c0-4.5-3.5-8-8-8z"/>
-    <circle cx="8" cy="19" r="1" fill={color} stroke="none"/>
-    <circle cx="16" cy="19" r="1" fill={color} stroke="none"/>
-  </svg>
-);
 
 const ANIMAL_CATEGORIES = [
   { id: "all", label: "Tutti", Icon: IconTutti },
@@ -38,7 +30,6 @@ const PRODUCT_CATEGORIES = [
   { id: "altro", label: "Altro", Icon: IconAltro },
 ];
 
-
 const CONDITIONS = {
   nuovo: { label: "Nuovo", color: "#1a7a6e" },
   ottimo: { label: "Ottimo", color: "#2563eb" },
@@ -46,7 +37,6 @@ const CONDITIONS = {
   accettabile: { label: "Accettabile", color: "#e05a1e" },
   danneggiato: { label: "Danneggiato", color: "#7c3aed" },
   in_scadenza: { label: "In scadenza", color: "#f97316" },
-
 };
 
 const Badge = ({ condition }) => {
@@ -56,7 +46,7 @@ const Badge = ({ condition }) => {
 
 const getAnimalIcon = (animalType) => {
   const cat = ANIMAL_CATEGORIES.find(c => c.id === animalType);
-  return cat ? cat.Icon : PawPrint;
+  return cat ? cat.Icon : IconAltri;
 };
 
 const ProductCard = ({ ad, onOpen }) => {
@@ -106,6 +96,7 @@ const ProductModal = ({ ad, onClose, session, onContact }) => {
     setReportSent(true);
     setReportLoading(false);
   };
+
   return (
     <div onClick={onClose} style={{ position: "fixed", inset: 0, background: "#0007", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
       <div onClick={e => e.stopPropagation()} style={{ background: "#fff", borderRadius: 24, maxWidth: 500, width: "100%", maxHeight: "90vh", overflowY: "auto", boxShadow: "0 24px 80px #0004" }}>
@@ -241,7 +232,7 @@ export default function Home({ session, onShowAuth }) {
   const filtered = ads.filter(ad => {
     const matchAnimal = animalCat === "all" || ad.animal_type === animalCat;
     const matchProduct = productCat === "all" || ad.category === productCat;
-  const matchSearch = !search.trim() || ad.title.toLowerCase().includes(search.trim().toLowerCase()) || ad.city.toLowerCase().includes(search.trim().toLowerCase());
+    const matchSearch = !search.trim() || ad.title.toLowerCase().includes(search.trim().toLowerCase()) || ad.city.toLowerCase().includes(search.trim().toLowerCase());
     return matchAnimal && matchProduct && matchSearch;
   });
 
@@ -250,17 +241,22 @@ export default function Home({ session, onShowAuth }) {
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap'); div::-webkit-scrollbar{display:none}`}</style>
 
       <div style={{ padding: "14px 20px", background: "#1a7a6e", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, zIndex: 100, boxShadow: "0 2px 12px #1a7a6e40", overflow: "hidden", width: "100%" }}>
-       <div style={{ display: "flex", alignItems: "center", gap: 12, flex: 1, minWidth: 0 }}>
-        <img src="/waglo_definitivo.svg" alt="Waglo" style={{height: 48, borderRadius: "50%"}} />
-          <img src="/waglo_header.svg" alt="Waglo · tails & deals" style={{ height: 100, width: "auto" }} />
+        <div style={{ display: "flex", alignItems: "center", gap: 12, flex: 1, minWidth: 0 }}>
+          <img src="/waglo_definitivo.svg" alt="Waglo" style={{ height: 48, borderRadius: "50%" }} />
+          <img src="/waglo_header.svg" alt="Waglo · tails & deals" style={{ height: 88, width: "auto" }} />
         </div>
         {!session && (
-          <button onClick={onShowAuth} style={{ background: "#fff", color: "#1a7a6e", border: "none", borderRadius: 10, padding: "5px 10px", fontWeight: 800, fontSize: 11, cursor: "pointer", fontFamily: "inherit" }}>Accedi</button>
+          <button onClick={onShowAuth} style={{ flexShrink: 0, background: "#fff", color: "#1a7a6e", border: "none", borderRadius: 10, padding: "5px 10px", fontWeight: 800, fontSize: 11, cursor: "pointer", fontFamily: "inherit" }}>Accedi</button>
         )}
       </div>
 
       <div style={{ padding: "14px 16px 8px" }}>
-        
+        <div style={{ position: "relative" }}>
+          <div style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}>
+            <IconRicerca size={18} color="#aaa" />
+          </div>
+          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Cerca usato per animali..." style={{ width: "100%", padding: "12px 16px 12px 42px", borderRadius: 12, border: "1.5px solid #dde8e6", background: "#fff", color: "#0f3d38", fontSize: 14, fontFamily: "inherit", boxSizing: "border-box", outline: "none" }} />
+        </div>
       </div>
 
       <div style={{ padding: "0 8px 4px" }}>
@@ -278,7 +274,7 @@ export default function Home({ session, onShowAuth }) {
           <div style={{ gridColumn: "1/-1", textAlign: "center", padding: "60px 0", color: "#888" }}>Caricamento...</div>
         ) : filtered.length === 0 ? (
           <div style={{ gridColumn: "1/-1", textAlign: "center", padding: "60px 0", color: "#888" }}>
-          <div style={{ marginBottom: 12 }}><IconRicerca size={48} color="#888" /></div>
+            <div style={{ marginBottom: 12 }}><IconRicerca size={48} color="#888" /></div>
             <p>Nessun annuncio trovato.</p>
           </div>
         ) : filtered.map(ad => <ProductCard key={ad.id} ad={ad} onOpen={setSelectedAd} />)}
