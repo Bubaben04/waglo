@@ -95,7 +95,8 @@ export default function Auth({ onAuth }) {
   return (
     <div style={{ minHeight: "100vh", background: "#f0f4f3", display: "flex", alignItems: "center", justifyContent: "center", padding: 20, fontFamily: "'Nunito', sans-serif" }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap'); input:focus,select:focus,textarea:focus{border-color:#1a7a6e!important;box-shadow:0 0 0 3px #1a7a6e22;}`}</style>
-      <div style={{ width: "100%", maxWidth: 420, background: "#fff", borderRadius: 24, padding: "36px 32px", boxShadow: "0 8px 40px #1a7a6e18", border: "1px solid #e8f0ee" }}>
+      <div style={{ width: "100%", maxWidth: 420, background: "#fff", borderRadius: 24, padding: "36px 32px", boxShadow: "0 8px 40px #1a7a6e18", border: "1px solid #e8f0ee", position: "relative" }}>
+  <button onClick={onAuth} style={{ position: "absolute", top: 12, right: 12, background: "none", border: "none", fontSize: 22, color: "#888", cursor: "pointer" }}>✕</button>
         <div style={{ textAlign: "center", marginBottom: 28 }}>
           <img src="/waglo_logo.webp" alt="Waglo" style={{ width: 72, height: 72, borderRadius: 16, marginBottom: 12 }} />
           <div style={{ fontFamily: "'Nunito', sans-serif", fontSize: 28, fontWeight: 900, color: "#1a7a6e" }}>Waglo</div>
