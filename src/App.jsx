@@ -76,6 +76,7 @@ if (loading) return <div style={{ minHeight: "100vh", background: "#f5f7f6", dis
           </button>
         ))}
       </div>
-    {!cookieAccepted && <CookieBanner onAccept={handleCookieAccept} />}</div>
+    {!cookieAccepted && <CookieBanner onAccept={handleCookieAccept} />}
+    </div>
   );
 }
