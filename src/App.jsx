@@ -14,12 +14,17 @@ const NAV = [
   { id: "profile", Icon: IconProfilo, label: "Profilo" },
 ];
 
-export default function App() {
+const CookieBanner = ({ onAccept }) => (
+  <div style={{ position: "fixed", bottom: 0, left: 0, right: 0, background: "#0f3d38", color: "#fff", padding: "16px 20px", zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, fontFamily: "'Nunito', sans-serif", boxShadow: "0 -4px 20px #00000033" }}>
+    <p style={{ margin: 0, fontSize: 13, lineHeight: 1.5 }}>Waglo utilizza esclusivamente cookie tecnici necessari al funzionamento dell'app. Nessun cookie di profilazione.</p>
+    <button onClick={onAccept} style={{ flexShrink: 0, background: "#1a7a6e", color: "#fff", border: "none", borderRadius: 10, padding: "8px 18px", fontWeight: 800, fontSize: 13, cursor: "pointer", fontFamily: "inherit" }}>OK</button>
+  </div>
+);export default function App() {
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showAuth, setShowAuth] = useState(false);
   const [showNewAd, setShowNewAd] = useState(false);
-  const [activeTab, setActiveTab] = useState("home");
+  const [activeTab, setActiveTab] = useState("home");const [cookieAccepted, setCookieAccepted] = useState(() => localStorage.getItem("waglo_cookie") === "true");
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => { setSession(session); setLoading(false); });
@@ -34,7 +39,7 @@ export default function App() {
     setActiveTab(tab);
   };
 
-  const handleSell = () => { if (!session) { setShowAuth(true); return; } setShowNewAd(true); };
+  const handleSell = () => { if (!session) { setShowAuth(true); return; } setShowNewAd(true); };const handleCookieAccept = () => { localStorage.setItem("waglo_cookie", "true"); setCookieAccepted(true); };
 
 if (loading) return <div style={{ minHeight: "100vh", background: "#f5f7f6", display: "flex", alignItems: "center", justifyContent: "center" }}><IconAltri size={64} color="#1a7a6e" /></div>;
   if (showAuth) return <Auth onAuth={() => setShowAuth(false)} />;
@@ -71,6 +76,6 @@ if (loading) return <div style={{ minHeight: "100vh", background: "#f5f7f6", dis
           </button>
         ))}
       </div>
-    </div>
+    {!cookieAccepted && <CookieBanner onAccept={handleCookieAccept} />}</div>
   );
 }
