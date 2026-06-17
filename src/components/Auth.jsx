@@ -100,7 +100,7 @@ export default function Auth({ onAuth }) {
         <div style={{ textAlign: "center", marginBottom: 28 }}>
           <img src="/waglo_logo.webp" alt="Waglo" style={{ width: 72, height: 72, borderRadius: 16, marginBottom: 12 }} />
           <div style={{ fontFamily: "'Nunito', sans-serif", fontSize: 28, fontWeight: 900, color: "#1a7a6e" }}>Waglo</div>
-          <div style={{ color: "#888", fontSize: 13, marginTop: 2 }}>Il marketplace per i tuoi animali</div>
+          <div style={{ color: "#888", fontSize: 13, marginTop: 2 }}>Compra e vendi usato per animali</div>
         </div>
         <div style={{ display: "flex", background: "#f0f4f3", borderRadius: 12, padding: 4, marginBottom: 24 }}>
           {["login","register"].map(m => (
