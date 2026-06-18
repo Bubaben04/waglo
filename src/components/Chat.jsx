@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "../supabaseClient";
 import ChatConversation from "./ChatConversation";
 
-export default function Chat({ session, activeConversationId }) {
+export default function Chat({ session, activeConversationId, onInConversation }) {
   const [conversations, setConversations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeConv, setActiveConv] = useState(null);
@@ -12,7 +12,7 @@ export default function Chat({ session, activeConversationId }) {
   useEffect(() => {
     if (activeConversationId && conversations.length > 0) {
       const conv = conversations.find(c => c.id === activeConversationId);
-      if (conv) setActiveConv(conv);
+      if (conv) setActiveConv(conv); onInConversation(true);
     }
   }, [activeConversationId, conversations]);
 
@@ -28,7 +28,7 @@ export default function Chat({ session, activeConversationId }) {
   };
 
   if (activeConv) {
-    return <ChatConversation session={session} conversation={activeConv} onBack={() => { setActiveConv(null); fetchConversations(); }} />;
+    return <ChatConversation session={session} conversation={activeConv} onBack={() => { setActiveConv(null); fetchConversations(); onInConversation(false); }} />;
   }
 
   const getOtherName = (conv) => {
@@ -52,7 +52,7 @@ export default function Chat({ session, activeConversationId }) {
       ) : (
         <div style={{ padding: "12px 16px" }}>
           {conversations.map(conv => (
-            <div key={conv.id} onClick={() => setActiveConv(conv)} style={{ background: "#fff", borderRadius: 14, marginBottom: 12, padding: "14px 16px", border: "1px solid #e8f0ee", cursor: "pointer", display: "flex", alignItems: "center", gap: 12 }}>
+            <div key={conv.id} onClick={() => { setActiveConv(conv); onInConversation(true); }} style={{ background: "#fff", borderRadius: 14, marginBottom: 12, padding: "14px 16px", border: "1px solid #e8f0ee", cursor: "pointer", display: "flex", alignItems: "center", gap: 12 }}>
               <div style={{ width: 44, height: 44, borderRadius: "50%", background: "#1a7a6e", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 18, color: "#fff", flexShrink: 0 }}>
                 {getOtherName(conv)[0].toUpperCase()}
               </div>
