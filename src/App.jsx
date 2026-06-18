@@ -57,7 +57,7 @@ const [activeConversationId, setActiveConversationId] = useState(null);
     .select("id")
     .eq("ad_id", adId)
     .eq("buyer_id", buyerId)
-    .single();
+    .maybeSingle();
 
   if (existing) {
     setActiveConversationId(existing.id);
@@ -70,7 +70,7 @@ const [activeConversationId, setActiveConversationId] = useState(null);
     .from("waglo_conversations")
     .insert({ ad_id: adId, buyer_id: buyerId, seller_id: sellerId })
     .select("id")
-    .single();
+    .maybeSingle();
 
  if (!error) {
     setActiveConversationId(newConv.id);
