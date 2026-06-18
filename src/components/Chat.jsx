@@ -7,18 +7,16 @@ export default function Chat({ session, activeConversationId }) {
   const [loading, setLoading] = useState(true);
   const [activeConv, setActiveConv] = useState(null);
 
-useEffect(() => { 
-  fetchConversations(); 
-}, []);
+  useEffect(() => { fetchConversations(); }, []);
 
-useEffect(() => {
-  if (activeConversationId && conversations.length > 0) {
-    const conv = conversations.find(c => c.id === activeConversationId);
-    if (conv) setActiveConv(conv);
-  }
-}, [activeConversationId, conversations]);
+  useEffect(() => {
+    if (activeConversationId && conversations.length > 0) {
+      const conv = conversations.find(c => c.id === activeConversationId);
+      if (conv) setActiveConv(conv);
+    }
+  }, [activeConversationId, conversations]);
 
-.select("*, ads(title, ad_images(*))")
+  const fetchConversations = async () => {
     setLoading(true);
     const { data, error } = await supabase
       .from("waglo_conversations")
@@ -44,7 +42,6 @@ useEffect(() => {
       <div style={{ padding: "16px 20px", background: "#1a7a6e", position: "sticky", top: 0, zIndex: 100 }}>
         <div style={{ fontWeight: 900, fontSize: 20, color: "#fff" }}>Chat</div>
       </div>
-
       {loading ? (
         <div style={{ textAlign: "center", padding: "60px 0", color: "#888" }}>Caricamento...</div>
       ) : conversations.length === 0 ? (
