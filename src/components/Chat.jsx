@@ -18,7 +18,7 @@ useEffect(() => {
   }
 }, [activeConversationId, conversations]);
 
-  const fetchConversations = async () => {
+.select("*, ads(title, ad_images(*))")
     setLoading(true);
     const { data, error } = await supabase
       .from("waglo_conversations")
