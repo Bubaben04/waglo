@@ -93,7 +93,7 @@ export default function ChatConversation({ session, conversation, onBack }) {
       </div>
 
       {/* Input */}
-      <div style={{ position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 480, background: "#fff", borderTop: "1px solid #e8f0ee", padding: "12px 16px", display: "flex", gap: 10, alignItems: "center", boxSizing: "border-box" zIndex: 300 }}>
+      <div style={{ position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 480, background: "#fff", borderTop: "1px solid #e8f0ee", padding: "12px 16px", display: "flex", gap: 10, alignItems: "center", boxSizing: "border-box", zIndex: 300 }}>
         <input
           value={newMessage}
           onChange={e => setNewMessage(e.target.value)}
