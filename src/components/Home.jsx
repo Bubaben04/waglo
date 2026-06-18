@@ -132,7 +132,7 @@ const ProductModal = ({ ad, onClose, session, onContact }) => {
             </div>
           )}
           {!showReport && !reportSent && (
-            <button onClick={() => setShowReport(true)} style={{ padding: "8px", border: "1px solid #dde8e6", borderRadius: 10, background: "transparent", color: "#888", fontSize: 12, cursor: "pointer", fontFamily: "inherit" }}>
+          <button onClick={() => onContact(ad.user_id, ad.id)} style={{ padding: "14px", border: "none", borderRadius: 12, background: "#e05a1e", color: "#fff", fontWeight: 800, fontSize: 15, cursor: "pointer", fontFamily: "inherit" }}>💬 Contatta venditore</button>
               🚩 Segnala questo annuncio
             </button>
           )}
@@ -211,8 +211,7 @@ const ProductScrollRow = ({ items, selected, onSelect }) => {
     </div>
   );
 };
-
-export default function Home({ session, onShowAuth }) {
+export default function Home({ session, onShowAuth, onContact }) {
   const [ads, setAds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [animalCat, setAnimalCat] = useState("all");
@@ -280,7 +279,7 @@ export default function Home({ session, onShowAuth }) {
         ) : filtered.map(ad => <ProductCard key={ad.id} ad={ad} onOpen={setSelectedAd} />)}
       </div>
 
-      {selectedAd && <ProductModal ad={selectedAd} onClose={() => setSelectedAd(null)} session={session} onContact={() => { setSelectedAd(null); alert("Chat in arrivo nel prossimo aggiornamento!"); }} />}
+    {selectedAd && <ProductModal ad={selectedAd} onClose={() => setSelectedAd(null)} session={session} onContact={onContact} />}
     </div>
   );
 }

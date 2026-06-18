@@ -3,6 +3,7 @@ import { supabase } from "./supabaseClient";
 import Auth from "./components/Auth";
 import Home from "./components/Home";
 import Favorites from "./components/Favorites";
+import Chat from "./components/Chat";
 import Profile from "./components/Profile";
 import NewAd from "./components/NewAd";
 import { IconHome, IconSalvati, IconPubblica, IconChat, IconProfilo, IconChatVuota, IconAltri } from "./components/WagloIcons";
@@ -24,6 +25,8 @@ const CookieBanner = ({ onAccept }) => (
   const [loading, setLoading] = useState(true);
   const [showAuth, setShowAuth] = useState(false);
   const [showNewAd, setShowNewAd] = useState(false);
+  const [showChat, setShowChat] = useState(false);
+const [activeConversationId, setActiveConversationId] = useState(null);
   const [activeTab, setActiveTab] = useState("home");const [cookieAccepted, setCookieAccepted] = useState(() => localStorage.getItem("waglo_cookie") === "true");
 
   useEffect(() => {
@@ -40,6 +43,41 @@ const CookieBanner = ({ onAccept }) => (
   };
 
   const handleSell = () => { if (!session) { setShowAuth(true); return; } setShowNewAd(true); };const handleCookieAccept = () => { localStorage.setItem("waglo_cookie", "true"); setCookieAccepted(true); };
+  const handleContact = async (sellerId, adId) => {
+  if (!session) {
+    setShowAuth(true);
+    return;
+  }
+
+  const buyerId = session.user.id;
+
+  // Cerca conversazione esistente
+  const { data: existing } = await supabase
+    .from("conversations")
+    .select("id")
+    .eq("ad_id", adId)
+    .eq("buyer_id", buyerId)
+    .single();
+
+  if (existing) {
+    setActiveConversationId(existing.id);
+    setActiveTab("chat");
+    return;
+  }
+
+  // Crea nuova conversazione
+  const { data: newConv, error } = await supabase
+    .from("conversations")
+    .insert({ ad_id: adId, buyer_id: buyerId, seller_id: sellerId })
+    .select("id")
+    .single();
+
+ if (!error) {
+    setActiveConversationId(newConv.id);
+    setActiveTab("chat");
+  } 
+  
+};
 
 if (loading) return <div style={{ minHeight: "100vh", background: "#f5f7f6", display: "flex", alignItems: "center", justifyContent: "center" }}><IconAltri size={64} color="#1a7a6e" /></div>;
   if (showAuth) return <Auth onAuth={() => setShowAuth(false)} />;
@@ -49,14 +87,11 @@ if (loading) return <div style={{ minHeight: "100vh", background: "#f5f7f6", dis
     <div style={{ maxWidth: 480, margin: "0 auto", minHeight: "100vh", background: "#f5f7f6", position: "relative", fontFamily: "'Nunito', sans-serif" }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');`}</style>
 
-      {activeTab === "home" && <Home session={session} onShowAuth={() => setShowAuth(true)} />}
+    {activeTab === "home" && <Home session={session} onShowAuth={() => setShowAuth(true)} onContact={handleContact} />}
       {activeTab === "favorites" && session && <Favorites session={session} />}
-      {activeTab === "chat" && session && (
-        <div style={{ padding: 20, color: "#888", textAlign: "center", paddingTop: 100, fontFamily: "inherit" }}>
-        <div style={{ marginBottom: 12 }}><IconChatVuota size={48} color="#888" /></div>
-          <p>Chat in arrivo nel prossimo aggiornamento</p>
-        </div>
-      )}
+      {activeTab === "chat" && session && <Chat session={session} />}
+        
+          
       {activeTab === "profile" && session && <Profile session={session} onLogout={handleLogout} />}
 
       <div style={{ position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 480, background: "#fff", borderTop: "1px solid #e8f0ee", display: "flex", zIndex: 200, boxShadow: "0 -4px 20px #1a7a6e12", alignItems: "center" }}>
