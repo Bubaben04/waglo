@@ -2,12 +2,21 @@ import { useState, useEffect } from "react";
 import { supabase } from "../supabaseClient";
 import ChatConversation from "./ChatConversation";
 
-export default function Chat({ session }) {
+export default function Chat({ session, activeConversationId }) {
   const [conversations, setConversations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeConv, setActiveConv] = useState(null);
 
-  useEffect(() => { fetchConversations(); }, []);
+useEffect(() => { 
+  fetchConversations(); 
+}, []);
+
+useEffect(() => {
+  if (activeConversationId && conversations.length > 0) {
+    const conv = conversations.find(c => c.id === activeConversationId);
+    if (conv) setActiveConv(conv);
+  }
+}, [activeConversationId, conversations]);
 
   const fetchConversations = async () => {
     setLoading(true);
