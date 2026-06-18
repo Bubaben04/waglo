@@ -20,7 +20,7 @@ export default function Chat({ session, activeConversationId, onInConversation, 
     setLoading(true);
     const { data, error } = await supabase
       .from("waglo_conversations")
-      .select("*, ads(title, ad_images(*)), buyer_profile:buyer_id(display_name), seller_profile:seller_id(display_name)")
+      .select("*, ads(title, ad_images(*))")
       .or(`buyer_id.eq.${session.user.id},seller_id.eq.${session.user.id}`)
       .order("created_at", { ascending: false });
     if (!error) setConversations(data || []);
