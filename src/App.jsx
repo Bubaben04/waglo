@@ -94,7 +94,7 @@ if (loading) return <div style={{ minHeight: "100vh", background: "#f5f7f6", dis
           
       {activeTab === "profile" && session && <Profile session={session} onLogout={handleLogout} />}
 
-      <div style={{ position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 480, background: "#fff", borderTop: "1px solid #e8f0ee", display: "flex", zIndex: 200, boxShadow: "0 -4px 20px #1a7a6e12", alignItems: "center" }}>
+      <div style={{ position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 480, background: "#fff", borderTop: "1px solid #e8f0ee", display: activeTab === "chat" ? "none" : "flex", zIndex: 200, boxShadow: "0 -4px 20px #1a7a6e12", alignItems: "center" }}>
         {NAV.slice(0, 2).map(({ id, Icon, label }) => (
           <button key={id} onClick={() => handleTabChange(id)} style={{ flex: 1, background: "none", border: "none", padding: "10px 0", cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center", gap: 2, color: activeTab === id ? "#1a7a6e" : "#aaa", transition: "color .2s", fontFamily: "inherit" }}>
             <Icon />
