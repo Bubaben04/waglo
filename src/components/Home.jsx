@@ -125,17 +125,16 @@ const ProductModal = ({ ad, onClose, session, onContact }) => {
             </div>
           </div>
           {session ? (
-            <button onClick={() => onContact(ad)} style={{ padding: "14px", border: "none", borderRadius: 12, background: "#e05a1e", color: "#fff", fontWeight: 800, fontSize: 15, cursor: "pointer", fontFamily: "inherit" }}>💬 Contatta venditore</button>
+            <button onClick={() => onContact(ad.user_id, ad.id)} style={{ padding: "14px", border: "none", borderRadius: 12, background: "#e05a1e", color: "#fff", fontWeight: 800, fontSize: 15, cursor: "pointer", fontFamily: "inherit" }}>💬 Contatta venditore</button>
           ) : (
             <div style={{ padding: "14px", borderRadius: 12, background: "#f0f4f3", color: "#888", fontSize: 14, textAlign: "center", border: "1px solid #e0eae8" }}>
               <span style={{ color: "#1a7a6e", fontWeight: 700, cursor: "pointer" }}>Accedi</span> per contattare il venditore
             </div>
           )}
           {!showReport && !reportSent && (
-          <button onClick={() => onContact(ad.user_id, ad.id)} style={{ padding: "14px", border: "none", borderRadius: 12, background: "#e05a1e", color: "#fff", fontWeight: 800, fontSize: 15, cursor: "pointer", fontFamily: "inherit" }}>💬 Contatta venditore</button>
-              🚩 Segnala questo annuncio
-            </button>
-          )}
+  <button onClick={() => setShowReport(true)} style={{ padding: "10px", border: "none", borderRadius: 12, background: "#f5f7f6", color: "#888", fontWeight: 700, fontSize: 13, cursor: "pointer", fontFamily: "inherit" }}>🚩 Segnala questo annuncio</button>
+)}
+          
           {showReport && !reportSent && (
             <div style={{ background: "#fff8e8", border: "1px solid #f5e6c0", borderRadius: 12, padding: 16, display: "flex", flexDirection: "column", gap: 10 }}>
               <div style={{ fontWeight: 700, fontSize: 14, color: "#0f3d38" }}>Segnala annuncio</div>
