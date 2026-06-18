@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "../supabaseClient";
 import ChatConversation from "./ChatConversation";
 
-export default function Chat({ session, activeConversationId, onInConversation }) {
+export default function Chat({ session, activeConversationId, onInConversation, onClearConversation }) {
   const [conversations, setConversations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeConv, setActiveConv] = useState(null);
@@ -28,7 +28,7 @@ export default function Chat({ session, activeConversationId, onInConversation }
   };
 
   if (activeConv) {
-    return <ChatConversation session={session} conversation={activeConv} onBack={() => { setActiveConv(null); fetchConversations(); onInConversation(false); }} />;
+    return <ChatConversation session={session} conversation={activeConv} onBack={() => { setActiveConv(null); fetchConversations(); onInConversation(false); onClearConversation(); }} />;
   }
 
   const getOtherName = (conv) => {

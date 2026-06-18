@@ -90,7 +90,7 @@ if (loading) return <div style={{ minHeight: "100vh", background: "#f5f7f6", dis
 
     {activeTab === "home" && <Home session={session} onShowAuth={() => setShowAuth(true)} onContact={handleContact} />}
       {activeTab === "favorites" && session && <Favorites session={session} />}
-    {activeTab === "chat" && session && <Chat session={session} activeConversationId={activeConversationId} onInConversation={setInConversation} />}
+    {activeTab === "chat" && session && <Chat session={session} activeConversationId={activeConversationId} onInConversation={setInConversation} onClearConversation={() => setActiveConversationId(null)} />}
         
           
       {activeTab === "profile" && session && <Profile session={session} onLogout={handleLogout} />}
