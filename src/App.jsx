@@ -53,7 +53,7 @@ const [activeConversationId, setActiveConversationId] = useState(null);
 
   // Cerca conversazione esistente
   const { data: existing } = await supabase
-    .from("conversations")
+    .from("waglo_conversations")
     .select("id")
     .eq("ad_id", adId)
     .eq("buyer_id", buyerId)
@@ -67,7 +67,7 @@ const [activeConversationId, setActiveConversationId] = useState(null);
 
   // Crea nuova conversazione
   const { data: newConv, error } = await supabase
-    .from("conversations")
+    .from("waglo_conversations")
     .insert({ ad_id: adId, buyer_id: buyerId, seller_id: sellerId })
     .select("id")
     .single();

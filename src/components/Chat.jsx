@@ -12,7 +12,7 @@ export default function Chat({ session }) {
   const fetchConversations = async () => {
     setLoading(true);
     const { data, error } = await supabase
-      .from("conversations")
+      .from("waglo_conversations")
       .select("*, ads(title, ad_images(*)), buyer:buyer_id(id), seller:seller_id(id), buyer_profile:buyer_id(display_name), seller_profile:seller_id(display_name)")
       .or(`buyer_id.eq.${session.user.id},seller_id.eq.${session.user.id}`)
       .order("created_at", { ascending: false });
