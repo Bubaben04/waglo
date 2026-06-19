@@ -89,7 +89,7 @@ if (loading) return <div style={{ minHeight: "100vh", background: "#f5f7f6", dis
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');`}</style>
 
     {activeTab === "home" && <Home session={session} onShowAuth={() => setShowAuth(true)} onContact={handleContact} />}
-      {activeTab === "favorites" && session && <Favorites session={session} />}
+      {activeTab === "favorites" && session && <Favorites session={session} onContact={handleContact} />}
     {activeTab === "chat" && session && <Chat session={session} activeConversationId={activeConversationId} onInConversation={setInConversation} onClearConversation={() => setActiveConversationId(null)} />}
         
           
