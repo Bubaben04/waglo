@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../supabaseClient";
-import { IconCuore } from "./WagloIcons";
-
+import { IconCuore, IconAlimenti, IconAccessori, IconIntegratori, IconIgiene, IconAntiparassitari, IconAltro } from "./WagloIcons";
+const getCategoryIcon = (category) => {
+  const icons = { alimenti: IconAlimenti, accessori: IconAccessori, integratori: IconIntegratori, igiene: IconIgiene, antiparassitari: IconAntiparassitari };
+  return icons[category] || IconAltro;
+};
 export default function Favorites({ session }) {
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -41,7 +44,7 @@ export default function Favorites({ session }) {
             return (
               <div key={fav.id} style={{ background: "#fff", borderRadius: 14, marginBottom: 12, display: "flex", alignItems: "center", gap: 14, padding: 12, border: "1px solid #e8f0ee" }}>
                 <div style={{ width: 60, height: 60, borderRadius: 10, background: "#f0f4f3", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 32, overflow: "hidden", flexShrink: 0 }}>
-                  {ad.ad_images?.[0]?.image_url ? <img src={ad.ad_images[0].image_url} alt={ad.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : "🐾"}
+                  {ad.ad_images?.[0]?.image_url ? <img src={ad.ad_images[0].image_url} alt={ad.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : (() => { const Icon = getCategoryIcon(ad.category); return <Icon size={32} color="#1a7a6e" />; })()}
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontWeight: 700, color: "#0f3d38", fontSize: 14 }}>{ad.title}</div>
