@@ -51,7 +51,8 @@ const getAnimalIcon = (animalType) => {
 
 const ProductCard = ({ ad, onOpen }) => {
   const [hover, setHover] = useState(false);
-  const imageUrl = ad.ad_images?.[0]?.image_url;
+const images = ad.ad_images || [];
+const [currentImg, setCurrentImg] = React.useState(0);
   const AnimalIcon = getAnimalIcon(ad.animal_type);
   return (
     <div onClick={() => onOpen(ad)} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} style={{ background: "#fff", borderRadius: 16, overflow: "hidden", cursor: "pointer", border: "1.5px solid #e8f0ee", boxShadow: hover ? "0 8px 24px #1a7a6e18" : "0 2px 8px #00000008", transform: hover ? "translateY(-3px)" : "none", transition: "all .22s ease", display: "flex", flexDirection: "column" }}>
@@ -118,10 +119,23 @@ const ProductModal = ({ ad, onClose, session, onContact }) => {
     <div onClick={onClose} style={{ position: "fixed", inset: 0, background: "#0007", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
       <div onClick={e => e.stopPropagation()} style={{ background: "#fff", borderRadius: 24, maxWidth: 500, width: "100%", maxHeight: "90vh", overflowY: "auto", boxShadow: "0 24px 80px #0004" }}>
         <div style={{ background: "#f0f4f3", height: 200, display: "flex", alignItems: "center", justifyContent: "center", position: "relative", borderRadius: "24px 24px 0 0", overflow: "hidden", color: "#1a7a6e" }}>
-          {imageUrl ? <img src={imageUrl} alt={ad.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : <AnimalIcon size={80} strokeWidth={1.5} color="#1a7a6e" />}
-          <button onClick={(e) => { e.stopPropagation(); toggleFavorite(); }} style={{ position: "absolute", top: 14, left: 14, background: "#fff", border: "none", borderRadius: "50%", width: 36, height: 36, cursor: "pointer", fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px #0002" }}>{isFavorite ? "💛" : "🩶"}</button>
-          <button onClick={onClose} style={{ position: "absolute", top: 14, right: 14, background: "#fff", border: "none", borderRadius: "50%", width: 36, height: 36, cursor: "pointer", fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center", color: "#333", boxShadow: "0 2px 8px #0002" }}>✕</button>
-        </div>
+  {images.length > 0 ? (
+    <>
+      <img src={images[currentImg]?.image_url} alt={ad.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+      {images.length > 1 && (
+        <>
+          <button onClick={(e) => { e.stopPropagation(); setCurrentImg(p => (p - 1 + images.length) % images.length); }} style={{ position: "absolute", left: 8, top: "50%", transform: "translateY(-50%)", background: "#fff9", border: "none", borderRadius: "50%", width: 32, height: 32, cursor: "pointer", fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center" }}>‹</button>
+          <button onClick={(e) => { e.stopPropagation(); setCurrentImg(p => (p + 1) % images.length); }} style={{ position: "absolute", right: 8, top: "50%", transform: "translateY(-50%)", background: "#fff9", border: "none", borderRadius: "50%", width: 32, height: 32, cursor: "pointer", fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center" }}>›</button>
+          <div style={{ position: "absolute", bottom: 8, left: "50%", transform: "translateX(-50%)", display: "flex", gap: 4 }}>
+            {images.map((_, i) => <div key={i} style={{ width: 6, height: 6, borderRadius: "50%", background: i === currentImg ? "#fff" : "#fff7" }} />)}
+          </div>
+        </>
+      )}
+    </>
+  ) : <AnimalIcon size={80} strokeWidth={1.5} color="#1a7a6e" />}
+  <button onClick={(e) => { e.stopPropagation(); toggleFavorite(); }} style={{ position: "absolute", top: 14, left: 14, background: "#fff", border: "none", borderRadius: "50%", width: 36, height: 36, cursor: "pointer", fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px #0002" }}>{isFavorite ? "💛" : "🩶"}</button>
+  <button onClick={onClose} style={{ position: "absolute", top: 14, right: 14, background: "#fff", border: "none", borderRadius: "50%", width: 36, height: 36, cursor: "pointer", fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center", color: "#333", boxShadow: "0 2px 8px #0002" }}>✕</button>
+</div>
         <div style={{ padding: "24px 28px 28px", display: "flex", flexDirection: "column", gap: 14 }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
             <h2 style={{ fontSize: 20, margin: 0, color: "#0f3d38", fontWeight: 800 }}>{ad.title}</h2>
