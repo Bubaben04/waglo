@@ -52,6 +52,7 @@ const getAnimalIcon = (animalType) => {
 const ProductCard = ({ ad, onOpen }) => {
   const [hover, setHover] = useState(false);
   const AnimalIcon = getAnimalIcon(ad.animal_type);
+  const imageUrl = ad.ad_images?.[0]?.image_url;
   return (
     <div onClick={() => onOpen(ad)} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} style={{ background: "#fff", borderRadius: 16, overflow: "hidden", cursor: "pointer", border: "1.5px solid #e8f0ee", boxShadow: hover ? "0 8px 24px #1a7a6e18" : "0 2px 8px #00000008", transform: hover ? "translateY(-3px)" : "none", transition: "all .22s ease", display: "flex", flexDirection: "column" }}>
       <div style={{ background: "#f0f4f3", height: 140, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", color: "#1a7a6e" }}>
