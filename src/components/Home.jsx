@@ -122,7 +122,7 @@ const ProductModal = ({ ad, onClose, session, onContact }) => {
         <div style={{ background: "#f0f4f3", height: 200, display: "flex", alignItems: "center", justifyContent: "center", position: "relative", borderRadius: "24px 24px 0 0", overflow: "hidden", color: "#1a7a6e" }}>
   {images.length > 0 ? (
     <>
-      <img src={images[currentImg]?.image_url} alt={ad.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+      <img src={images[currentImg]?.image_url} alt={ad.title} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
       {images.length > 1 && (
         <>
           <button onClick={(e) => { e.stopPropagation(); setCurrentImg(p => (p - 1 + images.length) % images.length); }} style={{ position: "absolute", left: 8, top: "50%", transform: "translateY(-50%)", background: "#fff9", border: "none", borderRadius: "50%", width: 32, height: 32, cursor: "pointer", fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center" }}>‹</button>
