@@ -28,6 +28,12 @@ const CookieBanner = ({ onAccept }) => (
   const [showChat, setShowChat] = useState(false);
   const [inConversation, setInConversation] = useState(false);
 const [activeConversationId, setActiveConversationId] = useState(null);
+const [showSplash, setShowSplash] = useState(true);
+
+useEffect(() => {
+  const timer = setTimeout(() => setShowSplash(false), 2500);
+  return () => clearTimeout(timer);
+}, []);
   const [activeTab, setActiveTab] = useState("home");const [cookieAccepted, setCookieAccepted] = useState(() => localStorage.getItem("waglo_cookie") === "true");
 
   useEffect(() => {
@@ -87,6 +93,16 @@ if (loading) return <div style={{ minHeight: "100vh", background: "#f5f7f6", dis
   return (
     <div style={{ maxWidth: 480, margin: "0 auto", minHeight: "100vh", background: "#f5f7f6", position: "relative", fontFamily: "'Nunito', sans-serif" }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');`}</style>
+      {showSplash && (
+  <div style={{
+    position: "fixed", inset: 0, background: "#0A6A64", zIndex: 99999,
+    display: "flex", alignItems: "center", justifyContent: "center",
+    transition: "opacity 0.6s ease",
+    opacity: showSplash ? 1 : 0,
+  }}>
+    <img src="/waglo_definitivo.svg" alt="Waglo" style={{ width: 160, height: 160, borderRadius: "50%" }} />
+  </div>
+)}
 
     {activeTab === "home" && <Home session={session} onShowAuth={() => setShowAuth(true)} onContact={handleContact} />}
       {activeTab === "favorites" && session && <Favorites session={session} onContact={handleContact} />}
