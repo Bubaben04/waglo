@@ -137,11 +137,12 @@ export default function NewAd({ session, onBack, onPublished }) {
         {[1,2].map(s => <div key={s} style={{ flex: 1, height: 4, borderRadius: 4, background: step >= s ? "#e05a1e" : "#dde8e6", transition: "background .3s" }} />)}
       </div>
       <div style={{ padding: "20px" }}>
-        {error && <div style={{ background: "#fff0ec", color: "#e05a1e", borderRadius: 10, padding: "10px 14px", fontSize: 13, marginBottom: 16, border: "1px solid #fdd0c0" }}>⚠ {error}</div>}
+        
 
         {step === 1 && (
           <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
             <div>
+              {error && <div style={{ background: "#fff0ec", color: "#e05a1e", borderRadius: 10, padding: "10px 14px", fontSize: 13, marginBottom: 0, border: "1px solid #fdd0c0" }}>⚠ {error}</div>}
               <label style={lbl}>Titolo annuncio *</label>
               <input type="text" value={form.title} onChange={e => set("title", e.target.value)} placeholder="es. Cuccia ortopedica taglia M" style={inp} />
             </div>
