@@ -98,8 +98,8 @@ export default function Auth({ onAuth }) {
       <div style={{ width: "100%", maxWidth: 420, background: "#fff", borderRadius: 24, padding: "36px 32px", boxShadow: "0 8px 40px #1a7a6e18", border: "1px solid #e8f0ee", position: "relative" }}>
   <button onClick={onAuth} style={{ position: "absolute", top: 12, right: 12, background: "none", border: "none", fontSize: 22, color: "#888", cursor: "pointer" }}>✕</button>
         <div style={{ textAlign: "center", marginBottom: 28 }}>
-          <img src="/waglo_definitivo.svg" alt="Waglo" style={{ width: 88, height: 88, borderRadius: "50%", marginBottom: 8 }} />
-          <div style={{ fontFamily: "'Nunito', sans-serif", fontSize: 44, fontWeight: 900, color: "#1a7a6e" }}>Waglo</div>
+          <img src="/waglo_definitivo.svg" alt="Waglo" style={{ width: 72, height: 72, borderRadius: "50%", marginBottom: 8 }} />
+          <div style={{ fontFamily: "'Nunito', sans-serif", fontSize: 46, fontWeight: 900, color: "#1a7a6e" }}>Waglo</div>
           <div style={{ color: "#888", fontSize: 13, marginTop: 2 }}>Compra e vendi usato per animali</div>
         </div>
         <div style={{ display: "flex", background: "#f0f4f3", borderRadius: 12, padding: 4, marginBottom: 24 }}>
