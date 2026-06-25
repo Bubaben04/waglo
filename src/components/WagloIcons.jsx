@@ -112,10 +112,10 @@ export const IconCavalli = ({ size = 24, color = "currentColor", strokeWidth = 2
     <ellipse cx="24" cy="28" rx="16" ry="18"/>
     <path d="M10,14 L6,2 L18,10"/>
     <path d="M38,14 L42,2 L30,10"/>
-    <circle cx="17" cy="22" r="2.5" fill={color} stroke="none"/>
-    <circle cx="31" cy="22" r="2.5" fill={color} stroke="none"/>
-    <path d="M17,36 Q14,38 17,40" strokeWidth="1.4" stroke="#F0F000"/>
-    <path d="M31,36 Q34,38 31,40" strokeWidth="1.4" stroke="#F0F000"/>
+    <circle cx="17" cy="22" r="2.5" fill="#F0F000" stroke="none"/>
+    <circle cx="31" cy="22" r="2.5" fill="#F0F000" stroke="none"/>
+    <path d="M17,36 Q14,38 17,40" strokeWidth="1.4"/>
+    <path d="M31,36 Q34,38 31,40" strokeWidth="1.4"/>
     <path d="M8,16 Q2,20 3,28" strokeWidth="2"/>
     <path d="M8,22 Q1,28 2,36" strokeWidth="2"/>
     <path d="M8,28 Q2,36 4,42" strokeWidth="2"/>
