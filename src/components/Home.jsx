@@ -73,7 +73,7 @@ const ProductCard = ({ ad, onOpen }) => {
   );
 };
 
-const ProductModal = ({ ad, onClose, session, onContact }) => {
+const ProductModal = ({ ad, onClose, session, onContact, onShowAuth }) => {
   if (!ad) return null;
   const imageUrl = ad.ad_images?.[0]?.image_url;
   const AnimalIcon = getAnimalIcon(ad.animal_type);
@@ -311,7 +311,7 @@ export default function Home({ session, onShowAuth, onContact }) {
         ) : filtered.map(ad => <ProductCard key={ad.id} ad={ad} onOpen={setSelectedAd} />)}
       </div>
 
-    {selectedAd && <ProductModal ad={selectedAd} onClose={() => setSelectedAd(null)} session={session} onContact={onContact} />}
+    {selectedAd && <ProductModal ad={selectedAd} onClose={() => setSelectedAd(null)} session={session} onContact={onContact} onShowAuth={onShowAuth} />}
     </div>
   );
 }
