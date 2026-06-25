@@ -17,9 +17,9 @@ export const IconCani = ({ size = 24, color = "currentColor", strokeWidth = 2.2 
     <path d="M40,22 Q46,26 45,34 Q44,40 38,40" strokeWidth={strokeWidth}/>
     <rect x="10" y="12" width="28" height="26" rx="8"/>
     <circle cx="18" cy="22" r="3" fill={color} stroke="none"/>
-    <circle cx="30" cy="22" r="3" fill="#F0F000" stroke="none"/>
+    <circle cx="30" cy="22" r="3" fill={color} stroke="none"/>
     <ellipse cx="24" cy="31" rx="7" ry="5"/>
-    <ellipse cx="24" cy="31" rx="3" ry="2" fill={color} stroke="none"/>
+    <ellipse cx="24" cy="31" rx="3" ry="2" fill="#F0F000" stroke="none"/>
     <path d="M18,37 Q24,43 30,37"/>
   </svg>
 );
@@ -28,13 +28,13 @@ export const IconGatti = ({ size = 24, color = "currentColor", strokeWidth = 2.2
   <svg width={size} height={size} viewBox="-4 -4 56 56" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
     <circle cx="24" cy="26" r="18"/>
     <path d="M10,14 L4,2 L18,10"/>
-    <path d="M38,14 L44,2 L30,10"/>
+    <path d="M38,14 L44,2 L30,10" stroke="#F0F000"/>
     <path d="M15,22 Q20,16 25,22 Q20,28 15,22Z" fill={color} stroke="none"/>
     <path d="M23,22 Q28,16 33,22 Q28,28 23,22Z" fill={color} stroke="none"/>
     <ellipse cx="24" cy="30" rx="4" ry="3"/>
     <circle cx="24" cy="30" r="1.5" fill={color} stroke="none"/>
     <path d="M6,26 L16,27" strokeWidth="1.4"/>
-    <path d="M6,30 L16,29" strokeWidth="1.4" stroke="#F0F000"/>
+    <path d="M6,30 L16,29" strokeWidth="1.4"/>
     <path d="M42,26 L32,27" strokeWidth="1.4"/>
     <path d="M42,30 L32,29" strokeWidth="1.4"/>
   </svg>
@@ -89,8 +89,8 @@ export const IconRettili = ({ size = 24, color = "currentColor", strokeWidth = 2
     <circle cx="33" cy="20" r="3" fill={color} stroke="none"/>
     <path d="M16,34 Q24,38 32,34" strokeWidth="1.4"/>
     <path d="M24,38 L24,46" stroke="#F0F000"/>
-    <path d="M24,46 L18,52"/>
-    <path d="M24,46 L30,52"/>
+    <path d="M24,46 L18,52" stroke="#F0F000"/>
+    <path d="M24,46 L30,52" stroke="#F0F000"/>
   </svg>
 );
 
@@ -98,7 +98,7 @@ export const IconConigli = ({ size = 24, color = "currentColor", strokeWidth = 2
   <svg width={size} height={size} viewBox="-4 -4 56 56" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
     <ellipse cx="24" cy="34" rx="18" ry="14"/>
     <path d="M16,22 Q13,2 17,0 Q21,-2 23,0 Q25,2 22,22" />
-    <path d="M32,22 Q35,2 31,0 Q27,-2 25,0 Q23,2 26,22"/>
+    <path d="M32,22 Q35,2 31,0 Q27,-2 25,0 Q23,2 26,22" stroke="#F0F000"/>
     <circle cx="17" cy="28" r="3" fill={color} stroke="none"/>
     <circle cx="31" cy="28" r="3" fill={color} stroke="none"/>
     <path d="M20,36 Q24,32 28,36 Q26,40 24,40 Q22,40 20,36Z" fill={color} stroke="none"/>
@@ -114,11 +114,11 @@ export const IconCavalli = ({ size = 24, color = "currentColor", strokeWidth = 2
     <path d="M38,14 L42,2 L30,10"/>
     <circle cx="17" cy="22" r="2.5" fill={color} stroke="none"/>
     <circle cx="31" cy="22" r="2.5" fill={color} stroke="none"/>
-    <path d="M17,36 Q14,38 17,40" strokeWidth="1.4"/>
-    <path d="M31,36 Q34,38 31,40" strokeWidth="1.4"/>
+    <path d="M17,36 Q14,38 17,40" strokeWidth="1.4" stroke="#F0F000"/>
+    <path d="M31,36 Q34,38 31,40" strokeWidth="1.4" stroke="#F0F000"/>
     <path d="M8,16 Q2,20 3,28" strokeWidth="2"/>
     <path d="M8,22 Q1,28 2,36" strokeWidth="2"/>
-    <path d="M8,28 Q2,36 4,42" strokeWidth="2" stroke="#F0F000"/>
+    <path d="M8,28 Q2,36 4,42" strokeWidth="2"/>
   </svg>
 );
 
