@@ -60,6 +60,7 @@ export default function NewAd({ session, onBack, onPublished }) {
   });
 
   const [expiryDate, setExpiryDate] = useState("");
+  const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
 
   const generateDescription = async () => {
     if (!form.title.trim()) { setError("Inserisci prima un titolo per generare la descrizione."); return; }
