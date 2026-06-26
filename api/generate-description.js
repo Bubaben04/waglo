@@ -7,7 +7,7 @@ export default async function handler(req) {
 
   const { title, animal_type, category, condition } = await req.json();
 
-  const prompt = `Sei un assistente per Waglo, marketplace italiano di prodotti usati per animali. Scrivi una descrizione realistica in italiano per un annuncio privato di un oggetto usato. Massimo 3 frasi, tono neutro e diretto, niente emoji, niente slogan, niente esclamativi. Scrivi come scriverebbe un privato che descrive onestamente il prodotto.\nTitolo: ${title}${animal_type ? `\nAnimale: ${animal_type}` : ""}${category ? `\nCategoria: ${category}` : ""}${condition ? `\nCondizione: ${condition}` : ""}\nRispondi solo con la descrizione, senza titolo ne premesse.`;
+  const prompt = `Sei un assistente per Waglo, marketplace italiano di prodotti usati per animali. Scrivi una descrizione di massimo 2 frasi brevi per un annuncio privato. Tono asciutto e onesto, niente emoji, niente slogan. Solo fatti essenziali sul prodotto.\nTitolo: ${title}${animal_type ? `\nAnimale: ${animal_type}` : ""}${category ? `\nCategoria: ${category}` : ""}${condition ? `\nCondizione: ${condition}` : ""}\nRispondi solo con la descrizione.`;
 
   const response = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
@@ -18,7 +18,7 @@ export default async function handler(req) {
     },
     body: JSON.stringify({
       model: 'claude-sonnet-4-6',
-      max_tokens: 200,
+      max_tokens: 100,
       messages: [{ role: 'user', content: prompt }]
     })
   });
