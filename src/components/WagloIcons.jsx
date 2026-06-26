@@ -203,10 +203,8 @@ export const IconAltro = ({ size = 24, color = "currentColor", strokeWidth = 2.2
 
 export const IconHome = ({ size = 24, color = "currentColor", strokeWidth = 2.2 }) => (
   <svg width={size} height={size} viewBox="-4 -4 56 56" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
-    <path d="M4,20 L24,4 L44,20"/>
-    <path d="M10,20 L10,44 L38,44 L38,20"/>
-    <path d="M18,44 L18,30 Q18,24 24,24 Q30,24 30,30 L30,44"/>
-    <rect x="30" y="8" width="7" height="9" rx="1"/>
+    <path d="M4,24 L24,4 L44,24"/>
+    <path d="M10,24 L10,46 L38,46 L38,24"/>
   </svg>
 );
 
@@ -226,16 +224,18 @@ export const IconPubblica = ({ size = 32, color = "#ffffff", strokeWidth = 3 }) 
 export const IconChat = ({ size = 24, color = "currentColor", strokeWidth = 2.2 }) => (
   <svg width={size} height={size} viewBox="-4 -4 56 56" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
     <path d="M4,6 Q4,2 8,2 L40,2 Q44,2 44,6 L44,30 Q44,34 40,34 L28,34 L18,44 L18,34 L8,34 Q4,34 4,30 Z"/>
-    <circle cx="16" cy="18" r="2.4" fill={color} stroke="none"/>
-    <circle cx="24" cy="18" r="2.4" fill={color} stroke="none"/>
-    <circle cx="32" cy="18" r="2.4" fill={color} stroke="none"/>
+    <line x1="10" y1="14" x2="38" y2="14" stroke={color} strokewidth="2"/>
+    <line x1="10" y1="24" x2="30" y2="24" stroke={color} strokewidth="2"/>
   </svg>
 );
 
 export const IconProfilo = ({ size = 24, color = "currentColor", strokeWidth = 2.2 }) => (
   <svg width={size} height={size} viewBox="-4 -4 56 56" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="24" cy="14" r="10"/>
-    <path d="M4,44 Q4,30 24,30 Q44,30 44,44"/>
+    <circle cx="24" cy="10" r="8"/>
+    <line x1="24" y1="18" x2="24" y2="36"/>
+    <line x1="8" y1="24" x2="40" y2="24"/>
+    <line x1="24" y1="36" x2="12" y2="50"/>
+    <line x1="24" y1="36" x2="36" y2="50"/>
   </svg>
 );
 
