@@ -67,20 +67,18 @@ export default function NewAd({ session, onBack, onPublished }) {
     setAiLoading(true);
     setError("");
     try {
-      const response = await fetch("https://api.anthropic.com/v1/messages", {
+      const response = await fetch("/api/generate-description", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          model: "claude-sonnet-4-6",
-          max_tokens: 300,
-          messages: [{
-            role: "user",
-            content: `Sei un assistente per un marketplace italiano di prodotti usati per animali chiamato Waglo. Scrivi una descrizione breve e accattivante in italiano (max 80 parole) per questo annuncio usato.\nTitolo: ${form.title}${form.animal_type ? `\nAnimale: ${form.animal_type}` : ""}${form.category ? `\nCategoria: ${form.category}` : ""}${form.condition ? `\nCondizione: ${form.condition}` : ""}\nSe animale e categoria non sono specificati, basati solo sul titolo. Scrivi in tono friendly e diretto. Rispondi solo con la descrizione, senza titolo né premesse.`
-          }]
+          title: form.title,
+          animal_type: form.animal_type,
+          category: form.category,
+          condition: form.condition
         })
       });
       const data = await response.json();
-      const text = data.content?.[0]?.text || "";
+      const text = data.description || "";
       if (text) set("description", text);
     } catch (e) {
       setError("Errore nella generazione della descrizione. Riprova.");
