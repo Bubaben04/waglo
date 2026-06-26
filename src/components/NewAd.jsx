@@ -51,6 +51,7 @@ export default function NewAd({ session, onBack, onPublished }) {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [aiLoading, setAiLoading] = useState(false);
   const [photos, setPhotos] = useState([]);
   const [form, setForm] = useState({
     title: "", description: "", animal_type: "",
@@ -60,7 +61,31 @@ export default function NewAd({ session, onBack, onPublished }) {
 
   const [expiryDate, setExpiryDate] = useState("");
 
-  const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
+  const generateDescription = async () => {
+    if (!form.title.trim()) { setError("Inserisci prima un titolo per generare la descrizione."); return; }
+    setAiLoading(true);
+    setError("");
+    try {
+      const response = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-6",
+          max_tokens: 300,
+          messages: [{
+            role: "user",
+            content: `Sei un assistente per un marketplace di prodotti usati per animali chiamato Waglo. Scrivi una descrizione breve e accattivante (max 80 parole) per questo annuncio:\nTitolo: ${form.title}\nCategoria animale: ${form.animal_type || "non specificata"}\nCategoria prodotto: ${form.category || "non specificata"}\nCondizione: ${form.condition || "non specificata"}\nRispondi solo con la descrizione, senza titolo né premesse.`
+          }]
+        })
+      });
+      const data = await response.json();
+      const text = data.content?.[0]?.text || "";
+      if (text) set("description", text);
+    } catch (e) {
+      setError("Errore nella generazione della descrizione. Riprova.");
+    }
+    setAiLoading(false);
+  };
   const photoRequired = PHOTO_REQUIRED.includes(form.condition);
   const expiryRequired = form.condition === "in_scadenza";
 
@@ -238,7 +263,13 @@ export default function NewAd({ session, onBack, onPublished }) {
               </div>
             </div>
             <div><label style={lbl}>Città *</label><input type="text" value={form.city} onChange={e => set("city", e.target.value)} placeholder="es. Milano" style={inp} /></div>
-            <div><label style={lbl}>Descrizione *</label><textarea value={form.description} onChange={e => set("description", e.target.value)} placeholder="Descrivi l'articolo..." rows={4} style={{ ...inp, resize: "vertical" }} /></div>
+            <div>
+  <label style={lbl}>Descrizione *</label>
+  <textarea value={form.description} onChange={e => set("description", e.target.value)} placeholder="Descrivi l'articolo..." rows={4} style={{ ...inp, resize: "vertical" }} />
+  <button type="button" onClick={generateDescription} disabled={aiLoading} style={{ marginTop: 8, padding: "10px 16px", border: "none", borderRadius: 10, background: "#1a7a6e", color: "#fff", fontWeight: 700, fontSize: 13, cursor: aiLoading ? "not-allowed" : "pointer", opacity: aiLoading ? 0.7 : 1, fontFamily: "inherit", width: "100%" }}>
+    {aiLoading ? "Generazione in corso..." : "Genera descrizione con AI"}
+  </button>
+</div>
             <button onClick={handleSubmit} disabled={loading} style={{ padding: "14px", border: "none", borderRadius: 12, background: "#e05a1e", color: "#fff", fontWeight: 800, fontSize: 15, cursor: loading ? "not-allowed" : "pointer", opacity: loading ? 0.7 : 1, marginTop: 8, fontFamily: "inherit" }}>
               {loading ? "Pubblicazione..." : "✅ Pubblica annuncio"}
             </button>
