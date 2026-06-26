@@ -75,7 +75,7 @@ export default function NewAd({ session, onBack, onPublished }) {
           max_tokens: 300,
           messages: [{
             role: "user",
-            content: `Sei un assistente per un marketplace di prodotti usati per animali chiamato Waglo. Scrivi una descrizione breve e accattivante (max 80 parole) per questo annuncio:\nTitolo: ${form.title}\nCategoria animale: ${form.animal_type || "non specificata"}\nCategoria prodotto: ${form.category || "non specificata"}\nCondizione: ${form.condition || "non specificata"}\nRispondi solo con la descrizione, senza titolo né premesse.`
+            content: `Sei un assistente per un marketplace italiano di prodotti usati per animali chiamato Waglo. Scrivi una descrizione breve e accattivante in italiano (max 80 parole) per questo annuncio usato.\nTitolo: ${form.title}${form.animal_type ? `\nAnimale: ${form.animal_type}` : ""}${form.category ? `\nCategoria: ${form.category}` : ""}${form.condition ? `\nCondizione: ${form.condition}` : ""}\nSe animale e categoria non sono specificati, basati solo sul titolo. Scrivi in tono friendly e diretto. Rispondi solo con la descrizione, senza titolo né premesse.`
           }]
         })
       });
@@ -171,6 +171,9 @@ export default function NewAd({ session, onBack, onPublished }) {
               {error && <div style={{ background: "#fff0ec", color: "#e05a1e", borderRadius: 10, padding: "10px 14px", fontSize: 13, marginBottom: 0, border: "1px solid #fdd0c0" }}>⚠ {error}</div>}
               <label style={lbl}>Titolo annuncio *</label>
               <input type="text" value={form.title} onChange={e => set("title", e.target.value)} placeholder="Es.: Cuccia da interno piccola" style={inp} />
+              <button type="button" onClick={generateDescription} disabled={aiLoading} style={{ marginTop: 8, padding: "10px 16px", border: "none", borderRadius: 10, background: "#1a7a6e", color: "#fff", fontWeight: 700, fontSize: 13, cursor: aiLoading ? "not-allowed" : "pointer", opacity: aiLoading ? 0.7 : 1, fontFamily: "inherit", width: "100%" }}>
+                {aiLoading ? "Generazione in corso..." : "Genera descrizione con AI"}
+              </button>
             </div>
 
             <div>
@@ -203,9 +206,6 @@ export default function NewAd({ session, onBack, onPublished }) {
               </div>
             </div>
 
-            <button type="button" onClick={generateDescription} disabled={aiLoading} style={{ padding: "10px 16px", border: "none", borderRadius: 10, background: "#1a7a6e", color: "#fff", fontWeight: 700, fontSize: 13, cursor: aiLoading ? "not-allowed" : "pointer", opacity: aiLoading ? 0.7 : 1, fontFamily: "inherit", width: "100%" }}>
-              {aiLoading ? "Generazione in corso..." : "Genera descrizione con AI"}
-            </button>
             <div>
               <label style={lbl}>Condizioni *</label>
               <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
