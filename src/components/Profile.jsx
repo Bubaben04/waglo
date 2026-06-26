@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../supabaseClient";
-import { IconNoteLegali, IconTermini, IconPrivacy, IconCookie, IconDSA, IconVietati, IconPacco, IconAlimenti, IconAccessori, IconIntegratori, IconIgiene, IconAntiparassitari, IconAltro } from "./WagloIcons";
+import { IconNoteLegali, IconTermini, IconPrivacy, IconCookie, IconDSA, IconVietati, IconPacco, IconAlimenti, IconAccessori, IconIntegratori, IconIgiene, IconAntiparassitari, IconAltro, IconLuogo, IconProfiloUI } from "./WagloIcons";
 const LegalSection = ({ label, icon, content }) => {
   const [open, setOpen] = useState(false);
   return (
@@ -62,7 +62,7 @@ const getCategoryIcon = (category) => {
     <div style={{ paddingBottom: 80, fontFamily: "'Nunito', sans-serif", background: "#f5f7f6", minHeight: "100vh" }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');`}</style>
       <div style={{ padding: "16px 20px", background: "#1a7a6e", display: "flex", justifyContent: "space-between", alignItems: "center", position: "sticky", top: 0, zIndex: 100 }}>
-        <div style={{ fontWeight: 900, fontSize: 20, color: "#fff" }}>👤 Profilo</div>
+        <div style={{ fontWeight: 900, fontSize: 20, color: "#fff" }}><IconProfiloUI size={22} color="#fff"/> Profilo</div>
         <button onClick={onLogout} style={{ background: "transparent", color: "#fff", border: "1px solid #ffffff66", borderRadius: 10, padding: "6px 14px", fontWeight: 700, fontSize: 12, cursor: "pointer", fontFamily: "inherit" }}>Esci</button>
       </div>
       <div style={{ padding: "20px 16px", display: "flex", alignItems: "center", gap: 16, background: "#fff", borderBottom: "1px solid #e8f0ee" }}>
@@ -70,7 +70,7 @@ const getCategoryIcon = (category) => {
         <div>
           <div style={{ fontWeight: 800, color: "#0f3d38", fontSize: 18 }}>{profile?.display_name || "Utente"}</div>
           <div style={{ color: "#888", fontSize: 13 }}>{session.user.email}</div>
-          <div style={{ color: "#888", fontSize: 12, marginTop: 2 }}>{profile?.user_type === "professional" ? "🏪 Commerciante" : "👤 Privato"} · 📍 {profile?.city}</div>
+          <div style={{ color: "#888", fontSize: 12, marginTop: 2 }}>{profile?.user_type === "professional" ? "Commerciante" : "Privato"} · <iconluogo size={12} /> {profile?.city}</div>
         </div>
       </div>
       <div style={{ padding: "16px" }}>

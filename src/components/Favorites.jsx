@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../supabaseClient";
-import { IconCuore, IconAlimenti, IconAccessori, IconIntegratori, IconIgiene, IconAntiparassitari, IconAltro } from "./WagloIcons";
+import { IconCuore, IconAlimenti, IconAccessori, IconIntegratori, IconIgiene, IconAntiparassitari, IconAltro, IconLuogo, IconContatta, IconCestino } from "./WagloIcons";
 
 const getCategoryIcon = (category) => {
   const icons = { alimenti: IconAlimenti, accessori: IconAccessori, integratori: IconIntegratori, igiene: IconIgiene, antiparassitari: IconAntiparassitari };
@@ -39,7 +39,7 @@ const AdModal = ({ ad, onClose, session, onContact }) => {
           </div>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
             <Badge condition={ad.condition} />
-            <span style={{ fontSize: 12, color: "#888", background: "#f0f4f3", borderRadius: 6, padding: "2px 8px" }}>📍 {ad.city}</span>
+            <span style={{ fontSize: 12, color: "#888", background: "#f0f4f3", borderRadius: 6, padding: "2px 8px" }}><iconluogo size={12} /> {ad.city}</span>
             {ad.accepts_offers && <span style={{ fontSize: 12, color: "#1a7a6e", background: "#e8f5f2", borderRadius: 6, padding: "2px 8px", fontWeight: 700 }}>💬 Accetta offerte</span>}
           </div>
           <p style={{ margin: 0, color: "#555", lineHeight: 1.7, fontSize: 14 }}>{ad.description}</p>
@@ -51,7 +51,7 @@ const AdModal = ({ ad, onClose, session, onContact }) => {
             </div>
           </div>
           {session && (
-            <button onClick={() => onContact(ad.user_id, ad.id)} style={{ padding: "14px", border: "none", borderRadius: 12, background: "#e05a1e", color: "#fff", fontWeight: 800, fontSize: 15, cursor: "pointer", fontFamily: "inherit" }}>💬 Contatta venditore</button>
+            <button onClick={() => onContact(ad.user_id, ad.id)} style={{ padding: "14px", border: "none", borderRadius: 12, background: "#e05a1e", color: "#fff", fontWeight: 800, fontSize: 15, cursor: "pointer", fontFamily: "inherit" }}><IconContatta size={18} style={{marginRight:6}}/> Contatta venditore</button>
           )}
         </div>
       </div>
@@ -106,9 +106,9 @@ export default function Favorites({ session, onContact }) {
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontWeight: 700, color: "#0f3d38", fontSize: 14 }}>{ad.title}</div>
                   <div style={{ color: "#e05a1e", fontWeight: 800, fontSize: 15 }}>€{ad.price}</div>
-                  <div style={{ color: "#888", fontSize: 12 }}>📍 {ad.city}</div>
+                  <div style={{ color: "#888", fontSize: 12 }}><iconluogo size={12} /> {ad.city}</div>
                 </div>
-                <button onClick={(e) => removeFavorite(fav.id, e)} style={{ background: "none", border: "none", color: "#e05a1e", fontSize: 20, cursor: "pointer", padding: 4 }}>🗑</button>
+                <button onClick={(e) => removeFavorite(fav.id, e)} style={{ background: "none", border: "none", color: "#e05a1e", fontSize: 20, cursor: "pointer", padding: 4 }}><iconcestino size={20} /></button>
               </div>
             );
           })}

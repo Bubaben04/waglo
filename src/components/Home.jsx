@@ -65,7 +65,7 @@ const ProductCard = ({ ad, onOpen }) => {
         </div>
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
           <Badge condition={ad.condition} />
-          <span style={{ fontSize: 11, color: "#888" }}>📍 {ad.city}</span>
+          <span style={{ fontSize: 11, color: "#888" }}><iconluogo size={12} /> {ad.city}</span>
         </div>
         <div style={{ fontSize: 11, color: "#aaa", marginTop: 2 }}>{ad.user_profiles?.display_name || "Utente"}</div>
       </div>
@@ -144,7 +144,7 @@ const ProductModal = ({ ad, onClose, session, onContact, onShowAuth }) => {
           </div>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
             <Badge condition={ad.condition} />
-            <span style={{ fontSize: 12, color: "#888", background: "#f0f4f3", borderRadius: 6, padding: "2px 8px" }}>📍 {ad.city}</span>
+            <span style={{ fontSize: 12, color: "#888", background: "#f0f4f3", borderRadius: 6, padding: "2px 8px" }}><iconluogo size={12} /> {ad.city}</span>
             {ad.accepts_offers && <span style={{ fontSize: 12, color: "#1a7a6e", background: "#e8f5f2", borderRadius: 6, padding: "2px 8px", fontWeight: 700 }}>💬 Accetta offerte</span>}
           </div>
           <p style={{ margin: 0, color: "#555", lineHeight: 1.7, fontSize: 14 }}>{ad.description}</p>
@@ -156,14 +156,14 @@ const ProductModal = ({ ad, onClose, session, onContact, onShowAuth }) => {
             </div>
           </div>
           {session ? (
-            <button onClick={() => onContact(ad.user_id, ad.id)} style={{ padding: "14px", border: "none", borderRadius: 12, background: "#e05a1e", color: "#fff", fontWeight: 800, fontSize: 15, cursor: "pointer", fontFamily: "inherit" }}>💬 Contatta venditore</button>
+            <button onClick={() => onContact(ad.user_id, ad.id)} style={{ padding: "14px", border: "none", borderRadius: 12, background: "#e05a1e", color: "#fff", fontWeight: 800, fontSize: 15, cursor: "pointer", fontFamily: "inherit" }}><IconContatta size={18} style={{marginRight:6}}/> Contatta venditore</button>
           ) : (
             <div style={{ padding: "14px", borderRadius: 12, background: "#f0f4f3", color: "#888", fontSize: 14, textAlign: "center", border: "1px solid #e0eae8" }}>
               <span onClick={onShowAuth} style={{ color: "#1a7a6e", fontWeight: 700, cursor: "pointer" }}>Accedi</span> per contattare il venditore
             </div>
           )}
           {!showReport && !reportSent && (
-  <button onClick={() => setShowReport(true)} style={{ padding: "10px", border: "none", borderRadius: 12, background: "#f5f7f6", color: "#888", fontWeight: 700, fontSize: 13, cursor: "pointer", fontFamily: "inherit" }}>🚩 Segnala questo annuncio</button>
+  <button onClick={() => setShowReport(true)} style={{ padding: "10px", border: "none", borderRadius: 12, background: "#f5f7f6", color: "#888", fontWeight: 700, fontSize: 13, cursor: "pointer", fontFamily: "inherit" }}><IconSegnala size={18} style={{marginRight:6}}/> Segnala questo annuncio</button>
 )}
           
           {showReport && !reportSent && (
