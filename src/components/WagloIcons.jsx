@@ -355,14 +355,6 @@ export const IconCestino = ({ size = 24, color = "#0A6A64", strokeWidth = 2.2 })
   </svg>
 );
 
-export const IconProfilo = ({ size = 24, color = "#0A6A64", strokeWidth = 2.2 }) => (
-  <svg width={size} height={size} viewBox="-4 -4 56 56" fill="none" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="24" cy="16" r="12" stroke={color} strokeWidth={strokeWidth}/>
-    <circle cx="24" cy="16" r="4.5" fill="#F0F000" stroke="none"/>
-    <path d="M2,48 Q2,34 24,34 Q46,34 46,48" stroke={color} strokeWidth={strokeWidth}/>
-    <line x1="2" y1="48" x2="46" y2="48" stroke={color} strokeWidth={strokeWidth}/>
-  </svg>
-);
 
 export const IconContatta = ({ size = 24, color = "#0A6A64", strokeWidth = 2.2 }) => (
   <svg width={size} height={size} viewBox="-4 -4 56 56" fill="none" strokeLinecap="round" strokeLinejoin="round">
@@ -376,5 +368,14 @@ export const IconSegnala = ({ size = 24, strokeWidth = 2.2 }) => (
   <svg width={size} height={size} viewBox="-4 -4 56 56" fill="none" strokeLinecap="round" strokeLinejoin="round">
     <line x1="8" y1="2" x2="8" y2="52" stroke="#0A6A64" strokeWidth={strokeWidth}/>
     <path d="M8,2 Q24,10 40,2 Q40,26 24,26 Q14,26 8,26Z" stroke="#C43A08" strokeWidth={strokeWidth}/>
+  </svg>
+);
+
+export const IconProfiloUI = ({ size = 24, color = "#0A6A64", strokeWidth = 2.2 }) => (
+  <svg width={size} height={size} viewBox="-4 -4 56 56" fill="none" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="24" cy="16" r="12" stroke={color} strokeWidth={strokeWidth}/>
+    <circle cx="24" cy="16" r="4.5" fill="#F0F000" stroke="none"/>
+    <path d="M2,48 Q2,34 24,34 Q46,34 46,48" stroke={color} strokeWidth={strokeWidth}/>
+    <line x1="2" y1="48" x2="46" y2="48" stroke={color} strokeWidth={strokeWidth}/>
   </svg>
 );
