@@ -144,7 +144,7 @@ export default function NewAd({ session, onBack, onPublished }) {
             <div>
               {error && <div style={{ background: "#fff0ec", color: "#e05a1e", borderRadius: 10, padding: "10px 14px", fontSize: 13, marginBottom: 0, border: "1px solid #fdd0c0" }}>⚠ {error}</div>}
               <label style={lbl}>Titolo annuncio *</label>
-              <input type="text" value={form.title} onChange={e => set("title", e.target.value)} placeholder="Cuccia da interno piccola" style={inp} />
+              <input type="text" value={form.title} onChange={e => set("title", e.target.value)} placeholder="Es.: Cuccia da interno piccola" style={inp} />
             </div>
 
             <div>
