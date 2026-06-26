@@ -4,7 +4,7 @@ import React from "react";
 
 export const IconTutti = ({ size = 24, color = "currentColor", strokeWidth = 2.2 }) => (
   <svg width={size} height={size} viewBox="-4 -4 56 56" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
-    <rect x="4" y="4" width="16" height="16" rx="2"/>
+    <rect x="4" y="4" width="16" height="16" rx="2" stroke="#F0F000" stroke-width="2.2"/>
     <rect x="28" y="4" width="16" height="16" rx="2"/>
     <rect x="4" y="28" width="16" height="16" rx="2"/>
     <rect x="28" y="28" width="16" height="16" rx="2"/>
