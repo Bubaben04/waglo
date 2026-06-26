@@ -24,9 +24,9 @@ export default async function handler(req) {
   });
 
   const data = await response.json();
-  const text = data.content?.[0]?.text || '';
+  const text = data?.content?.[0]?.text || data?.error?.message || JSON.stringify(data);
 
-  return new Response(JSON.stringify({ description: text }), {
+  return new Response(JSON.stringify({ description: text, raw: data }), {
     status: 200,
     headers: { 'Content-Type': 'application/json' }
   });
