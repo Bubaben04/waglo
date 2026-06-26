@@ -335,3 +335,46 @@ export const IconCuore = ({ size = 24, color = "currentColor", strokeWidth = 2.2
     <path d="M24,42 Q-2,28 4,12 Q8,2 24,14 Q40,2 44,12 Q50,28 24,42Z"/>
   </svg>
 );
+
+// ── ICONE UI ─────────────────────────────────────────────────
+
+export const IconLuogo = ({ size = 24, color = "#0A6A64", strokeWidth = 2.2 }) => (
+  <svg width={size} height={size} viewBox="-4 -4 56 56" fill="none" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M24,2 Q44,2 44,22 Q44,36 24,52 Q4,36 4,22 Q4,2 24,2Z" stroke={color} strokeWidth={strokeWidth}/>
+    <circle cx="24" cy="22" r="7" fill="#F0F000" stroke="none"/>
+  </svg>
+);
+
+export const IconCestino = ({ size = 24, color = "#0A6A64", strokeWidth = 2.2 }) => (
+  <svg width={size} height={size} viewBox="-4 -4 56 56" fill="none" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M8,14 L12,44 Q12,48 24,48 Q36,48 36,44 L40,14Z" stroke={color} strokeWidth={strokeWidth}/>
+    <line x1="2" y1="14" x2="46" y2="14" stroke={color} strokeWidth={strokeWidth}/>
+    <path d="M16,14 L16,8 Q16,4 24,4 Q32,4 32,8 L32,14" stroke={color} strokeWidth={strokeWidth}/>
+    <line x1="18" y1="22" x2="20" y2="40" stroke="#F0F000" strokeWidth="2"/>
+    <line x1="30" y1="22" x2="28" y2="40" stroke="#F0F000" strokeWidth="2"/>
+  </svg>
+);
+
+export const IconProfilo = ({ size = 24, color = "#0A6A64", strokeWidth = 2.2 }) => (
+  <svg width={size} height={size} viewBox="-4 -4 56 56" fill="none" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="24" cy="16" r="12" stroke={color} strokeWidth={strokeWidth}/>
+    <circle cx="24" cy="16" r="4.5" fill="#F0F000" stroke="none"/>
+    <path d="M2,48 Q2,34 24,34 Q46,34 46,48" stroke={color} strokeWidth={strokeWidth}/>
+    <line x1="2" y1="48" x2="46" y2="48" stroke={color} strokeWidth={strokeWidth}/>
+  </svg>
+);
+
+export const IconContatta = ({ size = 24, color = "#0A6A64", strokeWidth = 2.2 }) => (
+  <svg width={size} height={size} viewBox="-4 -4 56 56" fill="none" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M2,6 Q2,2 6,2 L42,2 Q46,2 46,6 L46,32 Q46,36 42,36 L28,36 L18,46 L18,36 L6,36 Q2,36 2,32 Z" stroke={color} strokeWidth={strokeWidth}/>
+    <line x1="10" y1="14" x2="38" y2="14" stroke="#F0F000" strokeWidth="2"/>
+    <line x1="10" y1="24" x2="30" y2="24" stroke="#F0F000" strokeWidth="2"/>
+  </svg>
+);
+
+export const IconSegnala = ({ size = 24, strokeWidth = 2.2 }) => (
+  <svg width={size} height={size} viewBox="-4 -4 56 56" fill="none" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="8" y1="2" x2="8" y2="52" stroke="#0A6A64" strokeWidth={strokeWidth}/>
+    <path d="M8,2 Q24,10 40,2 Q40,26 24,26 Q14,26 8,26Z" stroke="#C43A08" strokeWidth={strokeWidth}/>
+  </svg>
+);
