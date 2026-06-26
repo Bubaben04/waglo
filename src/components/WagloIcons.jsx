@@ -340,8 +340,7 @@ export const IconCuore = ({ size = 24, color = "currentColor", fillColor = "none
 
 export const IconLuogo = ({ size = 24, color = "#0A6A64", strokeWidth = 2.2 }) => (
   <svg width={size} height={size} viewBox="-4 -4 56 56" fill="none" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M24,2 Q44,2 44,22 Q44,36 24,52 Q4,36 4,22 Q4,2 24,2Z" stroke={color} strokeWidth={strokeWidth}/>
-    <circle cx="24" cy="22" r="7" fill="#F0F000" stroke="none"/>
+    <path d="M24,2 Q44,2 44,18 Q44,28 24,60 Q4,28 4,18 Q4,2 24,2Z" stroke={color} strokeWidth={strokeWidth} fill="#C43A08"/>
   </svg>
 );
 
