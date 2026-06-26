@@ -53,9 +53,7 @@ export default function Chat({ session, activeConversationId, onInConversation, 
         <div style={{ padding: "12px 16px" }}>
           {conversations.map(conv => (
             <div key={conv.id} onClick={() => { setActiveConv(conv); onInConversation(true); }} style={{ background: "#fff", borderRadius: 14, marginBottom: 12, padding: "14px 16px", border: "1px solid #e8f0ee", cursor: "pointer", display: "flex", alignItems: "center", gap: 12 }}>
-              <div style={{ width: 44, height: 44, borderRadius: "50%", background: "#1a7a6e", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 18, color: "#fff", flexShrink: 0 }}>
-                {getOtherName(conv)[0].toUpperCase()}
-              </div>
+              <img src="/waglo_definitivo.svg" alt="Waglo" style={{ width: 44, height: 44, borderRadius: "50%", flexShrink: 0 }} />
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ fontWeight: 800, color: "#0f3d38", fontSize: 14 }}>{getOtherName(conv)}</div>
                 <div style={{ fontSize: 12, color: "#888", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{conv.ads?.title || "Annuncio"}</div>

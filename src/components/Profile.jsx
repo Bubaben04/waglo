@@ -66,9 +66,7 @@ const getCategoryIcon = (category) => {
         <button onClick={onLogout} style={{ background: "transparent", color: "#fff", border: "1px solid #ffffff66", borderRadius: 10, padding: "6px 14px", fontWeight: 700, fontSize: 12, cursor: "pointer", fontFamily: "inherit" }}>Esci</button>
       </div>
       <div style={{ padding: "20px 16px", display: "flex", alignItems: "center", gap: 16, background: "#fff", borderBottom: "1px solid #e8f0ee" }}>
-        <div style={{ width: 64, height: 64, borderRadius: "50%", background: "#1a7a6e", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 24, color: "#fff" }}>
-          {(profile?.display_name || session.user.email)[0].toUpperCase()}
-        </div>
+        <img src="/waglo_definitivo.svg" alt="Waglo" style={{ width: 64, height: 64, borderRadius: "50%" }} />
         <div>
           <div style={{ fontWeight: 800, color: "#0f3d38", fontSize: 18 }}>{profile?.display_name || "Utente"}</div>
           <div style={{ color: "#888", fontSize: 13 }}>{session.user.email}</div>

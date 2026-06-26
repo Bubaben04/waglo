@@ -44,9 +44,7 @@ const AdModal = ({ ad, onClose, session, onContact }) => {
           </div>
           <p style={{ margin: 0, color: "#555", lineHeight: 1.7, fontSize: 14 }}>{ad.description}</p>
           <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "14px 0", borderTop: "1px solid #eee", borderBottom: "1px solid #eee" }}>
-            <div style={{ width: 40, height: 40, borderRadius: "50%", background: "#1a7a6e", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 16, color: "#fff" }}>
-              {(ad.user_profiles?.display_name || "U")[0].toUpperCase()}
-            </div>
+            <img src="/waglo_definitivo.svg" alt="Waglo" style={{ width: 40, height: 40, borderRadius: "50%" }} />
             <div>
               <div style={{ fontWeight: 700, color: "#0f3d38" }}>{ad.user_profiles?.display_name || "Utente"}</div>
               <div style={{ fontSize: 12, color: "#888" }}>Venditore</div>
