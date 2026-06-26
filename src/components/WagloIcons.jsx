@@ -330,9 +330,9 @@ export const IconPacco = ({ size = 48, color = "currentColor", strokeWidth = 2.2
   </svg>
 );
 
-export const IconCuore = ({ size = 24, color = "currentColor", strokeWidth = 2.2 }) => (
+export const IconCuore = ({ size = 24, color = "currentColor", fillColor = "none", strokeWidth = 2.2 }) => (
   <svg width={size} height={size} viewBox="-4 -4 56 56" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
-    <path d="M24,42 Q-2,28 4,12 Q8,2 24,14 Q40,2 44,12 Q50,28 24,42Z"/>
+    <path d="M24,42 Q-2,28 4,12 Q8,2 24,14 Q40,2 44,12 Q50,28 24,42Z" fill={fillColor}/>
   </svg>
 );
 
