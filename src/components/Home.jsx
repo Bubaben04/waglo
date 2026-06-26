@@ -4,7 +4,7 @@ import {
   IconTutti, IconCani, IconGatti, IconUccelli, IconPesci,
   IconRoditori, IconRettili, IconConigli, IconCavalli, IconAltri,
   IconAlimenti, IconAccessori, IconIntegratori, IconIgiene,
-  IconAntiparassitari, IconAltro, IconPacco, IconRicerca, IconLuogo, IconContatta, IconSegnala
+  IconAntiparassitari, IconAltro, IconPacco, IconRicerca, IconLuogo, IconContatta, IconSegnala, IconCuore
 } from "./WagloIcons";
 
 const ANIMAL_CATEGORIES = [
@@ -134,7 +134,7 @@ const ProductModal = ({ ad, onClose, session, onContact, onShowAuth }) => {
       )}
     </>
   ) : <AnimalIcon size={80} strokeWidth={1.5} color="#1a7a6e" />}
-  <button onClick={(e) => { e.stopPropagation(); toggleFavorite(); }} style={{ position: "absolute", top: 14, left: 14, background: "#fff", border: "none", borderRadius: "50%", width: 36, height: 36, cursor: "pointer", fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px #0002" }}>{isFavorite ? "💛" : "🩶"}</button>
+  <button onClick={(e) => { e.stopPropagation(); toggleFavorite(); }} style={{ position: "absolute", top: 14, left: 14, background: "#fff", border: "none", borderRadius: "50%", width: 36, height: 36, cursor: "pointer", fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px #0002" }}><IconCuore size={20} style={{fill: isFavorite ? "#F0F000" : "none", stroke: isFavorite ? "#F0F000" : "#ccc"}}/></button>
   <button onClick={onClose} style={{ position: "absolute", top: 14, right: 14, background: "#fff", border: "none", borderRadius: "50%", width: 36, height: 36, cursor: "pointer", fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center", color: "#333", boxShadow: "0 2px 8px #0002" }}>✕</button>
 </div>
         <div style={{ padding: "24px 28px 28px", display: "flex", flexDirection: "column", gap: 14 }}>
