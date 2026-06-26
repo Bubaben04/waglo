@@ -75,7 +75,7 @@ export default function NewAd({ session, onBack, onPublished }) {
 
   const handlePhotoUpload = (e) => {
     const files = Array.from(e.target.files);
-    if (photos.length + files.length > 2) { setError("Puoi caricare massimo 2 foto."); return; }
+    if (photos.length + files.length > 5) { setError("Puoi caricare massimo 5 foto."); return; }
     setError("");
     setPhotos(prev => [...prev, ...files.map(file => ({ file, preview: URL.createObjectURL(file) }))]);
   };
@@ -208,7 +208,7 @@ export default function NewAd({ session, onBack, onPublished }) {
             )}
 
             <div>
-              <label style={lbl}>Foto {photoRequired ? "* (obbligatoria)" : "(facoltativa)"} — max 2</label>
+              <label style={lbl}>Foto {photoRequired ? "* (obbligatoria)" : "(facoltativa)"} — max 5</label>
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                 {photos.map((p, i) => (
                   <div key={i} style={{ position: "relative" }}>
@@ -216,7 +216,7 @@ export default function NewAd({ session, onBack, onPublished }) {
                     <button onClick={() => setPhotos(prev => prev.filter((_, j) => j !== i))} style={{ position: "absolute", top: -6, right: -6, background: "#e05a1e", border: "none", borderRadius: "50%", width: 20, height: 20, color: "#fff", cursor: "pointer", fontSize: 12, display: "flex", alignItems: "center", justifyContent: "center" }}>✕</button>
                   </div>
                 ))}
-                {photos.length < 2 && (
+                {photos.length < 5 && (
                   <label style={{ width: 80, height: 80, borderRadius: 10, border: "2px dashed #dde8e6", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "#aaa", fontSize: 28, background: "#fff" }}>
                     +<input type="file" accept="image/*" multiple onChange={handlePhotoUpload} style={{ display: "none" }} />
                   </label>
