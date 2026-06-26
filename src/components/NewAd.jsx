@@ -203,6 +203,9 @@ export default function NewAd({ session, onBack, onPublished }) {
               </div>
             </div>
 
+            <button type="button" onClick={generateDescription} disabled={aiLoading} style={{ padding: "10px 16px", border: "none", borderRadius: 10, background: "#1a7a6e", color: "#fff", fontWeight: 700, fontSize: 13, cursor: aiLoading ? "not-allowed" : "pointer", opacity: aiLoading ? 0.7 : 1, fontFamily: "inherit", width: "100%" }}>
+              {aiLoading ? "Generazione in corso..." : "Genera descrizione con AI"}
+            </button>
             <div>
               <label style={lbl}>Condizioni *</label>
               <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -267,9 +270,7 @@ export default function NewAd({ session, onBack, onPublished }) {
             <div>
   <label style={lbl}>Descrizione *</label>
   <textarea value={form.description} onChange={e => set("description", e.target.value)} placeholder="Descrivi l'articolo..." rows={4} style={{ ...inp, resize: "vertical" }} />
-  <button type="button" onClick={generateDescription} disabled={aiLoading} style={{ marginTop: 8, padding: "10px 16px", border: "none", borderRadius: 10, background: "#1a7a6e", color: "#fff", fontWeight: 700, fontSize: 13, cursor: aiLoading ? "not-allowed" : "pointer", opacity: aiLoading ? 0.7 : 1, fontFamily: "inherit", width: "100%" }}>
-    {aiLoading ? "Generazione in corso..." : "Genera descrizione con AI"}
-  </button>
+  
 </div>
             <button onClick={handleSubmit} disabled={loading} style={{ padding: "14px", border: "none", borderRadius: 12, background: "#e05a1e", color: "#fff", fontWeight: 800, fontSize: 15, cursor: loading ? "not-allowed" : "pointer", opacity: loading ? 0.7 : 1, marginTop: 8, fontFamily: "inherit" }}>
               {loading ? "Pubblicazione..." : "✅ Pubblica annuncio"}
