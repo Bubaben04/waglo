@@ -65,7 +65,7 @@ const ProductCard = ({ ad, onOpen }) => {
         </div>
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
           <Badge condition={ad.condition} />
-          <span style={{ fontSize: 11, color: "#888" }}><iconluogo size={12} style={{verticalalign:"middle", marginright:4}}/>{ad.city}</span>
+          <span style={{ fontSize: 11, color: "#888" }}><IconLuogo size={12} style={{verticalAlign:"middle", marginRight:4}}/>{ad.city}</span>
         </div>
         <div style={{ fontSize: 11, color: "#aaa", marginTop: 2 }}>{ad.user_profiles?.display_name || "Utente"}</div>
       </div>
@@ -144,7 +144,7 @@ const ProductModal = ({ ad, onClose, session, onContact, onShowAuth }) => {
           </div>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
             <Badge condition={ad.condition} />
-            <span style={{ fontSize: 12, color: "#888", background: "#f0f4f3", borderRadius: 6, padding: "2px 8px" }}><iconluogo size={12} /> {ad.city}</span>
+            <span style={{ fontSize: 12, color: "#888", background: "#f0f4f3", borderRadius: 6, padding: "2px 8px" }}><IconLuogo size={12} style={{verticalAlign:"middle", marginRight:4}}/> {ad.city}</span>
             {ad.accepts_offers && <span style={{ fontSize: 12, color: "#1a7a6e", background: "#e8f5f2", borderRadius: 6, padding: "2px 8px", fontWeight: 700 }}><IconContatta size={12} style={{verticalAlign:"middle", marginRight:4}}/>Accetta offerte</span>}
           </div>
           <p style={{ margin: 0, color: "#555", lineHeight: 1.7, fontSize: 14 }}>{ad.description}</p>

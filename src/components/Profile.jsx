@@ -70,7 +70,7 @@ const getCategoryIcon = (category) => {
         <div>
           <div style={{ fontWeight: 800, color: "#0f3d38", fontSize: 18 }}>{profile?.display_name || "Utente"}</div>
           <div style={{ color: "#888", fontSize: 13 }}>{session.user.email}</div>
-          <div style={{ color: "#888", fontSize: 12, marginTop: 2 }}>{profile?.user_type === "professional" ? "Commerciante" : "Privato"} · <iconluogo size={12} style={{verticalalign:"middle", marginright:4}}/>{profile?.city}</div>
+          <div style={{ color: "#888", fontSize: 12, marginTop: 2 }}>{profile?.user_type === "professional" ? "Commerciante" : "Privato"} · <IconLuogo size={12} style={{verticalAlign:"middle", marginRight:4}}/>{profile?.city}</div>
         </div>
       </div>
       <div style={{ padding: "16px" }}>
