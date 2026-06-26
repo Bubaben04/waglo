@@ -108,7 +108,7 @@ export default function Favorites({ session, onContact }) {
                   <div style={{ color: "#e05a1e", fontWeight: 800, fontSize: 15 }}>€{ad.price}</div>
                   <div style={{ color: "#888", fontSize: 12 }}><IconLuogo size={12} style={{verticalAlign:"middle", marginRight:4}}/>{ad.city}</div>
                 </div>
-                <button onClick={(e) => removeFavorite(fav.id, e)} style={{ background: "none", border: "none", color: "#e05a1e", fontSize: 20, cursor: "pointer", padding: 4 }}><iconcestino size={20} /></button>
+                <button onClick={(e) => removeFavorite(fav.id, e)} style={{ background: "none", border: "none", color: "#e05a1e", fontSize: 20, cursor: "pointer", padding: 4 }}><IconCestino size={20} /></button>
               </div>
             );
           })}
