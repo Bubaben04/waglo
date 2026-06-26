@@ -366,7 +366,7 @@ export const IconContatta = ({ size = 24, color = "#0A6A64", strokeWidth = 2.2 }
 export const IconSegnala = ({ size = 24, strokeWidth = 2.2 }) => (
   <svg width={size} height={size} viewBox="-4 -4 56 56" fill="none" strokeLinecap="round" strokeLinejoin="round">
     <line x1="8" y1="2" x2="8" y2="52" stroke="#0A6A64" strokeWidth={strokeWidth}/>
-    <path d="M8,2 Q24,10 40,2 Q40,26 24,26 Q14,26 8,26Z" stroke="#C43A08" strokeWidth={strokeWidth}/>
+    <path d="M8,2 Q24,10 40,2 Q40,26 24,26 Q14,26 8,26Z" stroke="#e05a1e" strokeWidth={strokeWidth}/>
   </svg>
 );
 
