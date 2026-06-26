@@ -169,9 +169,6 @@ export default function NewAd({ session, onBack, onPublished }) {
               {error && <div style={{ background: "#fff0ec", color: "#e05a1e", borderRadius: 10, padding: "10px 14px", fontSize: 13, marginBottom: 0, border: "1px solid #fdd0c0" }}>⚠ {error}</div>}
               <label style={lbl}>Titolo annuncio *</label>
               <input type="text" value={form.title} onChange={e => set("title", e.target.value)} placeholder="Es.: Cuccia da interno piccola" style={inp} />
-              <button type="button" onClick={generateDescription} disabled={aiLoading} style={{ marginTop: 8, padding: "10px 16px", border: "none", borderRadius: 10, background: "#1a7a6e", color: "#fff", fontWeight: 700, fontSize: 13, cursor: aiLoading ? "not-allowed" : "pointer", opacity: aiLoading ? 0.7 : 1, fontFamily: "inherit", width: "100%" }}>
-                {aiLoading ? "Generazione in corso..." : "Genera descrizione con AI"}
-              </button>
             </div>
 
             <div>
@@ -267,6 +264,9 @@ export default function NewAd({ session, onBack, onPublished }) {
             <div><label style={lbl}>Città *</label><input type="text" value={form.city} onChange={e => set("city", e.target.value)} placeholder="es. Milano" style={inp} /></div>
             <div>
   <label style={lbl}>Descrizione *</label>
+              <button type="button" onClick={generateDescription} disabled={aiLoading} style={{ marginBottom: 8, padding: "10px 16px", border: "none", borderRadius: 10, background: "#1a7a6e", color: "#fff", fontWeight: 700, fontSize: 13, cursor: aiLoading ? "not-allowed" : "pointer", opacity: aiLoading ? 0.7 : 1, fontFamily: "inherit", width: "100%" }}>
+                {aiLoading ? "Generazione in corso..." : "Genera descrizione con AI"}
+              </button>
   <textarea value={form.description} onChange={e => set("description", e.target.value)} placeholder="Descrivi l'articolo..." rows={4} style={{ ...inp, resize: "vertical" }} />
   
 </div>

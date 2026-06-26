@@ -7,7 +7,7 @@ export default async function handler(req) {
 
   const { title, animal_type, category, condition } = await req.json();
 
-  const prompt = `Sei un assistente per un marketplace italiano di prodotti usati per animali chiamato Waglo. Scrivi una descrizione breve e accattivante in italiano (max 80 parole) per questo annuncio usato.\nTitolo: ${title}${animal_type ? `\nAnimale: ${animal_type}` : ""}${category ? `\nCategoria: ${category}` : ""}${condition ? `\nCondizione: ${condition}` : ""}\nSe animale e categoria non sono specificati, basati solo sul titolo. Scrivi in tono friendly e diretto. Rispondi solo con la descrizione, senza titolo né premesse.`;
+  const prompt = `Sei un assistente per Waglo, marketplace italiano di prodotti usati per animali. Scrivi una descrizione realistica in italiano per un annuncio privato di un oggetto usato. Massimo 3 frasi, tono neutro e diretto, niente emoji, niente slogan, niente esclamativi. Scrivi come scriverebbe un privato che descrive onestamente il prodotto.\nTitolo: ${title}${animal_type ? `\nAnimale: ${animal_type}` : ""}${category ? `\nCategoria: ${category}` : ""}${condition ? `\nCondizione: ${condition}` : ""}\nRispondi solo con la descrizione, senza titolo ne premesse.`;
 
   const response = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
@@ -18,15 +18,15 @@ export default async function handler(req) {
     },
     body: JSON.stringify({
       model: 'claude-sonnet-4-6',
-      max_tokens: 300,
+      max_tokens: 200,
       messages: [{ role: 'user', content: prompt }]
     })
   });
 
   const data = await response.json();
-  const text = data?.content?.[0]?.text || data?.error?.message || JSON.stringify(data);
+  const text = data?.content?.[0]?.text || "";
 
-  return new Response(JSON.stringify({ description: text, raw: data }), {
+  return new Response(JSON.stringify({ description: text }), {
     status: 200,
     headers: { 'Content-Type': 'application/json' }
   });
