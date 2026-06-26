@@ -4,7 +4,7 @@ import {
   IconTutti, IconCani, IconGatti, IconUccelli, IconPesci,
   IconRoditori, IconRettili, IconConigli, IconCavalli, IconAltri,
   IconAlimenti, IconAccessori, IconIntegratori, IconIgiene,
-  IconAntiparassitari, IconAltro, IconPacco, IconRicerca
+  IconAntiparassitari, IconAltro, IconPacco, IconRicerca, IconLuogo, IconContatta, IconSegnala
 } from "./WagloIcons";
 
 const ANIMAL_CATEGORIES = [
