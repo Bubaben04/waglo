@@ -145,7 +145,7 @@ const ProductModal = ({ ad, onClose, session, onContact, onShowAuth }) => {
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
             <Badge condition={ad.condition} />
             <span style={{ fontSize: 12, color: "#888", background: "#f0f4f3", borderRadius: 6, padding: "2px 8px" }}><iconluogo size={12} /> {ad.city}</span>
-            {ad.accepts_offers && <span style={{ fontSize: 12, color: "#1a7a6e", background: "#e8f5f2", borderRadius: 6, padding: "2px 8px", fontWeight: 700 }}>Accetta offerte</span>}
+            {ad.accepts_offers && <span style={{ fontSize: 12, color: "#1a7a6e", background: "#e8f5f2", borderRadius: 6, padding: "2px 8px", fontWeight: 700 }}><IconContatta size={12} style={{verticalAlign:"middle", marginRight:4}}/>Accetta offerte</span>}
           </div>
           <p style={{ margin: 0, color: "#555", lineHeight: 1.7, fontSize: 14 }}>{ad.description}</p>
           <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "14px 0", borderTop: "1px solid #eee", borderBottom: "1px solid #eee" }}>
