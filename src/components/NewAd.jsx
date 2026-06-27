@@ -138,7 +138,15 @@ export default function NewAd({ session, onBack, onPublished }) {
       status: "active",
       expiration_date: expiryRequired && expiryDate ? expiryDate : new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
     }).select().single();
-    if (adError) { setError(adError.message); setLoading(false); return; }
+    if (adError) {
+      let msg = "Errore durante la pubblicazione. Riprova.";
+      if (adError.message.includes("check_price_range")) msg = "Il prezzo deve essere compreso tra €0,50 e €5.000.";
+      if (adError.message.includes("check_title_not_empty")) msg = "Il titolo e' troppo corto.";
+      if (adError.message.includes("check_city_not_empty")) msg = "Inserisci una citta' valida.";
+      if (adError.message.includes("check_condition_valid")) msg = "Seleziona una condizione valida.";
+      if (adError.message.includes("enforce_ad_rate_limit") || adError.message.includes("Limite raggiunto")) msg = "Hai raggiunto il limite di 5 annunci nelle ultime 24 ore.";
+      setError(msg); setLoading(false); return;
+    }
     for (let i = 0; i < photos.length; i++) {
       const fileName = `${ad.id}_${i}_${Date.now()}`;
       const { error: uploadError } = await supabase.storage.from("ad-images").upload(fileName, photos[i].file);
