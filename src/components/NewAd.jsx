@@ -162,7 +162,7 @@ export default function NewAd({ session, onBack, onPublished }) {
     <div style={{ minHeight: "100vh", background: "#f5f7f6", fontFamily: "'Nunito', sans-serif", paddingBottom: 100 }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap'); input:focus,select:focus,textarea:focus{border-color:#1a7a6e!important;}`}</style>
       <div style={{ padding: "16px 20px", background: "#1a7a6e", display: "flex", alignItems: "center", gap: 14, position: "sticky", top: 0, zIndex: 100 }}>
-        <button onClick={onBack} style={{ background: "none", border: "none", color: "#fff", fontSize: 22, cursor: "pointer", padding: 0 }}>←</button>
+        <button onClick={step === 2 ? () => { setStep(1); setError(""); } : onBack} style={{ background: "none", border: "none", color: "#fff", fontSize: 22, cursor: "pointer", padding: 0 }}>←</button>
         <div style={{ fontWeight: 900, fontSize: 18, color: "#fff" }}>{step === 1 ? "Nuovo annuncio" : "Dettagli e prezzo"}</div>
       </div>
       <div style={{ padding: "16px 20px 0", display: "flex", gap: 8 }}>
