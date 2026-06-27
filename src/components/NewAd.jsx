@@ -118,7 +118,7 @@ export default function NewAd({ session, onBack, onPublished }) {
   };
 
   const validateStep2 = () => {
-    if (!form.price || isNaN(+form.price) || +form.price <= 0) return "Inserisci un prezzo valido.";
+    if (!form.price || isNaN(+form.price) || +form.price < 0.50 || +form.price > 5000) return "Il prezzo deve essere compreso tra €0,50 e €5.000.";
     if (!form.city.trim()) return "Inserisci la città.";
     if (!form.description.trim()) return "Inserisci una descrizione.";
     return null;
