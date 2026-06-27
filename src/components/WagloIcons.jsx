@@ -12,7 +12,7 @@ export const IconTutti = ({ size = 24, color = "currentColor", strokeWidth = 2.2
 );
 
 export const IconCani = ({ size = 24, color = "currentColor", strokeWidth = 2.2 }) => (
-  <svg width={size} height={size} viewBox="-4 -4 56 56" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
+  <svg width={size} height={size} viewBox="-4 2 56 56" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
     <path d="M8,22 Q2,26 3,34 Q4,40 10,40" strokeWidth={strokeWidth}/>
     <path d="M40,22 Q46,26 45,34 Q44,40 38,40" strokeWidth={strokeWidth}/>
     <rect x="10" y="12" width="28" height="26" rx="8"/>
