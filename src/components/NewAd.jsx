@@ -262,6 +262,7 @@ export default function NewAd({ session, onBack, onPublished }) {
 
         {step === 2 && (
           <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+            {error && <div style={{ background: "#fff0ec", color: "#e05a1e", borderRadius: 10, padding: "10px 14px", fontSize: 13, border: "1px solid #fdd0c0" }}>⚠ {error}</div>}
             <div><label style={lbl}>Prezzo € *</label><input type="number" value={form.price} onChange={e => set("price", e.target.value)} placeholder="0" min="0" style={inp} /></div>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: "#fff", padding: "14px 16px", borderRadius: 12, border: "1.5px solid #dde8e6" }}>
               <div><div style={{ color: "#0f3d38", fontWeight: 700 }}>Accetto offerte</div><div style={{ color: "#888", fontSize: 12 }}>Gli acquirenti possono proporre un prezzo</div></div>
