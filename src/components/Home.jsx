@@ -48,15 +48,22 @@ const getAnimalIcon = (animalType) => {
   const cat = ANIMAL_CATEGORIES.find(c => c.id === animalType);
   return cat ? cat.Icon : IconAltri;
 };
+const getAnimalIcons = (animalType) => {
+  const types = Array.isArray(animalType) ? animalType : [animalType];
+  return types.slice(0, 2).map(t => {
+    const cat = ANIMAL_CATEGORIES.find(c => c.id === t);
+    return cat ? cat.Icon : IconAltri;
+  });
+};
 
 const ProductCard = ({ ad, onOpen }) => {
   const [hover, setHover] = useState(false);
-  const AnimalIcon = getAnimalIcon(ad.animal_type);
+  const AnimalIcons = getAnimalIcons(ad.animal_type);
   const imageUrl = ad.ad_images?.[0]?.image_url;
   return (
     <div onClick={() => onOpen(ad)} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} style={{ background: "#fff", borderRadius: 16, overflow: "hidden", cursor: "pointer", border: "1.5px solid #e8f0ee", boxShadow: hover ? "0 8px 24px #1a7a6e18" : "0 2px 8px #00000008", transform: hover ? "translateY(-3px)" : "none", transition: "all .22s ease", display: "flex", flexDirection: "column" }}>
       <div style={{ background: "#f0f4f3", height: 140, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", color: "#1a7a6e" }}>
-        {imageUrl ? <img src={imageUrl} alt={ad.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : <AnimalIcon size={56} strokeWidth={1.5} color="#1a7a6e" />}
+        {imageUrl ? <img src={imageUrl} alt={ad.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : <div style={{ display: "flex", gap: 8 }}>{AnimalIcons.map((Icon, i) => <Icon key={i} size={56} strokeWidth={1.5} color="#1a7a6e" />)}</div>}
       </div>
       <div style={{ padding: "12px 12px 14px", display: "flex", flexDirection: "column", gap: 6 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 6 }}>
@@ -76,7 +83,7 @@ const ProductCard = ({ ad, onOpen }) => {
 const ProductModal = ({ ad, onClose, session, onContact, onShowAuth }) => {
   if (!ad) return null;
   const imageUrl = ad.ad_images?.[0]?.image_url;
-  const AnimalIcon = getAnimalIcon(ad.animal_type);
+  const AnimalIcons = getAnimalIcons(ad.animal_type);
   const [showReport, setShowReport] = React.useState(false);
   const images = ad.ad_images || [];
   const [currentImg, setCurrentImg] = React.useState(0);
@@ -133,7 +140,7 @@ const ProductModal = ({ ad, onClose, session, onContact, onShowAuth }) => {
         </>
       )}
     </>
-  ) : <AnimalIcon size={80} strokeWidth={1.5} color="#1a7a6e" />}
+  ) : <div style={{ display: "flex", gap: 8 }}>{AnimalIcons.map((Icon, i) => <Icon key={i} size={80} strokeWidth={1.5} color="#1a7a6e" />)}</div>}
   <button onClick={(e) => { e.stopPropagation(); toggleFavorite(); }} style={{ position: "absolute", top: 14, left: 14, background: "#fff", border: "none", borderRadius: "50%", width: 36, height: 36, cursor: "pointer", fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px #0002" }}><IconCuore size={20} color={isFavorite ? "#F0F000" : "#ccc"} fillColor={isFavorite ? "#F0F000" : "none"} strokeWidth={2}/></button>
   <button onClick={onClose} style={{ position: "absolute", top: 14, right: 14, background: "#fff", border: "none", borderRadius: "50%", width: 36, height: 36, cursor: "pointer", fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center", color: "#333", boxShadow: "0 2px 8px #0002" }}>✕</button>
 </div>
