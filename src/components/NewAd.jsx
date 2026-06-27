@@ -54,7 +54,7 @@ export default function NewAd({ session, onBack, onPublished }) {
   const [aiLoading, setAiLoading] = useState(false);
   const [photos, setPhotos] = useState([]);
   const [form, setForm] = useState({
-    title: "", description: "", animal_type: "",
+    title: "", description: "", animal_type: [],
     category: "", condition: "", price: "",
     accepts_offers: false, city: ""
   });
@@ -106,7 +106,7 @@ export default function NewAd({ session, onBack, onPublished }) {
 
   const validateStep1 = () => {
     if (!form.title.trim()) return "Inserisci un titolo.";
-    if (!form.animal_type) return "Seleziona il tipo di animale.";
+    if (!form.animal_type || form.animal_type.length === 0) return "Seleziona almeno un tipo di animale.";
     if (!form.category) return "Seleziona la categoria prodotto.";
     if (!form.condition) return "Seleziona le condizioni.";
     if (photoRequired && photos.length === 0) return "Almeno una foto è obbligatoria per questa condizione.";
@@ -183,9 +183,9 @@ export default function NewAd({ session, onBack, onPublished }) {
               <label style={lbl}>Tipo di animale *</label>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
                 {ANIMAL_TYPES.map(({ id, label, Icon }) => {
-                  const active = form.animal_type === id;
+                  const active = form.animal_type.includes(id);
                   return (
-                    <button key={id} onClick={() => set("animal_type", id)} style={{ padding: "10px 6px", borderRadius: 10, cursor: "pointer", border: `2px solid ${active ? "#1a7a6e" : "#dde8e6"}`, background: active ? "#e8f5f2" : "#fff", color: active ? "#1a7a6e" : "#888", fontSize: 12, fontWeight: 700, textAlign: "center", transition: "all .2s", fontFamily: "inherit", display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
+                    <button key={id} onClick={() => set("animal_type", form.animal_type.includes(id) ? form.animal_type.filter(a => a !== id) : [...form.animal_type, id])} style={{ padding: "10px 6px", borderRadius: 10, cursor: "pointer", border: `2px solid ${active ? "#1a7a6e" : "#dde8e6"}`, background: active ? "#e8f5f2" : "#fff", color: active ? "#1a7a6e" : "#888", fontSize: 12, fontWeight: 700, textAlign: "center", transition: "all .2s", fontFamily: "inherit", display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
                       <Icon size={24} strokeWidth={1.8} color={active ? "#1a7a6e" : "#888"} />
                       {label}
                     </button>

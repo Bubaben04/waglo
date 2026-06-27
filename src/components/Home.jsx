@@ -259,7 +259,7 @@ export default function Home({ session, onShowAuth, onContact }) {
   };
 
   const filtered = ads.filter(ad => {
-    const matchAnimal = animalCat === "all" || ad.animal_type === animalCat;
+    const matchAnimal = animalCat === "all" || (Array.isArray(ad.animal_type) ? ad.animal_type.includes(animalCat) : ad.animal_type === animalCat);
     const matchProduct = productCat === "all" || ad.category === productCat;
     const matchSearch = !search.trim() || ad.title.toLowerCase().includes(search.trim().toLowerCase()) || ad.city.toLowerCase().includes(search.trim().toLowerCase());
     return matchAnimal && matchProduct && matchSearch;
