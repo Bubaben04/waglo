@@ -15,14 +15,14 @@ Descrizione: ${description || "non fornita"}
 Categoria: ${category || "non specificata"}
 Condizione: ${condition || "non specificata"}
 
-Blocca l'annuncio SOLO se contiene almeno uno di questi segnali inequivocabili:
-- Vendita di animali vivi
+Blocca l'annuncio se contiene almeno uno di questi segnali:
+- Vendita di animali vivi (cuccioli, gattini, conigli, uccelli, pesci vivi, ecc.)
+- Riproduzione o allevamento (parole chiave: cuccioli, cucciolata, nati, stallone, monta)
 - Farmaci veterinari con obbligo di ricetta
 - Linguaggio osceno o offensivo esplicito
-- Prezzi palesemente truffaldini (es. iPhone a €1 per prodotti pet)
 - Contenuti completamente estranei agli animali domestici
 
-Per tutto il resto approva. Il dubbio va sempre a favore dell'approvazione.
+Per tutto il resto approva.
 
 Rispondi SOLO con questo JSON:
 {"approved": true, "reason": ""}
