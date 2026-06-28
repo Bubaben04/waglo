@@ -5,7 +5,14 @@ export default async function handler(req) {
     return new Response('Method not allowed', { status: 405 });
   }
 
-  const { imageUrl } = await req.json();
+  let imageUrl;
+  try {
+    const body = await req.json();
+    imageUrl = body.imageUrl;
+    if (!imageUrl) return new Response(JSON.stringify({ photo_quality: 'scarsa', quality_message: 'Errore: imageUrl mancante' }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+  } catch (e) {
+    return new Response(JSON.stringify({ photo_quality: 'scarsa', quality_message: `Errore parsing body: ${e.message}` }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+  }
 
   const prompt = `Sei un assistente per Waglo, marketplace italiano di prodotti usati per animali domestici.
 Analizza questa foto e restituisci SOLO un oggetto JSON valido, senza testo aggiuntivo.
