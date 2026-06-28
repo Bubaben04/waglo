@@ -66,10 +66,10 @@ Rispondi SOLO con JSON in questo formato esatto:
       status: 200,
       headers: { 'Content-Type': 'application/json' }
     });
-  } catch (err) {
+  } catch {
     return new Response(JSON.stringify({
       photo_quality: 'scarsa',
-      quality_message: `Errore: ${err.message}`
+      quality_message: 'Impossibile analizzare la foto. Riprova.'
     }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
