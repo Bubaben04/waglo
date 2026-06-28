@@ -60,7 +60,8 @@ Rispondi SOLO con JSON in questo formato esatto:
   const text = data?.content?.[0]?.text || '{"photo_quality": "scarsa", "quality_message": "Impossibile analizzare la foto. Riprova."}';
 
   try {
-    const result = JSON.parse(text);
+    const clean = text.replace(/```json|```/g, "").trim();
+    const result = JSON.parse(clean);
     return new Response(JSON.stringify(result), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
