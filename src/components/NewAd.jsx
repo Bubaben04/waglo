@@ -230,6 +230,38 @@ export default function NewAd({ session, onBack, onPublished }) {
           <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
             <div>
               {error && <div style={{ background: "#fff0ec", color: "#e05a1e", borderRadius: 10, padding: "10px 14px", fontSize: 13, marginBottom: 0, border: "1px solid #fdd0c0" }}>⚠ {error}</div>}
+            </div>
+
+            <div>
+              <label style={lbl}>Foto {photoRequired ? "* (obbligatoria)" : "(facoltativa)"} — max 5</label>
+              <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+                {photos.map((p, i) => (
+                  <div key={i} style={{ position: "relative" }}>
+                    <img src={p.preview} alt="" style={{ width: 80, height: 80, objectFit: "cover", borderRadius: 10, border: "2px solid #dde8e6" }} />
+                    <button onClick={() => setPhotos(prev => prev.filter((_, j) => j !== i))} style={{ position: "absolute", top: -6, right: -6, background: "#e05a1e", border: "none", borderRadius: "50%", width: 20, height: 20, color: "#fff", cursor: "pointer", fontSize: 12, display: "flex", alignItems: "center", justifyContent: "center" }}>✕</button>
+                  </div>
+                ))}
+                {photos.length < 5 && (
+                  <label style={{ width: 80, height: 80, borderRadius: 10, border: "2px dashed #dde8e6", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "#aaa", fontSize: 28, background: "#fff" }}>
+                    +<input type="file" accept="image/*" multiple onChange={handlePhotoUpload} style={{ display: "none" }} />
+                  </label>
+                )}
+              </div>
+              {photos.length > 0 && (
+                <div style={{ marginTop: 10 }}>
+                  <button type="button" onClick={analyzePhoto} disabled={aiPhotoLoading} style={{ width: "100%", padding: "10px 16px", border: "none", borderRadius: 10, background: "#1a7a6e", color: "#fff", fontWeight: 700, fontSize: 13, cursor: aiPhotoLoading ? "not-allowed" : "pointer", opacity: aiPhotoLoading ? 0.7 : 1, fontFamily: "inherit" }}>
+                    {aiPhotoLoading ? "Analisi in corso..." : "📷 Lascia che l'AI compili il modulo per te"}
+                  </button>
+                  {aiPhotoMessage && (
+                    <div style={{ marginTop: 8, padding: "10px 14px", borderRadius: 10, background: aiPhotoMessage.includes("aggiornati") ? "#e8f5f2" : "#fff0ec", color: aiPhotoMessage.includes("aggiornati") ? "#1a7a6e" : "#e05a1e", fontSize: 13, fontWeight: 600, border: `1px solid ${aiPhotoMessage.includes("aggiornati") ? "#b2ddd7" : "#fdd0c0"}` }}>
+                      {aiPhotoMessage}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
+            <div>
               <label style={lbl}>Titolo annuncio *</label>
               <input type="text" value={form.title} onChange={e => set("title", e.target.value)} placeholder="Es.: Cuccia da interno piccola" style={inp} />
             </div>
@@ -289,36 +321,6 @@ export default function NewAd({ session, onBack, onPublished }) {
                 {expiryDate && !validateExpiryDate(expiryDate) && (
                   <div style={{ color: "#ef4444", fontSize: 12, marginTop: 4, fontWeight: 700 }}>
                     ⚠ La data di scadenza deve essere almeno 7 giorni da oggi. Pubblicazione non consentita.
-                  </div>
-                )}
-              </div>
-            )}
-
-            <div>
-              <label style={lbl}>Foto {photoRequired ? "* (obbligatoria)" : "(facoltativa)"} — max 5</label>
-              <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                {photos.map((p, i) => (
-                  <div key={i} style={{ position: "relative" }}>
-                    <img src={p.preview} alt="" style={{ width: 80, height: 80, objectFit: "cover", borderRadius: 10, border: "2px solid #dde8e6" }} />
-                    <button onClick={() => setPhotos(prev => prev.filter((_, j) => j !== i))} style={{ position: "absolute", top: -6, right: -6, background: "#e05a1e", border: "none", borderRadius: "50%", width: 20, height: 20, color: "#fff", cursor: "pointer", fontSize: 12, display: "flex", alignItems: "center", justifyContent: "center" }}>✕</button>
-                  </div>
-                ))}
-                {photos.length < 5 && (
-                  <label style={{ width: 80, height: 80, borderRadius: 10, border: "2px dashed #dde8e6", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "#aaa", fontSize: 28, background: "#fff" }}>
-                    +<input type="file" accept="image/*" multiple onChange={handlePhotoUpload} style={{ display: "none" }} />
-                  </label>
-                )}
-              </div>
-            </div>
-
-            {photos.length > 0 && (
-              <div>
-                <button type="button" onClick={analyzePhoto} disabled={aiPhotoLoading} style={{ width: "100%", padding: "10px 16px", border: "none", borderRadius: 10, background: "#1a7a6e", color: "#fff", fontWeight: 700, fontSize: 13, cursor: aiPhotoLoading ? "not-allowed" : "pointer", opacity: aiPhotoLoading ? 0.7 : 1, fontFamily: "inherit" }}>
-                  {aiPhotoLoading ? "Analisi in corso..." : "Analizza foto e compila i campi"}
-                </button>
-                {aiPhotoMessage && (
-                  <div style={{ marginTop: 8, padding: "10px 14px", borderRadius: 10, background: aiPhotoMessage.includes("aggiornati") ? "#e8f5f2" : "#fff0ec", color: aiPhotoMessage.includes("aggiornati") ? "#1a7a6e" : "#e05a1e", fontSize: 13, fontWeight: 600, border: `1px solid ${aiPhotoMessage.includes("aggiornati") ? "#b2ddd7" : "#fdd0c0"}` }}>
-                    {aiPhotoMessage}
                   </div>
                 )}
               </div>
