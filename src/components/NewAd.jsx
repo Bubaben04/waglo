@@ -250,7 +250,7 @@ export default function NewAd({ session, onBack, onPublished }) {
               {photos.length > 0 && (
                 <div style={{ marginTop: 10 }}>
                   <button type="button" onClick={analyzePhoto} disabled={aiPhotoLoading} style={{ width: "100%", padding: "10px 16px", border: "none", borderRadius: 10, background: "#1a7a6e", color: "#fff", fontWeight: 700, fontSize: 13, cursor: aiPhotoLoading ? "not-allowed" : "pointer", opacity: aiPhotoLoading ? 0.7 : 1, fontFamily: "inherit" }}>
-                    {aiPhotoLoading ? "Analisi in corso..." : "📷 Lascia che l'AI compili il modulo per te"}
+                    {aiPhotoLoading ? "Analisi in corso..." : "Lascia che l'AI compili il modulo per te"}
                   </button>
                   {aiPhotoMessage && (
                     <div style={{ marginTop: 8, padding: "10px 14px", borderRadius: 10, background: aiPhotoMessage.includes("aggiornati") ? "#e8f5f2" : "#fff0ec", color: aiPhotoMessage.includes("aggiornati") ? "#1a7a6e" : "#e05a1e", fontSize: 13, fontWeight: 600, border: `1px solid ${aiPhotoMessage.includes("aggiornati") ? "#b2ddd7" : "#fdd0c0"}` }}>
