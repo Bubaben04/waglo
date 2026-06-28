@@ -80,8 +80,8 @@ export default function NewAd({ session, onBack, onPublished }) {
         if (data.condition) set("condition", data.condition);
         setAiPhotoMessage("Campi aggiornati dall'AI — controlla e modifica se necessario.");
       }
-    } catch {
-      setAiPhotoMessage("Errore durante l'analisi. Riprova.");
+    } catch (err) {
+      setAiPhotoMessage(`Errore: ${err.message}`);
     }
     setAiPhotoLoading(false);
   };
