@@ -5,7 +5,7 @@ export default async function handler(req) {
     return new Response('Method not allowed', { status: 405 });
   }
 
-  const { imageBase64, mediaType } = await req.json();
+  const { imageUrl } = await req.json();
 
   const prompt = `Sei un assistente per Waglo, marketplace italiano di prodotti usati per animali domestici.
 Analizza questa foto e restituisci SOLO un oggetto JSON valido, senza testo aggiuntivo.
@@ -39,9 +39,8 @@ Rispondi SOLO con JSON in questo formato esatto:
           {
             type: 'image',
             source: {
-              type: 'base64',
-              media_type: mediaType || 'image/jpeg',
-              data: imageBase64
+              type: 'url',
+              url: imageUrl
             }
           },
           { type: 'text', text: prompt }

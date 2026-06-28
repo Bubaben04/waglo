@@ -61,28 +61,14 @@ export default function NewAd({ session, onBack, onPublished }) {
     setAiPhotoMessage("");
     try {
       const file = photos[0].file;
-      const base64 = await new Promise((resolve, reject) => {
-        const img = new Image();
-        const url = URL.createObjectURL(file);
-        img.onload = () => {
-          const MAX = 1024;
-          const ratio = Math.min(MAX / img.width, MAX / img.height, 1);
-          const canvas = document.createElement("canvas");
-          canvas.width = Math.round(img.width * ratio);
-          canvas.height = Math.round(img.height * ratio);
-          canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
-          URL.revokeObjectURL(url);
-          const data = canvas.toDataURL("image/jpeg", 0.85).split(",")[1];
-          resolve(data);
-        };
-        img.onerror = () => reject(new Error("Lettura file fallita"));
-        img.src = url;
-      });
-      const mediaType = file.type || "image/jpeg";
+      const tempName = `temp_${Date.now()}_${file.name}`;
+      const { error: uploadError } = await supabase.storage.from("ad-images").upload(tempName, file);
+      if (uploadError) throw new Error("Upload fallito");
+      const { data: { publicUrl } } = supabase.storage.from("ad-images").getPublicUrl(tempName);
       const response = await fetch("/api/analyze-photo", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ imageBase64: base64, mediaType })
+        body: JSON.stringify({ imageUrl: publicUrl })
       });
       const data = await response.json();
       if (data.photo_quality === "scarsa") {
