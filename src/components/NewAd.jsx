@@ -61,7 +61,7 @@ export default function NewAd({ session, onBack, onPublished }) {
     setAiPhotoMessage("");
     try {
       const file = photos[0].file;
-      const tempName = `temp_${Date.now()}_${file.name}`;
+      const tempName = `temp_${Date.now()}.jpg`;
       const { error: uploadError } = await supabase.storage.from("ad-images").upload(tempName, file);
       if (uploadError) throw new Error("Upload fallito");
       const { data: { publicUrl } } = supabase.storage.from("ad-images").getPublicUrl(tempName);
