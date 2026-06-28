@@ -62,10 +62,21 @@ export default function NewAd({ session, onBack, onPublished }) {
     try {
       const file = photos[0].file;
       const base64 = await new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result.split(",")[1]);
-        reader.onerror = () => reject(new Error("Lettura file fallita"));
-        reader.readAsDataURL(file);
+        const img = new Image();
+        const url = URL.createObjectURL(file);
+        img.onload = () => {
+          const MAX = 1024;
+          const ratio = Math.min(MAX / img.width, MAX / img.height, 1);
+          const canvas = document.createElement("canvas");
+          canvas.width = Math.round(img.width * ratio);
+          canvas.height = Math.round(img.height * ratio);
+          canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
+          URL.revokeObjectURL(url);
+          const data = canvas.toDataURL("image/jpeg", 0.85).split(",")[1];
+          resolve(data);
+        };
+        img.onerror = () => reject(new Error("Lettura file fallita"));
+        img.src = url;
       });
       const mediaType = file.type || "image/jpeg";
       const response = await fetch("/api/analyze-photo", {
