@@ -52,6 +52,42 @@ export default function NewAd({ session, onBack, onPublished }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [aiLoading, setAiLoading] = useState(false);
+  const [aiPhotoLoading, setAiPhotoLoading] = useState(false);
+  const [aiPhotoMessage, setAiPhotoMessage] = useState("");
+
+  const analyzePhoto = async () => {
+    if (photos.length === 0) return;
+    setAiPhotoLoading(true);
+    setAiPhotoMessage("");
+    try {
+      const file = photos[0].file;
+      const base64 = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result.split(",")[1]);
+        reader.onerror = () => reject(new Error("Lettura file fallita"));
+        reader.readAsDataURL(file);
+      });
+      const mediaType = file.type || "image/jpeg";
+      const response = await fetch("/api/analyze-photo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ imageBase64: base64, mediaType })
+      });
+      const data = await response.json();
+      if (data.photo_quality === "scarsa") {
+        setAiPhotoMessage(data.quality_message || "Foto non sufficientemente chiara. Carica una foto migliore.");
+      } else {
+        if (data.title) set("title", data.title);
+        if (data.category) set("category", data.category);
+        if (data.animal_type) set("animal_type", data.animal_type);
+        if (data.condition) set("condition", data.condition);
+        setAiPhotoMessage("Campi aggiornati dall'AI — controlla e modifica se necessario.");
+      }
+    } catch {
+      setAiPhotoMessage("Errore durante l'analisi. Riprova.");
+    }
+    setAiPhotoLoading(false);
+  };
   const [photos, setPhotos] = useState([]);
   const [form, setForm] = useState({
     title: "", description: "", animal_type: [],
@@ -277,6 +313,19 @@ export default function NewAd({ session, onBack, onPublished }) {
                 )}
               </div>
             </div>
+
+            {photos.length > 0 && (
+              <div>
+                <button type="button" onClick={analyzePhoto} disabled={aiPhotoLoading} style={{ width: "100%", padding: "10px 16px", border: "none", borderRadius: 10, background: "#1a7a6e", color: "#fff", fontWeight: 700, fontSize: 13, cursor: aiPhotoLoading ? "not-allowed" : "pointer", opacity: aiPhotoLoading ? 0.7 : 1, fontFamily: "inherit" }}>
+                  {aiPhotoLoading ? "Analisi in corso..." : "Analizza foto e compila i campi"}
+                </button>
+                {aiPhotoMessage && (
+                  <div style={{ marginTop: 8, padding: "10px 14px", borderRadius: 10, background: aiPhotoMessage.includes("aggiornati") ? "#e8f5f2" : "#fff0ec", color: aiPhotoMessage.includes("aggiornati") ? "#1a7a6e" : "#e05a1e", fontSize: 13, fontWeight: 600, border: `1px solid ${aiPhotoMessage.includes("aggiornati") ? "#b2ddd7" : "#fdd0c0"}` }}>
+                    {aiPhotoMessage}
+                  </div>
+                )}
+              </div>
+            )}
 
             <button onClick={handleNext} style={{ padding: "14px", border: "none", borderRadius: 12, background: "#e05a1e", color: "#fff", fontWeight: 800, fontSize: 15, cursor: "pointer", marginTop: 8, fontFamily: "inherit" }}>Continua →</button>
           </div>
