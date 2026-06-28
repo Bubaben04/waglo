@@ -130,28 +130,6 @@ export default function NewAd({ session, onBack, onPublished }) {
     const err = validateStep2();
     if (err) { setError(err); return; }
     setLoading(true); setError("");
-
-    // Moderazione AI prima della pubblicazione
-    try {
-      const modRes = await fetch("/api/moderate-ad", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title: form.title,
-          description: form.description,
-          category: form.category,
-          condition: form.condition
-        })
-      });
-      const modData = await modRes.json();
-      if (!modData.approved) {
-        setError(`Annuncio non pubblicabile: ${modData.reason}`);
-        setLoading(false);
-        return;
-      }
-    } catch {
-      // Se la moderazione fallisce per errore tecnico, si procede comunque
-    }
     const { data: ad, error: adError } = await supabase.from("ads").insert({
       user_id: session.user.id, title: form.title, description: form.description,
       animal_type: form.animal_type, category: form.category,
