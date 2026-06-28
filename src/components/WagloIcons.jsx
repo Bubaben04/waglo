@@ -123,12 +123,12 @@ export const IconCavalli = ({ size = 24, color = "currentColor", strokeWidth = 2
 );
 
 export const IconAltri = ({ size = 24, color = "currentColor", strokeWidth = 2.2 }) => (
-  <svg width={size} height={size} viewBox="-10 -10 76 76" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round">
-    <path d="M4,20 Q4,20 16,20 L4,36 Q4,36 16,36" strokeWidth="2.8"/>
-    <ellipse cx="28" cy="28" rx="10" ry="14" strokeWidth="2.8"/>
-    <ellipse cx="46" cy="28" rx="10" ry="14" strokeWidth="2.8"/>
-    <line x1="0" y1="44" x2="56" y2="44" strokeWidth="1.6"/>
-    <circle cx="58" cy="44" r="3" fill="#F0F000" stroke="none"/>
+  <svg width={size} height={size} viewBox="-4 -4 56 56" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M0,16 Q0,16 10,16 L0,30 Q0,30 10,30" strokeWidth="2.8"/>
+    <ellipse cx="22" cy="23" rx="9" ry="12" strokeWidth="2.8"/>
+    <ellipse cx="38" cy="23" rx="9" ry="12" strokeWidth="2.8"/>
+    <line x1="-2" y1="38" x2="46" y2="38" strokeWidth="1.6"/>
+    <circle cx="48" cy="38" r="3" fill="#F0F000" stroke="none"/>
   </svg>
 );
 
