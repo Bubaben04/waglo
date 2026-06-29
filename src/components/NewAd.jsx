@@ -194,6 +194,7 @@ export default function NewAd({ session, onBack, onPublished }) {
       expiration_date: expiryRequired && expiryDate ? expiryDate : new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
     }).select().single();
     if (adError) {
+      console.error("Supabase adError:", JSON.stringify(adError));
       let msg = "Errore durante la pubblicazione. Riprova.";
       if (adError.message.includes("check_price_range")) msg = "Il prezzo deve essere compreso tra €0,50 e €5.000.";
       if (adError.message.includes("check_title_not_empty")) msg = "Il titolo e' troppo corto.";
