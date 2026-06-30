@@ -221,11 +221,11 @@ export const IconPubblica = ({ size = 32, color = "#ffffff", strokeWidth = 3 }) 
   </svg>
 );
 
-export const IconChat = ({ size = 24, color = "currentColor", strokeWidth = 2.2 }) => (
+export const IconChat = ({ size = 24, color = "currentColor", lineColor, strokeWidth = 2.2 }) => (
   <svg width={size} height={size} viewBox="-4 -4 56 56" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
     <path d="M4,6 Q4,2 8,2 L40,2 Q44,2 44,6 L44,30 Q44,34 40,34 L28,34 L18,44 L18,34 L8,34 Q4,34 4,30 Z"/>
-    <line x1="10" y1="14" x2="38" y2="14" stroke={color} strokewidth="2"/>
-    <line x1="10" y1="24" x2="30" y2="24" stroke={color} strokewidth="2"/>
+    <line x1="10" y1="14" x2="38" y2="14" stroke={lineColor || color} strokeWidth="2"/>
+    <line x1="10" y1="24" x2="30" y2="24" stroke={lineColor || color} strokeWidth="2"/>
   </svg>
 );
 
