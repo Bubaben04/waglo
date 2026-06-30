@@ -47,7 +47,7 @@ export default function Chat({ session, activeConversationId, onInConversation, 
         <div style={{ textAlign: "center", padding: "60px 0", color: "#888" }}>Caricamento...</div>
       ) : conversations.length === 0 ? (
         <div style={{ textAlign: "center", padding: "60px 20px", color: "#888" }}>
-          <div style={{ marginBottom: 12, display: "flex", justifyContent: "center" }}><IconChat size={48} color="#1a7a6e" /></div>
+          <div style={{ marginBottom: 12, display: "flex", justifyContent: "center" }}><IconChat size={72} color="#F0F000" /></div>
           <p>Nessuna conversazione ancora.<br/>Contatta un venditore per iniziare.</p>
         </div>
       ) : (
