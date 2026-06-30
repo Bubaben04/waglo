@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../supabaseClient";
 import ChatConversation from "./ChatConversation";
+import { IconChatVuota } from "./WagloIcons";
 
 export default function Chat({ session, activeConversationId, onInConversation, onClearConversation }) {
   const [conversations, setConversations] = useState([]);
@@ -46,7 +47,7 @@ export default function Chat({ session, activeConversationId, onInConversation, 
         <div style={{ textAlign: "center", padding: "60px 0", color: "#888" }}>Caricamento...</div>
       ) : conversations.length === 0 ? (
         <div style={{ textAlign: "center", padding: "60px 20px", color: "#888" }}>
-          <div style={{ fontSize: 48, marginBottom: 12 }}>💬</div>
+          <div style={{ marginBottom: 12, display: "flex", justifyContent: "center" }}><IconChatVuota size={48} color="#1a7a6e" /></div>
           <p>Nessuna conversazione ancora.<br/>Contatta un venditore per iniziare.</p>
         </div>
       ) : (
