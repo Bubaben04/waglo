@@ -79,7 +79,7 @@ const getCategoryIcon = (category) => {
             {[
               { label: "Attivi", value: myAds.filter(a => a.status === "active").length, color: "#1a7a6e", bg: "#e8f5f2" },
               { label: "Prenotati", value: myAds.filter(a => a.status === "reserved").length, color: "#e05a1e", bg: "#fff0ec" },
-              { label: "Venduti", value: myAds.filter(a => a.status === "sold").length, color: "#888", bg: "#f0f0f0" },
+              { label: "Venduti", value: myAds.filter(a => a.status === "sold").length, color: "#b8a000", bg: "#fffde6" },
               { label: "Totale", value: myAds.length, color: "#0f3d38", bg: "#f0f4f3" },
             ].map(({ label, value, color, bg }) => (
               <div key={label} style={{ flex: 1, background: bg, borderRadius: 12, padding: "10px 6px", textAlign: "center" }}>
@@ -112,7 +112,7 @@ const getCategoryIcon = (category) => {
                 {[
                   { value: "active", label: "Attivo", activeColor: "#1a7a6e", activeBg: "#e8f5f2", activeBorder: "#b8e0d8" },
                   { value: "reserved", label: "Prenotato", activeColor: "#e05a1e", activeBg: "#fff0ec", activeBorder: "#fdd0c0" },
-                  { value: "sold", label: "Venduto", activeColor: "#888", activeBg: "#f0f0f0", activeBorder: "#ccc" },
+                  { value: "sold", label: "Venduto", activeColor: "#b8a000", activeBg: "#fffde6", activeBorder: "#F0F000" },
                 ].map(({ value, label, activeColor, activeBg, activeBorder }) => {
                   const isActive = ad.status === value;
                   return (
