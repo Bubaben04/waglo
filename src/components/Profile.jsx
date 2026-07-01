@@ -48,9 +48,9 @@ const getCategoryIcon = (category) => {
     setLoading(false);
   };
 
-  const markAsSold = async (adId) => {
-    await supabase.from("ads").update({ status: "sold" }).eq("id", adId);
-    setMyAds(prev => prev.map(a => a.id === adId ? { ...a, status: "sold" } : a));
+  const updateStatus = async (adId, newStatus) => {
+    await supabase.from("ads").update({ status: newStatus }).eq("id", adId);
+    setMyAds(prev => prev.map(a => a.id === adId ? { ...a, status: newStatus } : a));
   };
 
   const deleteAd = async (adId) => {
@@ -93,9 +93,20 @@ const getCategoryIcon = (category) => {
               {ad.status === "sold" && <span style={{ fontSize: 11, color: "#1a7a6e", fontWeight: 700 }}>✓ Venduto</span>}
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-              {ad.status !== "sold" && (
-                <button onClick={() => markAsSold(ad.id)} style={{ background: "#e8f5f2", color: "#1a7a6e", border: "1px solid #b8e0d8", borderRadius: 8, padding: "4px 8px", cursor: "pointer", fontSize: 11, fontWeight: 700, fontFamily: "inherit" }}>Venduto</button>
-              )}
+              <div style={{ display: "flex", gap: 4 }}>
+                {[
+                  { value: "active", label: "Attivo", activeColor: "#1a7a6e", activeBg: "#e8f5f2", activeBorder: "#b8e0d8" },
+                  { value: "reserved", label: "Prenotato", activeColor: "#e05a1e", activeBg: "#fff0ec", activeBorder: "#fdd0c0" },
+                  { value: "sold", label: "Venduto", activeColor: "#888", activeBg: "#f0f0f0", activeBorder: "#ccc" },
+                ].map(({ value, label, activeColor, activeBg, activeBorder }) => {
+                  const isActive = ad.status === value;
+                  return (
+                    <button key={value} onClick={() => updateStatus(ad.id, value)} style={{ background: isActive ? activeBg : "#fff", color: isActive ? activeColor : "#bbb", border: `1px solid ${isActive ? activeBorder : "#e8f0ee"}`, borderRadius: 8, padding: "4px 6px", cursor: "pointer", fontSize: 10, fontWeight: 700, fontFamily: "inherit", transition: "all .2s" }}>
+                      {label}
+                    </button>
+                  );
+                })}
+              </div>
               <button onClick={() => deleteAd(ad.id)} style={{ background: "#fff0ec", color: "#e05a1e", border: "1px solid #fdd0c0", borderRadius: 8, padding: "4px 8px", cursor: "pointer", fontSize: 11, fontWeight: 700, fontFamily: "inherit" }}>Elimina</button>
             </div>
           </div>
