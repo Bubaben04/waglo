@@ -74,6 +74,21 @@ const getCategoryIcon = (category) => {
         </div>
       </div>
       <div style={{ padding: "16px" }}>
+        {myAds.length > 0 && (
+          <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
+            {[
+              { label: "Attivi", value: myAds.filter(a => a.status === "active").length, color: "#1a7a6e", bg: "#e8f5f2" },
+              { label: "Prenotati", value: myAds.filter(a => a.status === "reserved").length, color: "#e05a1e", bg: "#fff0ec" },
+              { label: "Venduti", value: myAds.filter(a => a.status === "sold").length, color: "#888", bg: "#f0f0f0" },
+              { label: "Totale", value: myAds.length, color: "#0f3d38", bg: "#f0f4f3" },
+            ].map(({ label, value, color, bg }) => (
+              <div key={label} style={{ flex: 1, background: bg, borderRadius: 12, padding: "10px 6px", textAlign: "center" }}>
+                <div style={{ fontWeight: 900, fontSize: 20, color }}>{value}</div>
+                <div style={{ fontSize: 10, fontWeight: 700, color, opacity: 0.8 }}>{label}</div>
+              </div>
+            ))}
+          </div>
+        )}
         <div style={{ fontWeight: 800, color: "#0f3d38", fontSize: 16, marginBottom: 12 }}>I miei annunci ({myAds.length})</div>
         {loading ? (
           <div style={{ textAlign: "center", padding: "40px 0", color: "#888" }}>Caricamento...</div>
