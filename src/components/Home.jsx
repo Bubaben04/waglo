@@ -260,7 +260,7 @@ export default function Home({ session, onShowAuth, onContact }) {
 
   const fetchAds = async () => {
     setLoading(true);
-    const { data, error } = await supabase.from("ads").select("*, ad_images(*), user_profiles(display_name)").eq("status", "active").order("created_at", { ascending: false });
+    const { data, error } = await supabase.from("ads").select("*, ad_images(*), user_profiles(display_name)").in("status", ["active", "reserved"]).order("created_at", { ascending: false });
     if (!error) setAds(data || []);
     setLoading(false);
   };
