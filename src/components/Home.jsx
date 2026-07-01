@@ -72,6 +72,7 @@ const ProductCard = ({ ad, onOpen }) => {
         </div>
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
           <Badge condition={ad.condition} />
+          {ad.status === "reserved" && <span style={{ fontSize: 10, fontWeight: 800, color: "#e05a1e", background: "#fff0ec", border: "1px solid #fdd0c0", borderRadius: 6, padding: "2px 6px" }}>Prenotato</span>}
           <span style={{ fontSize: 11, color: "#888" }}><IconLuogo size={12} style={{verticalAlign:"middle", marginRight:4}}/>{ad.city}</span>
         </div>
         <div style={{ fontSize: 11, color: "#aaa", marginTop: 2 }}>{ad.user_profiles?.display_name || "Utente"}</div>
